@@ -20,27 +20,33 @@ button{background:#ff523b;color:#fff;border:none;cursor:pointer;font-size:16px;}
   <button onclick="login()">Login</button>
 </div>
 
+<!-- Firebase + Login Script -->
 <script type="module">
-import { auth } from "../js/firebase.js";
+import { auth } from "../js/firebase.js"; // path check करो
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-window.login = async function(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+window.login = async function() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-  if(!email || !password){ alert("Please fill all fields"); return; }
+    if(!email || !password){
+        alert("Please fill all fields");
+        return;
+    }
 
-  try{
-    await signInWithEmailAndPassword(auth,email,password);
-    window.location.href="add-product.html";
-  }catch(err){
-    alert(err.message);
-    console.error(err);
-  }
+    try{
+        await signInWithEmailAndPassword(auth, email, password);
+        // Login success
+        window.location.href = "add-product.html";
+    }catch(error){
+        // Login fail
+        alert(error.message);
+        console.error(error);
+    }
 }
 
-// 🔹 Test Firebase load
-console.log("Firebase Auth:", auth);
+// Test function load
+console.log("Login function ready:", window.login);
 </script>
 
 </body>
