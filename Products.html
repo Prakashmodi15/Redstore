@@ -1,138 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products - RedStore</title>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+}
+.box{
+  max-width:400px;
+  margin:80px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+}
+input,button{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+button{
+  background:#ff523b;
+  color:#fff;
+  border:none;
+}
+</style>
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-<div class="container">
-    <div class="navbar">
-        <div class="logo">
-            <img src="images/logo.png" width="125px">
-        </div>
-
-        <nav>
-            <ul id="MenuItems">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="account.html">Account</a></li>
-            </ul>
-        </nav>
-
-        <img src="images/cart.png" width="30px" height="30px">
-        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
-    </div>
+<div class="box">
+  <h2>Admin Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
 </div>
 
-<!-- ================= PRODUCTS ================= -->
-<div class="small-container">
-
-    <div class="row row-2">
-        <h2>All Products</h2>
-        <select>
-            <option>Default Sorting</option>
-            <option>Sort by Price</option>
-            <option>Sort by Latest</option>
-        </select>
-    </div>
-
-    <!-- 🔥 Firebase products yahin aayenge -->
-    <div class="row" id="product-list"></div>
-
-</div>
-
-<!-- ================= FOOTER ================= -->
-<div class="footer">
-    <div class="container">
-        <div class="row">
-
-            <div class="footer-col-1">
-                <h3>Download Our App</h3>
-                <p>Download App for Android and iOS mobile phone.</p>
-                <div class="app-logo">
-                    <img src="images/play-store.png">
-                    <img src="images/app-store.png">
-                </div>
-            </div>
-
-            <div class="footer-col-2">
-                <img src="images/logo-white.png">
-                <p>Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.</p>
-            </div>
-
-            <div class="footer-col-3">
-                <h3>Useful Links</h3>
-                <ul>
-                    <li>Coupons</li>
-                    <li>Blog Post</li>
-                    <li>Return Policy</li>
-                    <li>Join Affiliate</li>
-                </ul>
-            </div>
-
-            <div class="footer-col-4">
-                <h3>Follow Us</h3>
-                <ul>
-                    <li>Facebook</li>
-                    <li>Twitter</li>
-                    <li>Instagram</li>
-                    <li>YouTube</li>
-                </ul>
-            </div>
-
-        </div>
-
-        <hr>
-        <p class="copyright">Copyright 2025 - Made with ❤️ by Prakash Modi</p>
-    </div>
-</div>
-
-<!-- ================= MENU TOGGLE ================= -->
-<script>
-    var MenuItems = document.getElementById("MenuItems");
-    MenuItems.style.maxHeight = "0px";
-
-    function menutoggle() {
-        if (MenuItems.style.maxHeight === "0px") {
-            MenuItems.style.maxHeight = "200px";
-        } else {
-            MenuItems.style.maxHeight = "0px";
-        }
-    }
-</script>
-
-<!-- ================= FIREBASE PRODUCTS LOAD ================= -->
 <script type="module">
-import { db } from "./js/firebase.js";
-import { collection, getDocs } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth } from "../js/firebase.js";
+import { signInWithEmailAndPassword } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const productList = document.getElementById("product-list");
+window.login = async function(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-const snapshot = await getDocs(collection(db, "products"));
-
-snapshot.forEach(doc => {
-    const p = doc.data();
-
-    productList.innerHTML += `
-        <div class="col-4">
-            <img src="${p.image}">
-            <h4>${p.name}</h4>
-            <p>₹${p.price}</p>
-        </div>
-    `;
-});
+  try{
+    await signInWithEmailAndPassword(auth,email,password);
+    window.location.href="add-product.html";
+  }catch(err){
+    alert(err.message);
+  }
+}
 </script>
 
 </body>
