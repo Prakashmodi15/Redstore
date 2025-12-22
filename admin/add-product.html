@@ -1,0 +1,26 @@
+<input id="name" placeholder="Product Name">
+<input id="price" placeholder="Price">
+<input type="file" id="img">
+<button onclick="addProduct()">Add</button>
+
+<script type="module">
+import { db, storage } from "../js/firebase.js";
+import { collection, addDoc } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import { ref, uploadBytes, getDownloadURL } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+window.addProduct = async ()=>{
+ const imgRef = ref(storage, "products/"+img.files[0].name);
+ await uploadBytes(imgRef, img.files[0]);
+ const url = await getDownloadURL(imgRef);
+
+ await addDoc(collection(db,"products"),{
+   name:name.value,
+   price:price.value,
+   image:url
+ });
+ alert("Product Added");
+}
+</script>
