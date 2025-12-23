@@ -1,76 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Product - Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Add Product - Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f5f5f5;
-        }
-        .box{
-            max-width:400px;
-            background:#fff;
-            padding:20px;
-            margin:50px auto;
-            border-radius:8px;
-            box-shadow:0 0 10px rgba(0,0,0,0.1);
-        }
-        input, button{
-            width:100%;
-            margin:10px 0;
-            padding:10px;
-        }
-        button{
-            background:#ff523b;
-            color:#fff;
-            border:none;
-            cursor:pointer;
-        }
-    </style>
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f5f5f5;
+}
+.box{
+  max-width:400px;
+  background:#fff;
+  padding:20px;
+  margin:50px auto;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+input, button{
+  width:100%;
+  margin:10px 0;
+  padding:10px;
+}
+button{
+  background:#ff523b;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+button:hover{opacity:0.9;}
+</style>
 </head>
 
 <body>
 
 <div class="box">
-    <h2>Add New Product</h2>
+  <h2>Add New Product</h2>
 
-    <input type="text" id="name" placeholder="Product Name">
-    <input type="number" id="price" placeholder="Price">
-    <input type="file" id="image">
-    <button onclick="addProduct()">Add Product</button>
+  <input type="text" id="name" placeholder="Product Name">
+  <input type="number" id="price" placeholder="Price">
+  <input type="file" id="image">
+  <button id="addBtn">Add Product</button>
 </div>
 
 <script type="module">
-import { db, storage } from "../js/firebase.js";
+/* ================= FIREBASE CONFIG ================= */
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-import { collection, addDoc } from
+import { getAuth, onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import { getFirestore, collection, addDoc } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import { ref, uploadBytes, getDownloadURL } from
+import { getStorage, ref, uploadBytes, getDownloadURL } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-window.addProduct = async function () {
+const firebaseConfig = {
+  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+  authDomain: "myshop-1dbc9.firebaseapp.com",
+  projectId: "myshop-1dbc9",
+  storageBucket: "myshop-1dbc9.appspot.com",
+  messagingSenderId: "81466489688",
+  appId: "1:81466489688:web:e225da8670b2314dd1432d"
+};
 
-    const name = document.getElementById("name").value;
-    const price = document.getElementById("price").value;
-    const imgFile = document.getElementById("image").files[0];
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-    if(!name || !price || !imgFile){
-        alert("All fields required");
-        return;
-    }
+/* ================= AUTH PROTECTION ================= */
+onAuthStateChanged(auth, user => {
+  if(!user){
+    alert("Please login first");
+    window.location.href = "../admin-login.html";
+  }
+});
 
-    const imgRef = ref(storage, "products/" + Date.now() + imgFile.name);
+/* ================= ADD PRODUCT ================= */
+document.getElementById("addBtn").addEventListener("click", async () => {
+  const name = document.getElementById("name").value.trim();
+  const price = document.getElementById("price").value.trim();
+  const imgFile = document.getElementById("image").files[0];
+
+  if(!name || !price || !imgFile){
+    alert("All fields required");
+    return;
+  }
+
+  try{
+    const imgRef = ref(storage, "products/" + Date.now() + "_" + imgFile.name);
     await uploadBytes(imgRef, imgFile);
     const imgURL = await getDownloadURL(imgRef);
 
     await addDoc(collection(db, "products"), {
-        name: name,
-        price: price,
-        image: imgURL
+      name,
+      price,
+      image: imgURL,
+      createdAt: new Date()
     });
 
     alert("Product Added Successfully ✅");
@@ -78,7 +108,14 @@ window.addProduct = async function () {
     document.getElementById("name").value = "";
     document.getElementById("price").value = "";
     document.getElementById("image").value = "";
-}
+
+  }catch(err){
+    alert(err.message);
+    console.error(err);
+  }
+});
+
+console.log("🔥 Add Product Page Ready");
 </script>
 
 </body>
