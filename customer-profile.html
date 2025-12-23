@@ -218,7 +218,7 @@ window.saveProfile = async()=>{
  // Upload photo if selected
  if(profileUpload.files.length > 0){
   const file = profileUpload.files[0];
-  const storageRef = sRef(storage, `customer-profilephoto/${user.uid}_${file.name}`);
+  const storageRef = sRef(storage, `images/customer-profilephoto/${user.uid}_${file.name}`);
   await uploadBytes(storageRef, file);
   photoURL = await getDownloadURL(storageRef);
   profileImg.src = photoURL;
