@@ -2,118 +2,171 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin CMS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - My Shop</title>
+
+<!-- MAIN CSS (same, NOT removed) -->
 <link rel="stylesheet" href="../CSS/style.css">
 
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
-.cms-box{
-  max-width:800px;
-  margin:50px auto;
+/* ONLY ADMIN CONTENT CENTER */
+.admin-page{
+  min-height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.admin-box{
+  width:380px;
   background:#fff;
   padding:30px;
+  box-shadow:0 0 10px #ccc;
   border-radius:10px;
 }
-.cms-box input, textarea{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
+
+.admin-box h2{
+  text-align:center;
+  margin-bottom:20px;
 }
-.cms-box button{
-  padding:10px 20px;
+
+.admin-box input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
+
+.admin-box button{
+  width:100%;
+  padding:12px;
   background:#ff523b;
-  color:#fff;
   border:none;
+  color:#fff;
+  font-size:16px;
+  border-radius:5px;
   cursor:pointer;
 }
-.preview-img{
-  max-width:200px;
-  display:block;
-  margin:10px 0;
+
+.admin-box button:hover{
+  background:#e8412f;
+}
+
+#status{
+  margin-top:10px;
+  text-align:center;
+  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="cms-box">
-  <h2>Home Page Editor</h2>
-
-  <label>Header Title</label>
-  <input id="headerTitle">
-
-  <label>Header Subtitle</label>
-  <textarea id="headerSubtitle"></textarea>
-
-  <label>Explore Button Text</label>
-  <input id="exploreText">
-
-  <label>Header Image</label>
-  <input type="file" id="headerImage">
-  <img id="headerPreview" class="preview-img">
-
-  <button onclick="saveHome()">Save</button>
+<!-- ================= NAVBAR ================= -->
+<div class="container">
+  <div class="navbar">
+    <div class="logo">
+      <a href="../index.html">
+        <img src="../images/logo.png" width="125px">
+      </a>
+    </div>
+    <nav>
+      <ul id="MenuItems">
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+    <img src="../images/cart.png" width="30">
+    <img src="../images/menu.png" class="menu-icon" onclick="menutoggle()">
+  </div>
 </div>
 
-<!-- FIREBASE + IMGBB -->
+<!-- ================= ADMIN PANEL ================= -->
+<div class="admin-page">
+  <div class="admin-box">
+    <h2>Admin Control</h2>
+
+    <input type="text" id="homeTitle" placeholder="Home Page Title">
+
+    <button id="saveBtn">Save</button>
+
+    <p id="status"></p>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer">
+  <div class="container">
+    <hr>
+    <p class="copyright">
+      Copyright 2025 - Made with ❤️ by Prakash Modi
+    </p>
+  </div>
+</div>
+
+<!-- ================= MENU SCRIPT ================= -->
+<script>
+var MenuItems = document.getElementById("MenuItems");
+MenuItems.style.maxHeight = "0px";
+function menutoggle(){
+  MenuItems.style.maxHeight =
+  MenuItems.style.maxHeight == "0px" ? "200px" : "0px";
+}
+</script>
+
+<!-- ================= FIREBASE ================= -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
   authDomain: "myshop-1dbc9.firebaseapp.com",
-  projectId: "myshop-1dbc9",
+  projectId: "myshop-1dbc9"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const IMGBB_KEY = "80c26b679da7cc8790c8ab386cc3ba0b";
+const saveBtn = document.getElementById("saveBtn");
+const statusText = document.getElementById("status");
 
-async function uploadImage(file){
-  const fd = new FormData();
-  fd.append("image", file);
+saveBtn.addEventListener("click", async () => {
+  const title = document.getElementById("homeTitle").value;
 
-  const res = await fetch(
-    `https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`,
-    { method:"POST", body:fd }
-  );
-  const data = await res.json();
-  return data.data.url;
-}
-
-window.saveHome = async () => {
-  let imgURL = "";
-
-  const file = headerImage.files[0];
-  if(file){
-    imgURL = await uploadImage(file);
-    headerPreview.src = imgURL;
+  if(title === ""){
+    statusText.style.color="red";
+    statusText.innerText="❌ Please enter title";
+    return;
   }
 
-  await setDoc(doc(db,"pages","home"),{
-    headerTitle: headerTitle.value,
-    headerSubtitle: headerSubtitle.value,
-    exploreText: exploreText.value,
-    headerImage: imgURL
-  });
+  statusText.style.color="blue";
+  statusText.innerText="Saving... ⏳";
 
-  alert("Saved Successfully ✅");
-};
+  try{
+    await setDoc(doc(db,"site","home"),{
+      title:title,
+      time:Date.now()
+    });
 
-// LOAD DATA
-(async()=>{
-  const snap = await getDoc(doc(db,"pages","home"));
-  if(snap.exists()){
-    const d = snap.data();
-    headerTitle.value = d.headerTitle || "";
-    headerSubtitle.value = d.headerSubtitle || "";
-    exploreText.value = d.exploreText || "";
-    if(d.headerImage){
-      headerPreview.src = d.headerImage;
-    }
+    statusText.style.color="green";
+    statusText.innerText="✅ Saved Successfully";
+
+    setTimeout(()=>{
+      statusText.innerText="";
+    },3000);
+
+  }catch(err){
+    statusText.style.color="red";
+    statusText.innerText="❌ Error: "+err.message;
   }
-})();
+});
 </script>
 
 </body>
