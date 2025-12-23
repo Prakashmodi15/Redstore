@@ -110,28 +110,45 @@
             MenuItems.style.maxHeight = "0px";
         }
     }
-</script>
-
-<!-- ================= FIREBASE PRODUCTS LOAD ================= -->
 <script type="module">
-import { db } from "./js/firebase.js";
-import { collection, getDocs } from
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+import { getFirestore, collection, onSnapshot } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* ===== FIREBASE CONFIG ===== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+  authDomain: "myshop-1dbc9.firebaseapp.com",
+  projectId: "myshop-1dbc9",
+  storageBucket: "myshop-1dbc9.appspot.com",
+  messagingSenderId: "81466489688",
+  appId: "1:81466489688:web:e225da8670b2314dd1432d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const productList = document.getElementById("product-list");
 
-const snapshot = await getDocs(collection(db, "products"));
+/* ===== REAL-TIME LISTENER ===== */
+onSnapshot(collection(db, "products"), (snapshot) => {
 
-snapshot.forEach(doc => {
+  productList.innerHTML = ""; // clear old products
+
+  snapshot.forEach(doc => {
     const p = doc.data();
 
     productList.innerHTML += `
-        <div class="col-4">
-            <img src="${p.image}">
-            <h4>${p.name}</h4>
-            <p>₹${p.price}</p>
-        </div>
+      <div class="col-4">
+        <img src="${p.image}">
+        <h4>${p.name}</h4>
+        <p>₹${p.price}</p>
+      </div>
     `;
+  });
+
 });
 </script>
 
