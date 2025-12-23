@@ -58,15 +58,7 @@
   <input type="password" id="loginPassword" placeholder="Password" required>
   <button type="submit" class="btn">Login</button>
 </form>
-
-<!-- REGISTER -->
-<form id="RegForm">
-  <input type="text" id="regName" placeholder="Full Name">
-  <input type="email" id="regEmail" placeholder="Email" required>
-  <input type="password" id="regPassword" placeholder="Password" required>
-  <button type="submit" class="btn">Register</button>
-</form>
-
+  
 </div>
 </div>
 
@@ -100,12 +92,6 @@ var LoginForm=document.getElementById("LoginForm");
 var RegForm=document.getElementById("RegForm");
 var Indicator=document.getElementById("Indicator");
 
-function register(){
-  RegForm.style.transform="translateX(0px)";
-  LoginForm.style.transform="translateX(0px)";
-  Indicator.style.transform="translateX(100px)";
-}
-
 function login(){
   RegForm.style.transform="translateX(300px)";
   LoginForm.style.transform="translateX(300px)";
@@ -123,7 +109,7 @@ import {
  createUserWithEmailAndPassword,
  signInWithEmailAndPassword
 } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+"https:/www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import {
  getFirestore,
