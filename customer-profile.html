@@ -69,6 +69,29 @@
   object-fit:cover;
   margin-bottom:12px;
 }
+.loader{
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width:180px;
+  height:180px;
+  position:absolute;
+  top:0; left:0;
+  animation: spin 1s linear infinite;
+  display:none;
+}
+@keyframes spin{
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+.progress-text{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-weight:bold;
+  color:#222;
+}
 </style>
 </head>
 <body>
@@ -99,9 +122,11 @@
   <!-- 1. Profile Details -->
   <div class="account-box">
     <h3><i class="fa fa-user"></i> Profile Details</h3>
-    <div class="row">
+    <div class="row" style="position:relative;">
       <div class="col-2">
         <img id="profileImg" src="images/user-1.png" class="profile-img">
+        <div id="uploadLoader" class="loader"></div>
+        <div id="uploadProgress" class="progress-text"></div>
         <input type="file" id="profileUpload">
       </div>
       <div class="col-2">
@@ -165,7 +190,7 @@ function menutoggle(){
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig={
  apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
@@ -186,6 +211,8 @@ const addressInput = document.getElementById("address");
 const savedAddress = document.getElementById("savedAddress");
 const profileImg = document.getElementById("profileImg");
 const profileUpload = document.getElementById("profileUpload");
+const uploadLoader = document.getElementById("uploadLoader");
+const uploadProgress = document.getElementById("uploadProgress");
 
 // Auto fill profile
 onAuthStateChanged(auth, async(user)=>{
@@ -219,21 +246,51 @@ window.saveProfile = async()=>{
  if(profileUpload.files.length > 0){
   const file = profileUpload.files[0];
   const storageRef = sRef(storage, `images/customer-profilephoto/${user.uid}_${file.name}`);
-  await uploadBytes(storageRef, file);
-  photoURL = await getDownloadURL(storageRef);
-  profileImg.src = photoURL;
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  uploadLoader.style.display = "block";
+  uploadProgress.textContent = "0%";
+
+  uploadTask.on('state_changed',
+    (snapshot)=>{
+      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      uploadProgress.textContent = progress + "%";
+    },
+    (error)=>{
+      alert("Upload failed: " + error.message);
+      uploadLoader.style.display = "none";
+      uploadProgress.textContent = "";
+    },
+    async ()=>{
+      photoURL = await getDownloadURL(uploadTask.snapshot.ref);
+      profileImg.src = photoURL;
+      uploadLoader.style.display = "none";
+      uploadProgress.textContent = "";
+
+      await setDoc(doc(db,"users",user.uid),{
+        name: nameInput.value,
+        mobile: mobileInput.value,
+        address: addressInput.value,
+        photoURL: photoURL,
+        updatedAt: new Date()
+      }, { merge:true });
+
+      savedAddress.innerHTML = addressInput.value || "No address saved";
+      alert("Profile Saved ✅");
+    }
+  );
+ } else {
+  // No photo selected
+  await setDoc(doc(db,"users",user.uid),{
+    name: nameInput.value,
+    mobile: mobileInput.value,
+    address: addressInput.value,
+    updatedAt: new Date()
+  }, { merge:true });
+
+  savedAddress.innerHTML = addressInput.value || "No address saved";
+  alert("Profile Saved ✅");
  }
-
- await setDoc(doc(db,"users",user.uid),{
-  name: nameInput.value,
-  mobile: mobileInput.value,
-  address: addressInput.value,
-  photoURL: photoURL,
-  updatedAt: new Date()
- }, { merge:true });
-
- savedAddress.innerHTML = addressInput.value || "No address saved";
- alert("Profile Saved ✅");
 };
 
 // Edit address shortcut
