@@ -10,45 +10,22 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
-.account-box{
-  background:#fff;
-  border-radius:14px;
-  padding:30px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-  margin-bottom:40px;
+/* ====================== Global ====================== */
+body{
+  font-family: 'Poppins', sans-serif;
+  margin:0;
+  padding:0;
+  background:#f7f7f7;
 }
-.account-box h3{
-  margin-bottom:20px;
-  font-weight:600;
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+}
+h3{
   font-size:20px;
-}
-.account-box input, .account-box textarea{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  margin-bottom:12px;
-  font-size:14px;
-}
-.account-box input:disabled{
-  background:#f3f3f3;
-}
-.order-card{
-  border-radius:12px;
-  padding:15px;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
-  margin-bottom:12px;
-}
-.logout-btn{
-  background:#222;
-  color:#fff;
-  padding:12px 25px;
-  border-radius:8px;
-  text-decoration:none;
-}
-.logout-btn:hover{
-  background:#ff523b;
-  color:#fff;
+  font-weight:600;
+  margin-bottom:20px;
 }
 .btn{
   background:#ff523b;
@@ -62,12 +39,66 @@
 .btn:hover{
   background:#ff784f;
 }
+
+/* ====================== Navbar ====================== */
+.header{
+  background:#fff;
+  padding:10px 0;
+  box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.navbar .logo img{
+  width:125px;
+}
+.navbar nav ul{
+  display:flex;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.navbar nav ul li{
+  margin-left:20px;
+}
+.navbar nav ul li a{
+  text-decoration:none;
+  color:#222;
+  font-weight:500;
+}
+.menu-icon{
+  display:none;
+  cursor:pointer;
+}
+
+/* ====================== Account Boxes ====================== */
+.account-box{
+  background:#fff;
+  border-radius:14px;
+  padding:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom:40px;
+}
+.account-box input, .account-box textarea{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  margin-bottom:12px;
+  font-size:14px;
+}
+.account-box input:disabled{
+  background:#f3f3f3;
+}
 .profile-img{
   width:180px;
   height:180px;
   border-radius:50%;
   object-fit:cover;
   margin-bottom:12px;
+  display:block;
 }
 .loader{
   border: 5px solid #f3f3f3;
@@ -92,6 +123,41 @@
   font-weight:bold;
   color:#222;
 }
+
+/* ====================== Orders ====================== */
+.order-card{
+  border-radius:12px;
+  padding:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  margin-bottom:12px;
+  text-align:center;
+}
+.order-card img{
+  width:100%;
+  border-radius:12px;
+}
+.logout-btn{
+  background:#222;
+  color:#fff;
+  padding:12px 25px;
+  border-radius:8px;
+  text-decoration:none;
+}
+.logout-btn:hover{
+  background:#ff523b;
+  color:#fff;
+}
+
+/* ====================== Responsive ====================== */
+@media(max-width:768px){
+  .navbar nav ul{
+    flex-direction:column;
+    max-height:0;
+    overflow:hidden;
+    transition: max-height 0.3s;
+  }
+  .menu-icon{ display:block; }
+}
 </style>
 </head>
 <body>
@@ -100,9 +166,7 @@
 <div class="header">
   <div class="container">
     <div class="navbar">
-      <div class="logo">
-        <a href="index.html"><img src="images/logo.png" width="125px"></a>
-      </div>
+      <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
       <nav>
         <ul id="MenuItems">
           <li><a href="index.html">Home</a></li>
@@ -123,18 +187,19 @@
   <div class="account-box">
     <h3><i class="fa fa-user"></i> Profile Details</h3>
     <div class="row" style="position:relative;">
-      <div class="col-2">
+      <div class="col-2" style="position:relative;">
         <img id="profileImg" src="images/user-1.png" class="profile-img">
         <div id="uploadLoader" class="loader"></div>
         <div id="uploadProgress" class="progress-text"></div>
         <input type="file" id="profileUpload">
+        <a class="btn" id="uploadBtn" style="display:none;margin-top:10px;">Upload Photo</a>
       </div>
       <div class="col-2">
         <input type="text" id="name" placeholder="Full Name">
         <input type="email" id="email" placeholder="Email" disabled>
         <input type="text" id="mobile" placeholder="Mobile">
         <textarea id="address" rows="3" placeholder="Address"></textarea>
-        <a class="btn" onclick="saveProfile()">Save Changes</a>
+        <a class="btn" id="saveProfileBtn">Save Changes</a>
       </div>
     </div>
   </div>
@@ -143,12 +208,7 @@
   <div class="account-box">
     <h3><i class="fa fa-shopping-bag"></i> My Orders</h3>
     <div class="row" id="ordersContainer">
-      <div class="col-4 order-card">
-        <img src="images/product-1.jpg">
-        <h4>Red Printed T-Shirt</h4>
-        <p>₹499</p>
-        <small>Status: <b style="color:green">Delivered</b></small>
-      </div>
+      <!-- Dynamic Orders will load here -->
     </div>
   </div>
 
@@ -189,9 +249,10 @@ function menutoggle(){
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
+// Firebase Config
 const firebaseConfig={
  apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
  authDomain:"myshop-1dbc9.firebaseapp.com",
@@ -213,6 +274,52 @@ const profileImg = document.getElementById("profileImg");
 const profileUpload = document.getElementById("profileUpload");
 const uploadLoader = document.getElementById("uploadLoader");
 const uploadProgress = document.getElementById("uploadProgress");
+const uploadBtn = document.getElementById("uploadBtn");
+const saveProfileBtn = document.getElementById("saveProfileBtn");
+const ordersContainer = document.getElementById("ordersContainer");
+
+let selectedFile = null;
+
+// Detect file selection
+profileUpload.addEventListener("change",()=>{
+  if(profileUpload.files.length>0){
+    selectedFile = profileUpload.files[0];
+    uploadBtn.style.display="inline-block";
+  }
+});
+
+// Upload photo when Upload button clicked
+uploadBtn.addEventListener("click", async()=>{
+  if(!selectedFile) return;
+  const user = auth.currentUser;
+  if(!user) return;
+  const storageRef = sRef(storage, `images/cosmer-profilephoto/${user.uid}_${selectedFile.name}`);
+  const uploadTask = uploadBytesResumable(storageRef, selectedFile);
+
+  uploadLoader.style.display="block";
+  uploadProgress.textContent="0%";
+
+  uploadTask.on('state_changed',
+    snapshot=>{
+      const progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes *100);
+      uploadProgress.textContent=progress+"%";
+    },
+    error=>{
+      alert("Upload failed: "+error.message);
+      uploadLoader.style.display="none";
+      uploadProgress.textContent="";
+    },
+    async()=>{
+      const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+      profileImg.src = downloadURL;
+      uploadLoader.style.display="none";
+      uploadProgress.textContent="";
+      uploadBtn.style.display="none";
+      selectedFile = null;
+      alert("Photo Uploaded ✅");
+    }
+  );
+});
 
 // Auto fill profile
 onAuthStateChanged(auth, async(user)=>{
@@ -231,76 +338,61 @@ onAuthStateChanged(auth, async(user)=>{
  } else {
   await setDoc(ref, { name:"", email:user.email, mobile:"", address:"", photoURL:"", createdAt:new Date() });
   emailInput.value = user.email;
-  savedAddress.innerHTML = "No address saved";
+  savedAddress.innerHTML="No address saved";
  }
+ // Load user orders
+ loadOrders(user.uid);
 });
 
-// Save profile + upload photo
-window.saveProfile = async()=>{
- const user = auth.currentUser;
- if(!user) return;
+// Save profile details
+saveProfileBtn.addEventListener("click", async()=>{
+  const user = auth.currentUser;
+  if(!user) return;
 
- let photoURL = profileImg.src;
+  let photoURL = profileImg.src;
 
- // Upload photo if selected
- if(profileUpload.files.length > 0){
-  const file = profileUpload.files[0];
-  const storageRef = sRef(storage, `images/customer-profilephoto/${user.uid}_${file.name}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
-
-  uploadLoader.style.display = "block";
-  uploadProgress.textContent = "0%";
-
-  uploadTask.on('state_changed',
-    (snapshot)=>{
-      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      uploadProgress.textContent = progress + "%";
-    },
-    (error)=>{
-      alert("Upload failed: " + error.message);
-      uploadLoader.style.display = "none";
-      uploadProgress.textContent = "";
-    },
-    async ()=>{
-      photoURL = await getDownloadURL(uploadTask.snapshot.ref);
-      profileImg.src = photoURL;
-      uploadLoader.style.display = "none";
-      uploadProgress.textContent = "";
-
-      await setDoc(doc(db,"users",user.uid),{
-        name: nameInput.value,
-        mobile: mobileInput.value,
-        address: addressInput.value,
-        photoURL: photoURL,
-        updatedAt: new Date()
-      }, { merge:true });
-
-      savedAddress.innerHTML = addressInput.value || "No address saved";
-      alert("Profile Saved ✅");
-    }
-  );
- } else {
-  // No photo selected
   await setDoc(doc(db,"users",user.uid),{
-    name: nameInput.value,
-    mobile: mobileInput.value,
-    address: addressInput.value,
-    updatedAt: new Date()
+    name:nameInput.value,
+    mobile:mobileInput.value,
+    address:addressInput.value,
+    photoURL:photoURL,
+    updatedAt:new Date()
   }, { merge:true });
 
   savedAddress.innerHTML = addressInput.value || "No address saved";
   alert("Profile Saved ✅");
- }
-};
+});
 
 // Edit address shortcut
-window.editAddress = ()=>{ addressInput.focus(); };
+function editAddress(){ addressInput.focus(); }
 
 // Logout
-window.logout = async()=>{
- await signOut(auth);
- location.href="account.html";
-};
+async function logout(){
+  await signOut(auth);
+  location.href="account.html";
+}
+
+// Load Orders (template)
+async function loadOrders(uid){
+  const ordersCol = collection(db,"orders");
+  const q = query(ordersCol, orderBy("createdAt","desc"));
+  const snap = await getDocs(q);
+  ordersContainer.innerHTML="";
+  snap.forEach(docSnap=>{
+    const d = docSnap.data();
+    if(d.userId === uid){
+      const div = document.createElement("div");
+      div.className="col-4 order-card";
+      div.innerHTML=`
+        <img src="${d.productImg||'images/product-1.jpg'}">
+        <h4>${d.productName||'Product'}</h4>
+        <p>₹${d.price||0}</p>
+        <small>Status: <b style="color:green">${d.status||'Delivered'}</b></small>
+      `;
+      ordersContainer.appendChild(div);
+    }
+  });
+}
 </script>
 
 </body>
