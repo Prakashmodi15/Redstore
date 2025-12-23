@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Account - RedStore</title>
 
+<!-- Correct CSS path -->
 <link rel="stylesheet" href="../CSS/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -63,83 +64,83 @@
 <div class="container">
   <div class="navbar">
     <div class="logo">
-      <a href="index.html"><img src="../images/logo.png" width="125px"></a>
+      <a href="index.html"><img src="../images/logo.png" width="125px" alt="Logo"></a>
     </div>
     <nav>
       <ul id="MenuItems">
         <li><a href="edit-home.html">Edit Home</a></li>
+        <li><a href="edit-product.html">Edit Products</a></li>
+        <li><a href="edit-product-details.html">Edit Product Details</a></li>
+        <li><a href="edit-cart.html">Edit Cart</a></li>
+        <li><a href="edit-account.html">Edit Account</a></li>
+        <li><a href="edit-about.html">Edit About</a></li>
+        <li><a href="edit-contact.html">Edit Contact</a></li>
       </ul>
     </nav>
-    <img src="../images/cart.png" width="30">
-    <img src="../images/menu.png" class="menu-icon" onclick="menutoggle()">
+    <img src="../images/cart.png" width="30" alt="Cart">
+    <img src="../images/menu.png" class="menu-icon" onclick="menutoggle()" alt="Menu">
   </div>
 </div>
 
 <!-- ================= ACCOUNT (ONLY LOGIN) ================= -->
 <div class="account-page">
-<div class="form-container">
+  <div class="form-container">
 
-<!-- LOGIN -->
-<form id="LoginForm">
-  <h2>Login</h2>
-  <input type="email" id="loginEmail" placeholder="Email" required>
-  <input type="password" id="loginPassword" placeholder="Password" required>
-  <button type="submit" class="btn">Login</button>
-</form>
+    <!-- LOGIN -->
+    <form id="LoginForm">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit" class="btn">Login</button>
+    </form>
 
-</div>
+  </div>
 </div>
 
 <!-- ================= FOOTER ================= -->
 <div class="footer">
-<div class="container">
-<hr>
-<p class="copyright">
-Copyright 2025 - Made with ❤️ by Prakash Modi
-</p>
-</div>
+  <div class="container">
+    <hr>
+    <p class="copyright">
+      Copyright 2025 - Made with ❤️ by Prakash Modi
+    </p>
+  </div>
 </div>
 
-<!-- ================= MENU ================= -->
+<!-- ================= MENU SCRIPT ================= -->
 <script>
-var MenuItems=document.getElementById("MenuItems");
-MenuItems.style.maxHeight="0px";
+var MenuItems = document.getElementById("MenuItems");
+MenuItems.style.maxHeight = "0px";
+
 function menutoggle(){
-  MenuItems.style.maxHeight =
-  MenuItems.style.maxHeight=="0px"?"200px":"0px";
+  MenuItems.style.maxHeight = 
+    MenuItems.style.maxHeight == "0px" ? "200px" : "0px";
 }
 </script>
 
 <!-- ================= FIREBASE AUTH ================= -->
 <script type="module">
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-import {
- getAuth,
- signInWithEmailAndPassword
-} from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-const firebaseConfig={
- apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
- authDomain:"myshop-1dbc9.firebaseapp.com",
- projectId:"myshop-1dbc9",
+const firebaseConfig = {
+  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+  authDomain: "myshop-1dbc9.firebaseapp.com",
+  projectId: "myshop-1dbc9",
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-/* LOGIN */
 const LoginForm = document.getElementById("LoginForm");
 
 LoginForm.addEventListener("submit", e => {
   e.preventDefault();
 
-  const loginEmail = document.getElementById("loginEmail");
-  const loginPassword = document.getElementById("loginPassword");
+  const loginEmail = document.getElementById("loginEmail").value;
+  const loginPassword = document.getElementById("loginPassword").value;
 
-  signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
+  signInWithEmailAndPassword(auth, loginEmail, loginPassword)
     .then(() => {
       alert("Login Successful ✅");
       location.href="admin.html";
