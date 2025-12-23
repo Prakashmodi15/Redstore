@@ -1,118 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>All Products - RedStore</title>
-<link rel="stylesheet" href="CSS/style.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products - RedStore</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
-<!-- NAVBAR (same as home) -->
-<div class="container">
-  <div class="navbar">
-    <div class="logo">
-      <a href="index.html"><img src="images/logo.png" width="125px"></a>
-    </div>
-    <nav>
-      <ul id="MenuItems">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="Products.html">Products</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="account.html">Account</a></li>
-      </ul>
-    </nav>
-    <img src="images/cart.png" width="30">
-    <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
-  </div>
-</div>
-
-<!-- PRODUCTS -->
-<div class="small container">
-  <div class="row row-2">
-    <h2>All Products</h2>
-    <select id="sort">
-      <option value="default">Default Sorting</option>
-      <option value="price">Sort by Price</option>
-      <option value="latest">Sort by Latest</option>
-    </select>
-  </div>
-
-  <div class="row" id="product-list"></div>
-</div>
-
-<!-- FOOTER (same as home) -->
-<div class="footer">
+  <!-- NAVBAR -->
   <div class="container">
-    <hr>
-    <p class="copyright">Copyright 2025 - Made with ❤️ by Prakash Modi</p>
+    <div class="navbar">
+      <div class="logo">
+        <a href="/index.html"><img src="/images/logo.png" width="125px" alt="RedStore Logo"></a>
+      </div>
+      <nav>
+        <ul id="MenuItems">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/products.html">Products</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/account.html">Account</a></li>
+        </ul>
+      </nav>
+      <img src="/images/cart.png" width="30" alt="Cart">
+      <img src="/images/menu.png" class="menu-icon" onclick="menutoggle()">
+    </div>
   </div>
-</div>
 
-<!-- MENU -->
-<script>
-var MenuItems=document.getElementById("MenuItems");
-MenuItems.style.maxHeight="0px";
-function menutoggle(){
-  MenuItems.style.maxHeight =
-  MenuItems.style.maxHeight=="0px"?"200px":"0px";
-}
-</script>
+  <!-- PRODUCTS -->
+  <div class="small container">
+    <div class="row row-2">
+      <h2>All Products</h2>
+      <select id="sort">
+        <option value="default">Default Sorting</option>
+        <option value="price">Sort by Price</option>
+        <option value="latest">Sort by Latest</option>
+      </select>
+    </div>
 
-<!-- 🔥 FIREBASE -->
-<script type="module">
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore,collection,onSnapshot,query,orderBy
-} from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <div class="row" id="product-list"></div>
+  </div>
 
-const firebaseConfig={
-  apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
-  authDomain:"myshop-1dbc9.firebaseapp.com",
-  projectId:"myshop-1dbc9",
-  storageBucket:"myshop-1dbc9.appspot.com",
-  messagingSenderId:"81466489688",
-  appId:"1:81466489688:web:e225da8670b2314dd1432d"
-};
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="container">
+      <hr>
+      <p class="copyright">Copyright 2025 - Made with ❤️ by Prakash Modi</p>
+    </div>
+  </div>
 
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
+  <!-- MENU TOGGLE SCRIPT -->
+  <script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+    function menutoggle() {
+      MenuItems.style.maxHeight = MenuItems.style.maxHeight === "0px" ? "200px" : "0px";
+    }
+  </script>
 
-const list=document.getElementById("product-list");
-const sort=document.getElementById("sort");
+  <!-- FIREBASE PRODUCTS SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import {
+      getFirestore, collection, onSnapshot, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-function load(q){
-  onSnapshot(q,snap=>{
-    list.innerHTML="";
-    snap.forEach(doc=>{
-      const p=doc.data();
-      list.innerHTML+=`
-      <div class="col-4">
-        <a href="product-detail.html?id=${doc.id}">
-          <img src="${p.image}">
-          <h4>${p.name}</h4>
-        </a>
-        <p>₹${p.price}</p>
-      </div>`;
-    });
-  });
-}
+    // 🔹 Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+      authDomain: "myshop-1dbc9.firebaseapp.com",
+      projectId: "myshop-1dbc9",
+      storageBucket: "myshop-1dbc9.appspot.com",
+      messagingSenderId: "81466489688",
+      appId: "1:81466489688:web:e225da8670b2314dd1432d"
+    };
 
-load(collection(db,"products"));
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-sort.onchange=()=>{
-  if(sort.value==="price")
-    load(query(collection(db,"products"),orderBy("price","asc")));
-  else if(sort.value==="latest")
-    load(query(collection(db,"products"),orderBy("createdAt","desc")));
-  else
-    load(collection(db,"products"));
-};
-</script>
+    const productList = document.getElementById("product-list");
+    const sort = document.getElementById("sort");
+
+    // 🔹 Load Products Function
+    function loadProducts(q) {
+      onSnapshot(q, snap => {
+        productList.innerHTML = "";
+        if (snap.empty) {
+          productList.innerHTML = "<p>No products found!</p>";
+        }
+        snap.forEach(doc => {
+          const p = doc.data();
+          productList.innerHTML += `
+            <div class="col-4">
+              <a href="/product-detail.html?id=${doc.id}">
+                <img src="${p.image}" alt="${p.name}">
+                <h4>${p.name}</h4>
+              </a>
+              <p>₹${p.price}</p>
+            </div>
+          `;
+        });
+      }, err => console.error("Firebase error:", err));
+    }
+
+    // 🔹 Default load
+    loadProducts(collection(db, "products"));
+
+    // 🔹 Sorting
+    sort.onchange = () => {
+      if (sort.value === "price") {
+        loadProducts(query(collection(db, "products"), orderBy("price", "asc")));
+      } else if (sort.value === "latest") {
+        loadProducts(query(collection(db, "products"), orderBy("createdAt", "desc")));
+      } else {
+        loadProducts(collection(db, "products"));
+      }
+    };
+  </script>
 
 </body>
 </html>
