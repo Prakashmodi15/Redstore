@@ -115,12 +115,20 @@ function login(){
 <script type="module">
 import { initializeApp } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
 import {
  getAuth,
  createUserWithEmailAndPassword,
  signInWithEmailAndPassword
 } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
+ getFirestore,
+ doc,
+ setDoc
+} from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig={
  apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
@@ -130,25 +138,38 @@ const firebaseConfig={
 
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
+const db=getFirestore(app);
 
 /* REGISTER */
-RegForm.addEventListener("submit",e=>{
+RegForm.addEventListener("submit",async e=>{
  e.preventDefault();
- createUserWithEmailAndPassword(
-  auth,
-  regEmail.value,
-  regPassword.value
- )
- .then(()=>{
+
+ try{
+  const cred = await createUserWithEmailAndPassword(
+    auth,
+    regEmail.value,
+    regPassword.value
+  );
+
+  // 🔥 USER PROFILE CREATE (ONE TIME)
+  await setDoc(doc(db,"users",cred.user.uid),{
+    name: regName.value,
+    email: regEmail.value,
+    createdAt: new Date()
+  });
+
   alert("Registration Successful ✅");
   location.href="customer-profile.html";
- })
- .catch(err=>alert(err.message));
+
+ }catch(err){
+  alert(err.message);
+ }
 });
 
 /* LOGIN */
 LoginForm.addEventListener("submit",e=>{
  e.preventDefault();
+
  signInWithEmailAndPassword(
   auth,
   loginEmail.value,
@@ -161,6 +182,5 @@ LoginForm.addEventListener("submit",e=>{
  .catch(err=>alert(err.message));
 });
 </script>
-
 </body>
 </html>
