@@ -1,58 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RedStore Admin Panel</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="../CSS/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - RedStore</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-<!-- Header Settings -->
 <div class="header">
-  <div class="container">
-    <div class="row">
-      <div class="col-2">
-        <h3>Header Settings</h3>
-        <input type="text" id="headerTitle" placeholder="Header Title" style="width:100%; margin-bottom:10px;">
-        <input type="text" id="headerImg" placeholder="Header Image URL" style="width:100%; margin-bottom:10px;">
-        <button onclick="saveHeader()" style="padding:10px 20px;">Save Header</button>
-      </div>
-      <div class="col-2">
-        <img id="headerPreview" src="images/image1.png" alt="header image" style="width:100%;">
-      </div>
+    <div class="container">
+        <h2>Admin Panel</h2>
+        <p>Edit your website content below and click "Save" to update.</p>
     </div>
-  </div>
 </div>
 
-<!-- Offer Settings -->
-<div class="small container" style="margin-top:30px;">
-  <h3>Offer Settings</h3>
-  <input type="text" id="offerImg" placeholder="Offer Image URL" style="width:100%; margin-bottom:10px;">
-  <input type="text" id="offerTitle" placeholder="Offer Title" style="width:100%; margin-bottom:10px;">
-  <textarea id="offerDesc" placeholder="Offer Description" style="width:100%; height:60px; margin-bottom:10px;"></textarea>
-  <button onclick="saveOffer()" style="padding:10px 20px;">Save Offer</button>
+<div class="container admin-section">
+    <!-- Header Section -->
+    <h3>Header Section</h3>
+    <label>Heading:</label>
+    <input type="text" id="headerTitle" placeholder="Enter Header Title"><br>
+    <label>Description:</label>
+    <textarea id="headerDesc" placeholder="Enter Description"></textarea><br>
+    <label>Button Text:</label>
+    <input type="text" id="headerBtnText" placeholder="Button Text"><br>
+    <label>Button URL:</label>
+    <input type="text" id="headerBtnUrl" placeholder="Button URL"><br>
+    <label>Image URL:</label>
+    <input type="text" id="headerImg" placeholder="Image URL"><br>
+    <button onclick="saveHeader()">Save Header</button>
+    <hr>
+
+    <!-- Categories Section -->
+    <h3>Categories</h3>
+    <label>Category 1 Image URL:</label>
+    <input type="text" id="cat1" placeholder="Image URL"><br>
+    <label>Category 2 Image URL:</label>
+    <input type="text" id="cat2" placeholder="Image URL"><br>
+    <label>Category 3 Image URL:</label>
+    <input type="text" id="cat3" placeholder="Image URL"><br>
+    <button onclick="saveCategories()">Save Categories</button>
+    <hr>
+
+    <!-- Featured Products Section -->
+    <h3>Featured Products</h3>
+    <div id="featuredProducts">
+        <!-- dynamically add 4 products -->
+    </div>
+    <button onclick="saveFeatured()">Save Featured Products</button>
+    <hr>
+
+    <!-- Latest Products Section -->
+    <h3>Latest Products</h3>
+    <div id="latestProducts">
+        <!-- dynamically add 4 products -->
+    </div>
+    <button onclick="saveLatest()">Save Latest Products</button>
+    <hr>
+
+    <!-- Offer Section -->
+    <h3>Offer Section</h3>
+    <label>Title:</label>
+    <input type="text" id="offerTitle"><br>
+    <label>Description:</label>
+    <textarea id="offerDesc"></textarea><br>
+    <label>Button Text:</label>
+    <input type="text" id="offerBtnText"><br>
+    <label>Button URL:</label>
+    <input type="text" id="offerBtnUrl"><br>
+    <label>Image URL:</label>
+    <input type="text" id="offerImg"><br>
+    <button onclick="saveOffer()">Save Offer</button>
+    <hr>
+
+    <!-- Testimonials Section -->
+    <h3>Testimonials</h3>
+    <div id="testimonials">
+        <!-- dynamically add 3 testimonials -->
+    </div>
+    <button onclick="saveTestimonials()">Save Testimonials</button>
+    <hr>
+
+    <!-- Brands Section -->
+    <h3>Brands</h3>
+    <div id="brands">
+        <!-- dynamically add 5 brands -->
+    </div>
+    <button onclick="saveBrands()">Save Brands</button>
+    <hr>
+
+    <!-- Footer Section -->
+    <h3>Footer</h3>
+    <label>Footer Text:</label>
+    <textarea id="footerText"></textarea><br>
+    <label>Copyright:</label>
+    <input type="text" id="footerCopyright"><br>
+    <button onclick="saveFooter()">Save Footer</button>
 </div>
 
-<!-- Latest Products -->
-<div class="small container" style="margin-top:30px;">
-  <h3>Latest Products</h3>
-  <div class="row" id="latestProducts">
-    <!-- Products will be loaded here dynamically -->
-  </div>
-  <button onclick="saveProducts('latest')" style="margin-top:10px; padding:10px 20px;">Save Latest Products</button>
-</div>
-
-<!-- Firebase Script -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
@@ -63,82 +112,95 @@ const firebaseConfig = {
   messagingSenderId: "81466489688",
   appId: "1:81466489688:web:e225da8670b2314dd1432d"
 };
+
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const db = firebase.database();
 
-// Header
-function saveHeader() {
-  const title = document.getElementById('headerTitle').value;
-  const img = document.getElementById('headerImg').value;
-  db.collection("admin").doc("header").set({headerTitle: title, headerImg: img})
-  .then(() => {
-    alert("Header Saved Successfully!");
-    document.getElementById('headerPreview').src = img;
-  })
-  .catch(err => alert("Error: " + err));
+// Save Functions
+function saveHeader(){
+    const data = {
+        title: document.getElementById("headerTitle").value,
+        desc: document.getElementById("headerDesc").value,
+        btnText: document.getElementById("headerBtnText").value,
+        btnUrl: document.getElementById("headerBtnUrl").value,
+        img: document.getElementById("headerImg").value
+    };
+    db.ref("header").set(data,()=>{alert("Header Saved Successfully!");});
 }
 
-// Offer
-function saveOffer() {
-  const img = document.getElementById('offerImg').value;
-  const title = document.getElementById('offerTitle').value;
-  const desc = document.getElementById('offerDesc').value;
-  db.collection("admin").doc("offer").set({offerImg: img, offerTitle: title, offerDesc: desc})
-  .then(() => alert("Offer Saved Successfully!"))
-  .catch(err => alert("Error: " + err));
+function saveCategories(){
+    const data = {
+        cat1: document.getElementById("cat1").value,
+        cat2: document.getElementById("cat2").value,
+        cat3: document.getElementById("cat3").value
+    };
+    db.ref("categories").set(data,()=>{alert("Categories Saved Successfully!");});
 }
 
-// Latest Products Sample
-const sampleLatest = [
-  {img:"images/product-5.jpg", name:"Red Printed T-shirt", price:"$50.00"},
-  {img:"images/product-6.jpg", name:"Blue Printed T-shirt", price:"$60.00"},
-  {img:"images/product-7.jpg", name:"Green T-shirt", price:"$55.00"},
-  {img:"images/product-8.jpg", name:"Black T-shirt", price:"$65.00"}
-];
-
-function loadProducts() {
-  const container = document.getElementById('latestProducts');
-  container.innerHTML = '';
-  for(let i=0;i<sampleLatest.length;i++){
-    let p = sampleLatest[i];
-    container.innerHTML += `
-      <div class="col-4">
-        <input type="text" class="prodName" value="${p.name}" placeholder="Product Name">
-        <input type="text" class="prodImg" value="${p.img}" placeholder="Image URL">
-        <input type="text" class="prodPrice" value="${p.price}" placeholder="Price">
-        <img src="${p.img}" style="width:100px;margin-top:5px;">
-      </div>
-    `;
-  }
+function saveFeatured(){
+    let products = [];
+    for(let i=1;i<=4;i++){
+        products.push({
+            img: document.getElementById("fprodImg"+i).value,
+            title: document.getElementById("fprodTitle"+i).value,
+            price: document.getElementById("fprodPrice"+i).value
+        });
+    }
+    db.ref("featuredProducts").set(products,()=>{alert("Featured Products Saved Successfully!");});
 }
 
-function saveProducts(type) {
-  const container = document.getElementById('latestProducts');
-  const products = [];
-  container.querySelectorAll('.col-4').forEach(col => {
-    const name = col.querySelector('.prodName').value;
-    const img = col.querySelector('.prodImg').value;
-    const price = col.querySelector('.prodPrice').value;
-    products.push({name, img, price});
-  });
-  db.collection("admin").doc(type+"Products").set({items: products})
-  .then(() => alert("Latest Products Saved Successfully!"))
-  .catch(err => alert("Error: " + err));
+function saveLatest(){
+    let products = [];
+    for(let i=1;i<=4;i++){
+        products.push({
+            img: document.getElementById("lprodImg"+i).value,
+            title: document.getElementById("lprodTitle"+i).value,
+            price: document.getElementById("lprodPrice"+i).value
+        });
+    }
+    db.ref("latestProducts").set(products,()=>{alert("Latest Products Saved Successfully!");});
 }
 
-// Load products on page load
-loadProducts();
+function saveOffer(){
+    const data = {
+        title: document.getElementById("offerTitle").value,
+        desc: document.getElementById("offerDesc").value,
+        btnText: document.getElementById("offerBtnText").value,
+        btnUrl: document.getElementById("offerBtnUrl").value,
+        img: document.getElementById("offerImg").value
+    };
+    db.ref("offer").set(data,()=>{alert("Offer Saved Successfully!");});
+}
+
+function saveTestimonials(){
+    let testimonials = [];
+    for(let i=1;i<=3;i++){
+        testimonials.push({
+            user: document.getElementById("testUser"+i).value,
+            comment: document.getElementById("testComment"+i).value,
+            img: document.getElementById("testImg"+i).value
+        });
+    }
+    db.ref("testimonials").set(testimonials,()=>{alert("Testimonials Saved Successfully!");});
+}
+
+function saveBrands(){
+    let brands = [];
+    for(let i=1;i<=5;i++){
+        brands.push({
+            img: document.getElementById("brandImg"+i).value
+        });
+    }
+    db.ref("brands").set(brands,()=>{alert("Brands Saved Successfully!");});
+}
+
+function saveFooter(){
+    const data = {
+        text: document.getElementById("footerText").value,
+        copyright: document.getElementById("footerCopyright").value
+    };
+    db.ref("footer").set(data,()=>{alert("Footer Saved Successfully!");});
+}
 </script>
-
-<!-- Menu Toggle Script -->
-<script>
-var MenuItems = document.getElementById("MenuItems");
-MenuItems.style.maxHeight = "0px";
-function menutoggle(){
-  if(MenuItems.style.maxHeight == "0px") MenuItems.style.maxHeight = "200px";
-  else MenuItems.style.maxHeight = "0px";
-}
-</script>
-
 </body>
 </html>
