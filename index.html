@@ -64,41 +64,38 @@
     </div>
   </div>
 </section>   <!-- ===== STEP 4: CATEGORIES SECTION ===== -->
-<section class="py-5">
+<!-- ===== CATEGORIES SECTION ===== -->
+<section class="categories py-5">
     <div class="container">
-
-        <h2 class="text-center fw-bold mb-5">
-            Shop by Categories
-        </h2>
-
+        <h2 class="text-center fw-bold mb-5">Shop by Categories</h2>
         <div class="row g-4">
 
             <!-- Category 1 -->
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <img id="cat1" src="images/cat1.jpg" class="card-img-top" alt="Category 1">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold">Category One</h5>
+                <div class="card border-0 shadow-sm text-center">
+                    <img id="cat1" src="https://i.ibb.co/SXS63KHd/category-1.jpg" class="card-img-top" alt="Category 1">
+                    <div class="card-body">
+                        <h5 id="catTitle1">Category One</h5>
                     </div>
                 </div>
             </div>
 
             <!-- Category 2 -->
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <img id="cat2" src="images/cat2.jpg" class="card-img-top" alt="Category 2">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold">Category Two</h5>
+                <div class="card border-0 shadow-sm text-center">
+                    <img id="cat2" src="https://i.ibb.co/4cyCwk6/category-2.jpg" class="card-img-top" alt="Category 2">
+                    <div class="card-body">
+                        <h5 id="catTitle2">Category Two</h5>
                     </div>
                 </div>
             </div>
 
             <!-- Category 3 -->
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <img id="cat3" src="images/cat3.jpg" class="card-img-top" alt="Category 3">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold">Category Three</h5>
+                <div class="card border-0 shadow-sm text-center">
+                    <img id="cat3" src="https://i.ibb.co/V02XzKcT/category-3.jpg" class="card-img-top" alt="Category 3">
+                    <div class="card-body">
+                        <h5 id="catTitle3">Category Three</h5>
                     </div>
                 </div>
             </div>
@@ -106,6 +103,318 @@
         </div>
     </div>
 </section>
+<!-- ===== FEATURED PRODUCTS SECTION ===== -->
+<section id="featured-products" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Featured Products</h2>
+
+        <!-- Carousel -->
+        <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselInner">
+                <!-- Firebase se yahan slides inject honge -->
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</section>
+<!-- ===== TESTIMONIALS SECTION ===== -->
+<section class="testimonial py-5">
+    <div class="container">
+        <div class="row">
+
+            <!-- Testimonial 1 -->
+            <div class="col-3 text-center">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="https://i.ibb.co/LzGYNQ8Q" class="rounded-circle" width="100" height="100" alt="User 1">
+                <h3>Sean Parker</h3>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="col-3 text-center">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="https://i.ibb.co/YFfZ6tf8" class="rounded-circle" width="100" height="100" alt="User 2">
+                <h3>Mike Smith</h3>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="col-3 text-center">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="https://i.ibb.co/GQfFxMdf" class="rounded-circle" width="100" height="100" alt="User 3">
+                <h3>Mable Joe</h3>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="col-3 text-center">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="https://i.ibb.co/bMFz6CHK" class="rounded-circle" width="100" height="100" alt="User 4">
+                <h3>Anna Lee</h3>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="col-3 text-center">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="rating">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                </div>
+                <img src="https://i.ibb.co/ccgV4wJJ" class="rounded-circle" width="100" height="100" alt="User 5">
+                <h3>John Doe</h3>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== BRANDS SECTION ===== -->
+<section class="brands py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-4">Our Trusted Brands</h2>
+        <div class="row justify-content-center align-items-center g-3">
+            <div class="col-4 col-md-2"><img src="https://i.ibb.co/Q7jkYPc2/buy-1.jpg" class="img-fluid" alt="Brand 1"></div>
+            <div class="col-4 col-md-2"><img src="https://i.ibb.co/nsv8SRB2/buy-2.jpg" class="img-fluid" alt="Brand 2"></div>
+            <div class="col-4 col-md-2"><img src="https://i.ibb.co/7JgTFJ58/buy-3.jpg" class="img-fluid" alt="Brand 3"></div>
+            <div class="col-4 col-md-2"><img src="https://i.ibb.co/YFpwDTDF/product-4.jpg" class="img-fluid" alt="Brand 4"></div>
+            <div class="col-4 col-md-2"><img src="https://i.ibb.co/Q7jkYPc2/buy-1.jpg" class="img-fluid" alt="Brand 5"></div>
+        </div>
+    </div>
+</section>
+  <!-- ===== FOOTER ===== -->
+<footer class="footer py-4 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+
+            <!-- Footer Column 1: App Download -->
+            <div class="col-md-3">
+                <h5>Download Our App</h5>
+                <p>Download App for Android and iOS mobile phone.</p>
+                <div class="app-logo">
+                    <a href="download.html">
+                        <img id="playStoreImg" src="https://ibb.co/V0vWbzg8" alt="Play Store" style="width:100px;">
+                    </a>
+                    <a href="download.html">
+                        <img id="appStoreImg" src="https://ibb.co/kv9FTS4" alt="App Store" style="width:100px;">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer Column 2: Logo & Description -->
+            <div class="col-md-3 text-center">
+                <img id="footerLogo" src="https://ibb.co/k6P2c03K" alt="RedStore Logo" style="width:125px;">
+                <p id="footerDesc" class="mt-2">
+                    Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.
+                </p>
+            </div>
+
+            <!-- Footer Column 3: Useful Links -->
+            <div class="col-md-3">
+                <h5>Useful Links</h5>
+                <ul id="usefulLinks">
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Affiliate</li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 4: Social Media -->
+            <div class="col-md-3">
+                <h5>Follow Us</h5>
+                <ul id="socialLinks">
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>Instagram</li>
+                    <li>Youtube</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <hr class="bg-white">
+        <p class="text-center" id="copyright">
+            © 2025 Your Company. All rights reserved.
+        </p>
+    </div>
+</footer>
+
+<!-- Firebase script for Footer -->
+<script>
+    const footerRef = db.ref('footer');
+    
+    footerRef.on('value', snap => {
+        const f = snap.val();
+        if(f){
+            document.getElementById('footerLogo').src = f.logo || 'https://ibb.co/k6P2c03K';
+            document.getElementById('footerDesc').innerText = f.text || 'Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.';
+            document.getElementById('playStoreImg').src = f.playStore || 'https://ibb.co/V0vWbzg8';
+            document.getElementById('appStoreImg').src = f.appStore || 'https://ibb.co/kv9FTS4';
+            
+            const links = f.usefulLinks || ["Coupons", "Blog Post", "Return Policy", "Join Affiliate"];
+            const usefulLinksEl = document.getElementById('usefulLinks');
+            usefulLinksEl.innerHTML = '';
+            links.forEach(link => {
+                const li = document.createElement('li');
+                li.innerText = link;
+                usefulLinksEl.appendChild(li);
+            });
+
+            const social = f.socialLinks || ["Facebook","Twitter","Instagram","Youtube"];
+            const socialLinksEl = document.getElementById('socialLinks');
+            socialLinksEl.innerHTML = '';
+            social.forEach(s => {
+                const li = document.createElement('li');
+                li.innerText = s;
+                socialLinksEl.appendChild(li);
+            });
+
+            document.getElementById('copyright').innerText = f.copyright || '© 2025 Your Company. All rights reserved.';
+        }
+    });
+  
+<!-- Firebase Script for Categories -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+/* ===== Firebase Config ===== */
+const firebaseConfig = {
+    apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+    authDomain: "myshop-1dbc9.firebaseapp.com",
+    databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
+    projectId: "myshop-1dbc9",
+    storageBucket: "myshop-1dbc9.appspot.com",
+    messagingSenderId: "81466489688",
+    appId: "1:81466489688:web:e225da8670b2314dd1432d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+/* ===== Hero Section ===== */
+db.ref('hero').on('value', snap => {
+    const h = snap.val();
+    if(h){
+        document.getElementById('heroImg').src = h.img || "";
+        document.getElementById('heroHeading').innerText = h.heading || "";
+        document.getElementById('heroSubheading').innerText = h.subheading || "";
+    }
+});
+
+/* ===== Categories ===== */
+db.ref('categories').on('value', snap => {
+    const c = snap.val();
+    if(c){
+        document.getElementById('cat1').src = c.cat1 || "";
+        document.getElementById('cat2').src = c.cat2 || "";
+        document.getElementById('cat3').src = c.cat3 || "";
+    }
+});
+
+/* ===== Products (Featured & Latest) ===== */
+db.ref('products').on('value', snap => {
+    const p = snap.val();
+    if(p){
+        for(let i=1;i<=12;i++){
+            const prod = p[`prod${i}`];
+            if(prod){
+                document.getElementById(`prod${i}Img`).src = prod.img || "";
+                document.getElementById(`prod${i}Title`).innerText = prod.title || "";
+                document.getElementById(`prod${i}Price`).innerText = "$" + (prod.price || "0");
+            }
+        }
+    }
+});
+
+/* ===== Offer ===== */
+db.ref('offer').on('value', snap => {
+    const o = snap.val();
+    if(o){
+        document.getElementById('offerImg').src = o.img || "";
+        document.getElementById('offerTitle').innerText = o.title || "";
+        document.getElementById('offerDesc').innerText = o.desc || "";
+        document.getElementById('offerBtnText').innerText = o.btnText || "";
+        document.getElementById('offerBtnUrl').href = o.btnUrl || "#";
+    }
+});
+
+/* ===== Testimonials ===== */
+db.ref('testimonials').on('value', snap => {
+    const t = snap.val();
+    if(t){
+        for(let i=1;i<=5;i++){
+            document.getElementById(`testImg${i}`).src = t[`user${i}`].img || "";
+            document.getElementById(`testUser${i}`).innerText = t[`user${i}`].name || "";
+            document.getElementById(`testComment${i}`).innerText = t[`user${i}`].comment || "";
+        }
+    }
+});
+
+/* ===== Brands ===== */
+db.ref('brands').on('value', snap => {
+    const b = snap.val();
+    if(b){
+        for(let i=1;i<=5;i++){
+            document.getElementById(`brandImg${i}`).src = b[`brand${i}`] || "";
+        }
+    }
+});
+
+/* ===== Footer ===== */
+db.ref('footer').on('value', snap => {
+    const f = snap.val();
+    if(f){
+        document.getElementById('footerLogo').src = f.logo || "";
+        document.getElementById('footerText').innerText = f.text || "";
+        document.getElementById('playStore').src = f.playStore || "";
+        document.getElementById('appStore').src = f.appStore || "";
+        document.getElementById('playStore').parentElement.href = "download.html";
+        document.getElementById('appStore').parentElement.href = "download.html";
+    }
+});
+</script>
     <!-- ===== STEP 5: FEATURED PRODUCTS ===== -->
 <section id="featured-products" class="py-5 bg-light">
     <div class="container">
