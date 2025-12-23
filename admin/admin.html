@@ -3,170 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel - My Shop</title>
-
-<!-- MAIN CSS (same, NOT removed) -->
-<link rel="stylesheet" href="../CSS/style.css">
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<!-- Icons -->
+<title>RedStore Admin Panel</title>
+<link rel="stylesheet" href="CSS/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<style>
-/* ONLY ADMIN CONTENT CENTER */
-.admin-page{
-  min-height:80vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-.admin-box{
-  width:380px;
-  background:#fff;
-  padding:30px;
-  box-shadow:0 0 10px #ccc;
-  border-radius:10px;
-}
-
-.admin-box h2{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.admin-box input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border:1px solid #ccc;
-  border-radius:5px;
-}
-
-.admin-box button{
-  width:100%;
-  padding:12px;
-  background:#ff523b;
-  border:none;
-  color:#fff;
-  font-size:16px;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.admin-box button:hover{
-  background:#e8412f;
-}
-
-#status{
-  margin-top:10px;
-  text-align:center;
-  font-weight:bold;
-}
-</style>
 </head>
-
 <body>
 
-<!-- ================= NAVBAR ================= -->
-<div class="container">
-  <div class="navbar">
-    <div class="logo">
-      <a href="../index.html">
-        <img src="../images/logo.png" width="125px">
-      </a>
-    </div>
-    <nav>
-      <ul id="MenuItems">
-        <li><a href="admin.html">Admin</a></li>
-      </ul>
-    </nav>
-    <img src="../images/cart.png" width="30">
-    <img src="../images/menu.png" class="menu-icon" onclick="menutoggle()">
-  </div>
-</div>
-
-<!-- ================= ADMIN PANEL ================= -->
-<div class="admin-page">
-  <div class="admin-box">
-    <h2>Admin Control</h2>
-
-    <input type="text" id="homeTitle" placeholder="Home Page Title">
-
-    <button id="saveBtn">Save</button>
-
-    <p id="status"></p>
-  </div>
-</div>
-
-<!-- ================= FOOTER ================= -->
-<div class="footer">
+<div class="header">
   <div class="container">
-    <hr>
-    <p class="copyright">
-      Copyright 2025 - Made with ❤️ by Prakash Modi
-    </p>
+    <div class="row">
+      <div class="col-2">
+        <h3>Header Settings</h3>
+        <input type="text" id="headerTitle" placeholder="Header Title" style="width:100%; margin-bottom:10px;">
+        <input type="text" id="headerImg" placeholder="Header Image URL" style="width:100%; margin-bottom:10px;">
+        <button onclick="saveHeader()" style="padding:10px 20px;">Save Header</button>
+      </div>
+      <div class="col-2">
+        <img id="headerPreview" src="images/image1.png" alt="header image" style="width:100%;">
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ================= MENU SCRIPT ================= -->
+<div class="small container" style="margin-top:30px;">
+  <h3>Offer Settings</h3>
+  <input type="text" id="offerImg" placeholder="Offer Image URL" style="width:100%; margin-bottom:10px;">
+  <input type="text" id="offerTitle" placeholder="Offer Title" style="width:100%; margin-bottom:10px;">
+  <textarea id="offerDesc" placeholder="Offer Description" style="width:100%; height:60px; margin-bottom:10px;"></textarea>
+  <button onclick="saveOffer()" style="padding:10px 20px;">Save Offer</button>
+</div>
+
+<div class="small container" style="margin-top:30px;">
+  <h3>Latest Products</h3>
+  <div class="row" id="latestProducts">
+    <!-- Products will be loaded here dynamically -->
+  </div>
+  <button onclick="saveProducts('latest')" style="margin-top:10px; padding:10px 20px;">Save Latest Products</button>
+</div>
+
+<script>
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_APIKEY",
+  authDomain: "YOUR_FIREBASE_AUTHDOMAIN",
+  projectId: "YOUR_FIREBASE_PROJECTID",
+  storageBucket: "YOUR_FIREBASE_BUCKET",
+  messagingSenderId: "YOUR_FIREBASE_SENDERID",
+  appId: "YOUR_FIREBASE_APPID"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Header
+function saveHeader(){
+  const title = document.getElementById('headerTitle').value;
+  const img = document.getElementById('headerImg').value;
+  db.collection("admin").doc("header").set({headerTitle:title, headerImg:img})
+  .then(()=>{ 
+    alert("Header Saved Successfully!"); 
+    document.getElementById('headerPreview').src = img;
+  })
+  .catch(err=>{alert("Error: "+err)});
+}
+
+// Offer
+function saveOffer(){
+  const img = document.getElementById('offerImg').value;
+  const title = document.getElementById('offerTitle').value;
+  const desc = document.getElementById('offerDesc').value;
+  db.collection("admin").doc("offer").set({offerImg:img, offerTitle:title, offerDesc:desc})
+  .then(()=>{ alert("Offer Saved Successfully!"); })
+  .catch(err=>{alert("Error: "+err)});
+}
+
+// Latest Products
+const sampleLatest = [
+  {img:"images/product-5.jpg", name:"Red Printed T-shirt", price:"$50.00"},
+  {img:"images/product-6.jpg", name:"Red Printed T-shirt", price:"$50.00"},
+  {img:"images/product-7.jpg", name:"Red Printed T-shirt", price:"$50.00"},
+  {img:"images/product-8.jpg", name:"Red Printed T-shirt", price:"$50.00"}
+];
+
+function loadProducts(){
+  const container = document.getElementById('latestProducts');
+  container.innerHTML = '';
+  for(let i=0;i<sampleLatest.length;i++){
+    let p = sampleLatest[i];
+    container.innerHTML += `
+      <div class="col-4">
+        <input type="text" class="prodName" value="${p.name}" placeholder="Product Name">
+        <input type="text" class="prodImg" value="${p.img}" placeholder="Image URL">
+        <input type="text" class="prodPrice" value="${p.price}" placeholder="Price">
+        <img src="${p.img}" style="width:100px;margin-top:5px;">
+      </div>
+    `;
+  }
+}
+
+function saveProducts(type){
+  const container = document.getElementById('latestProducts');
+  const products = [];
+  container.querySelectorAll('.col-4').forEach(col=>{
+    const name = col.querySelector('.prodName').value;
+    const img = col.querySelector('.prodImg').value;
+    const price = col.querySelector('.prodPrice').value;
+    products.push({name,img,price});
+  });
+  db.collection("admin").doc(type+"Products").set({items:products})
+  .then(()=>{ alert("Latest Products Saved Successfully!"); })
+  .catch(err=>{alert("Error: "+err)});
+}
+
+// Load products on page load
+loadProducts();
+</script>
+
 <script>
 var MenuItems = document.getElementById("MenuItems");
 MenuItems.style.maxHeight = "0px";
 function menutoggle(){
-  MenuItems.style.maxHeight =
-  MenuItems.style.maxHeight == "0px" ? "200px" : "0px";
+  if(MenuItems.style.maxHeight =="0px"){MenuItems.style.maxHeight = "200px";}
+  else{MenuItems.style.maxHeight = "0px";}
 }
-</script>
-
-<!-- ================= FIREBASE ================= -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
-  authDomain: "myshop-1dbc9.firebaseapp.com",
-  projectId: "myshop-1dbc9"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const saveBtn = document.getElementById("saveBtn");
-const statusText = document.getElementById("status");
-
-saveBtn.addEventListener("click", async () => {
-  const title = document.getElementById("homeTitle").value;
-
-  if(title === ""){
-    statusText.style.color="red";
-    statusText.innerText="❌ Please enter title";
-    return;
-  }
-
-  statusText.style.color="blue";
-  statusText.innerText="Saving... ⏳";
-
-  try{
-    await setDoc(doc(db,"site","home"),{
-      title:title,
-      time:Date.now()
-    });
-
-    statusText.style.color="green";
-    statusText.innerText="✅ Saved Successfully";
-
-    setTimeout(()=>{
-      statusText.innerText="";
-    },3000);
-
-  }catch(err){
-    statusText.style.color="red";
-    statusText.innerText="❌ Error: "+err.message;
-  }
-});
 </script>
 
 </body>
