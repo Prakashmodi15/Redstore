@@ -121,143 +121,234 @@ body{
 </div>
 
 <div class="admin-container">
-
-  <!-- Header Section -->
+  <!-- ===== Header Section ===== -->
   <div class="admin-card">
     <h2>Header Section</h2>
-    <div class="input-group"><label>Heading:</label><input type="text" id="headerTitle" placeholder="Enter Header Title"></div>
-    <div class="input-group"><label>Description:</label><textarea id="headerDesc" placeholder="Enter Description"></textarea></div>
-    <div class="input-group"><label>Button Text:</label><input type="text" id="headerBtnText" placeholder="Button Text"></div>
-    <div class="input-group"><label>Button URL:</label><input type="text" id="headerBtnUrl" placeholder="Button URL"></div>
-    <div class="input-group"><label>Image URL:</label><input type="text" id="headerImg" placeholder="Image URL"></div>
+    <div class="input-group">
+      <label>Heading:</label>
+      <input type="text" id="headerTitle" placeholder="Enter Header Title">
+    </div>
+    <div class="input-group">
+      <label>Description:</label>
+      <textarea id="headerDesc" placeholder="Enter Description"></textarea>
+    </div>
+    <div class="input-group">
+      <label>Button Text:</label>
+      <input type="text" id="headerBtnText" placeholder="Button Text">
+    </div>
+    <div class="input-group">
+      <label>Button URL:</label>
+      <input type="text" id="headerBtnUrl" placeholder="Button URL">
+    </div>
+    <div class="input-group">
+      <label>Image URL:</label>
+      <input type="text" id="headerImg" placeholder="Image URL">
+    </div>
     <button class="save-btn" onclick="saveHeader()">Save Header</button>
   </div>
 
-  <!-- Categories Section -->
+  <!-- ===== Categories Section ===== -->
   <div class="admin-card">
     <h2>Categories Section</h2>
-    <div class="input-group"><label>Category 1 Image URL:</label><input type="text" id="cat1" placeholder="Image URL"></div>
-    <div class="input-group"><label>Category 2 Image URL:</label><input type="text" id="cat2" placeholder="Image URL"></div>
-    <div class="input-group"><label>Category 3 Image URL:</label><input type="text" id="cat3" placeholder="Image URL"></div>
+    <div class="input-group">
+      <label>Category 1 Image URL:</label>
+      <input type="text" id="cat1" placeholder="Image URL">
+    </div>
+    <div class="input-group">
+      <label>Category 2 Image URL:</label>
+      <input type="text" id="cat2" placeholder="Image URL">
+    </div>
+    <div class="input-group">
+      <label>Category 3 Image URL:</label>
+      <input type="text" id="cat3" placeholder="Image URL">
+    </div>
     <button class="save-btn" onclick="saveCategories()">Save Categories</button>
   </div>
 
-  <!-- Featured Products Section -->
+  <!-- ===== Featured Products Section ===== -->
   <div class="admin-card">
     <h2>Featured Products</h2>
     <div id="featuredProducts">
       <div class="product-edit">
-        <label>Product 1 Image:</label><input type="text" id="fprodImg1" placeholder="Image URL">
-        <label>Product 1 Title:</label><input type="text" id="fprodTitle1" placeholder="Title">
-        <label>Product 1 Price:</label><input type="text" id="fprodPrice1" placeholder="Price">
+        <label>Product 1 Image:</label>
+        <input type="text" id="fprodImg1" placeholder="Image URL">
+        <label>Product 1 Title:</label>
+        <input type="text" id="fprodTitle1" placeholder="Title">
+        <label>Product 1 Price:</label>
+        <input type="text" id="fprodPrice1" placeholder="Price">
       </div>
       <div class="product-edit">
-        <label>Product 2 Image:</label><input type="text" id="fprodImg2" placeholder="Image URL">
-        <label>Product 2 Title:</label><input type="text" id="fprodTitle2" placeholder="Title">
-        <label>Product 2 Price:</label><input type="text" id="fprodPrice2" placeholder="Price">
+        <label>Product 2 Image:</label>
+        <input type="text" id="fprodImg2" placeholder="Image URL">
+        <label>Product 2 Title:</label>
+        <input type="text" id="fprodTitle2" placeholder="Title">
+        <label>Product 2 Price:</label>
+        <input type="text" id="fprodPrice2" placeholder="Price">
       </div>
       <div class="product-edit">
-        <label>Product 3 Image:</label><input type="text" id="fprodImg3" placeholder="Image URL">
-        <label>Product 3 Title:</label><input type="text" id="fprodTitle3" placeholder="Title">
-        <label>Product 3 Price:</label><input type="text" id="fprodPrice3" placeholder="Price">
+        <label>Product 3 Image:</label>
+        <input type="text" id="fprodImg3" placeholder="Image URL">
+        <label>Product 3 Title:</label>
+        <input type="text" id="fprodTitle3" placeholder="Title">
+        <label>Product 3 Price:</label>
+        <input type="text" id="fprodPrice3" placeholder="Price">
       </div>
       <div class="product-edit">
-        <label>Product 4 Image:</label><input type="text" id="fprodImg4" placeholder="Image URL">
-        <label>Product 4 Title:</label><input type="text" id="fprodTitle4" placeholder="Title">
-        <label>Product 4 Price:</label><input type="text" id="fprodPrice4" placeholder="Price">
+        <label>Product 4 Image:</label>
+        <input type="text" id="fprodImg4" placeholder="Image URL">
+        <label>Product 4 Title:</label>
+        <input type="text" id="fprodTitle4" placeholder="Title">
+        <label>Product 4 Price:</label>
+        <input type="text" id="fprodPrice4" placeholder="Price">
       </div>
     </div>
     <button class="save-btn" onclick="saveFeatured()">Save Featured Products</button>
   </div>
-
-  <!-- Latest Products Section -->
+  <!-- ===== Latest Products Section ===== -->
   <div class="admin-card">
     <h2>Latest Products</h2>
     <div id="latestProducts">
       <div class="product-edit">
-        <label>Product 1 Image:</label><input type="text" id="lprodImg1" placeholder="Image URL">
-        <label>Product 1 Title:</label><input type="text" id="lprodTitle1" placeholder="Title">
-        <label>Product 1 Price:</label><input type="text" id="lprodPrice1" placeholder="Price">
+        <label>Product 1 Image:</label>
+        <input type="text" id="lprodImg1" placeholder="Image URL">
+        <label>Product 1 Title:</label>
+        <input type="text" id="lprodTitle1" placeholder="Title">
+        <label>Product 1 Price:</label>
+        <input type="text" id="lprodPrice1" placeholder="Price">
       </div>
       <div class="product-edit">
-        <label>Product 2 Image:</label><input type="text" id="lprodImg2" placeholder="Image URL">
-        <label>Product 2 Title:</label><input type="text" id="lprodTitle2" placeholder="Title">
-        <label>Product 2 Price:</label><input type="text" id="lprodPrice2" placeholder="Price">
+        <label>Product 2 Image:</label>
+        <input type="text" id="lprodImg2" placeholder="Image URL">
+        <label>Product 2 Title:</label>
+        <input type="text" id="lprodTitle2" placeholder="Title">
+        <label>Product 2 Price:</label>
+        <input type="text" id="lprodPrice2" placeholder="Price">
       </div>
       <div class="product-edit">
-        <label>Product 3 Image:</label><input type="text" id="lprodImg3" placeholder="Image URL">
-        <label>Product 3 Title:</label><input type="text" id="lprodTitle3" placeholder="Title">
-        <label>Product 3 Price:</label><input type="text" id="lprodPrice3" placeholder="Price">
+        <label>Product 3 Image:</label>
+        <input type="text" id="lprodImg3" placeholder="Image URL">
+        <label>Product 3 Title:</label>
+        <input type="text" id="lprodTitle3" placeholder="Title">
+        <label>Product 3 Price:</label>
+        <input type="text" id="lprodPrice3" placeholder="Price">
       </div>
       <div class="product-edit">
-        <label>Product 4 Image:</label><input type="text" id="lprodImg4" placeholder="Image URL">
-        <label>Product 4 Title:</label><input type="text" id="lprodTitle4" placeholder="Title">
-        <label>Product 4 Price:</label><input type="text" id="lprodPrice4" placeholder="Price">
+        <label>Product 4 Image:</label>
+        <input type="text" id="lprodImg4" placeholder="Image URL">
+        <label>Product 4 Title:</label>
+        <input type="text" id="lprodTitle4" placeholder="Title">
+        <label>Product 4 Price:</label>
+        <input type="text" id="lprodPrice4" placeholder="Price">
       </div>
     </div>
     <button class="save-btn" onclick="saveLatest()">Save Latest Products</button>
   </div>
 
-  <!-- Offer Section -->
+  <!-- ===== Offer Section ===== -->
   <div class="admin-card">
     <h2>Offer Section</h2>
-    <div class="input-group"><label>Title:</label><input type="text" id="offerTitle"></div>
-    <div class="input-group"><label>Description:</label><textarea id="offerDesc"></textarea></div>
-    <div class="input-group"><label>Button Text:</label><input type="text" id="offerBtnText"></div>
-    <div class="input-group"><label>Button URL:</label><input type="text" id="offerBtnUrl"></div>
-    <div class="input-group"><label>Image URL:</label><input type="text" id="offerImg"></div>
+    <div class="input-group">
+      <label>Title:</label>
+      <input type="text" id="offerTitle" placeholder="Enter Offer Title">
+    </div>
+    <div class="input-group">
+      <label>Description:</label>
+      <textarea id="offerDesc" placeholder="Enter Offer Description"></textarea>
+    </div>
+    <div class="input-group">
+      <label>Button Text:</label>
+      <input type="text" id="offerBtnText" placeholder="Button Text">
+    </div>
+    <div class="input-group">
+      <label>Button URL:</label>
+      <input type="text" id="offerBtnUrl" placeholder="Button URL">
+    </div>
+    <div class="input-group">
+      <label>Image URL:</label>
+      <input type="text" id="offerImg" placeholder="Image URL">
+    </div>
     <button class="save-btn" onclick="saveOffer()">Save Offer</button>
   </div>
 
-  <!-- Testimonials Section -->
+  <!-- ===== Testimonials Section ===== -->
   <div class="admin-card">
     <h2>Testimonials</h2>
     <div id="testimonials">
       <div class="product-edit">
-        <label>User 1:</label><input type="text" id="testUser1">
-        <label>Comment 1:</label><textarea id="testComment1"></textarea>
-        <label>Image URL 1:</label><input type="text" id="testImg1">
+        <label>User 1:</label>
+        <input type="text" id="testUser1" placeholder="User Name">
+        <label>Comment 1:</label>
+        <textarea id="testComment1" placeholder="User Comment"></textarea>
+        <label>Image URL 1:</label>
+        <input type="text" id="testImg1" placeholder="Image URL">
       </div>
       <div class="product-edit">
-        <label>User 2:</label><input type="text" id="testUser2">
-        <label>Comment 2:</label><textarea id="testComment2"></textarea>
-        <label>Image URL 2:</label><input type="text" id="testImg2">
+        <label>User 2:</label>
+        <input type="text" id="testUser2" placeholder="User Name">
+        <label>Comment 2:</label>
+        <textarea id="testComment2" placeholder="User Comment"></textarea>
+        <label>Image URL 2:</label>
+        <input type="text" id="testImg2" placeholder="Image URL">
       </div>
       <div class="product-edit">
-        <label>User 3:</label><input type="text" id="testUser3">
-        <label>Comment 3:</label><textarea id="testComment3"></textarea>
-        <label>Image URL 3:</label><input type="text" id="testImg3">
+        <label>User 3:</label>
+        <input type="text" id="testUser3" placeholder="User Name">
+        <label>Comment 3:</label>
+        <textarea id="testComment3" placeholder="User Comment"></textarea>
+        <label>Image URL 3:</label>
+        <input type="text" id="testImg3" placeholder="Image URL">
       </div>
     </div>
     <button class="save-btn" onclick="saveTestimonials()">Save Testimonials</button>
   </div>
-
-  <!-- Brands Section -->
+  <!-- ===== Brands Section ===== -->
   <div class="admin-card">
     <h2>Brands</h2>
     <div id="brands">
-      <div class="product-edit"><label>Brand 1 Image:</label><input type="text" id="brandImg1"></div>
-      <div class="product-edit"><label>Brand 2 Image:</label><input type="text" id="brandImg2"></div>
-      <div class="product-edit"><label>Brand 3 Image:</label><input type="text" id="brandImg3"></div>
-      <div class="product-edit"><label>Brand 4 Image:</label><input type="text" id="brandImg4"></div>
-      <div class="product-edit"><label>Brand 5 Image:</label><input type="text" id="brandImg5"></div>
+      <div class="product-edit">
+        <label>Brand 1 Image:</label>
+        <input type="text" id="brandImg1" placeholder="Image URL">
+      </div>
+      <div class="product-edit">
+        <label>Brand 2 Image:</label>
+        <input type="text" id="brandImg2" placeholder="Image URL">
+      </div>
+      <div class="product-edit">
+        <label>Brand 3 Image:</label>
+        <input type="text" id="brandImg3" placeholder="Image URL">
+      </div>
+      <div class="product-edit">
+        <label>Brand 4 Image:</label>
+        <input type="text" id="brandImg4" placeholder="Image URL">
+      </div>
+      <div class="product-edit">
+        <label>Brand 5 Image:</label>
+        <input type="text" id="brandImg5" placeholder="Image URL">
+      </div>
     </div>
     <button class="save-btn" onclick="saveBrands()">Save Brands</button>
   </div>
 
-  <!-- Footer Section -->
+  <!-- ===== Footer Section ===== -->
   <div class="admin-card">
     <h2>Footer Section</h2>
-    <div class="input-group"><label>Footer Text:</label><textarea id="footerText"></textarea></div>
-    <div class="input-group"><label>Copyright:</label><input type="text" id="footerCopyright"></div>
+    <div class="input-group">
+      <label>Footer Text:</label>
+      <textarea id="footerText" placeholder="Enter Footer Text"></textarea>
+    </div>
+    <div class="input-group">
+      <label>Copyright:</label>
+      <input type="text" id="footerCopyright" placeholder="© 2025 My Shop">
+    </div>
     <button class="save-btn" onclick="saveFooter()">Save Footer</button>
   </div>
 
-</div>
+</div> <!-- End admin-container -->
 
-<!-- Toast for Save -->
+<!-- ===== Toast for Save ===== -->
 <div id="toast"></div>
 
+<!-- ===== Firebase JS ===== -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -267,14 +358,14 @@ const firebaseConfig = {
   authDomain: "myshop-1dbc9.firebaseapp.com",
   databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
   projectId: "myshop-1dbc9",
-  storageBucket: "myshop-1dbc9.firebasestorage.app",
+  storageBucket: "myshop-1dbc9.appspot.com",
   messagingSenderId: "81466489688",
   appId: "1:81466489688:web:e225da8670b2314dd1432d"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Toast Function
+// ===== Toast Function =====
 function showToast(msg){
   const toast = document.getElementById("toast");
   toast.innerText = msg;
@@ -282,27 +373,23 @@ function showToast(msg){
   setTimeout(()=>{toast.className = toast.className.replace("show","");},3000);
 }
 
-// Save Functions
-function saveHeader(){
-    const data = {
-        title: document.getElementById("headerTitle").value,
-        desc: document.getElementById("headerDesc").value,
-        btnText: document.getElementById("headerBtnText").value,
-        btnUrl: document.getElementById("headerBtnUrl").value,
-        img: document.getElementById("headerImg").value
-    };
-    db.ref("header").set(data,()=>{showToast("Header Saved Successfully!");});
-}
-function saveCategories(){
-    const data = {
-        cat1: document.getElementById("cat1").value,
-        cat2: document.getElementById("cat2").value,
-        cat3: document.getElementById("cat3").value
-    };
-    db.ref("categories").set(data,()=>{showToast("Categories Saved Successfully!");});
-}
+// ===== Save Functions =====
+function saveHeader(){ db.ref("header").set({
+    title: document.getElementById("headerTitle").value,
+    desc: document.getElementById("headerDesc").value,
+    btnText: document.getElementById("headerBtnText").value,
+    btnUrl: document.getElementById("headerBtnUrl").value,
+    img: document.getElementById("headerImg").value
+}, ()=>showToast("Header Saved!")); }
+
+function saveCategories(){ db.ref("categories").set({
+    cat1: document.getElementById("cat1").value,
+    cat2: document.getElementById("cat2").value,
+    cat3: document.getElementById("cat3").value
+}, ()=>showToast("Categories Saved!")); }
+
 function saveFeatured(){
-    let products = [];
+    let products=[];
     for(let i=1;i<=4;i++){
         products.push({
             img: document.getElementById("fprodImg"+i).value,
@@ -310,10 +397,11 @@ function saveFeatured(){
             price: document.getElementById("fprodPrice"+i).value
         });
     }
-    db.ref("featuredProducts").set(products,()=>{showToast("Featured Products Saved Successfully!");});
+    db.ref("featuredProducts").set(products, ()=>showToast("Featured Products Saved!"));
 }
+
 function saveLatest(){
-    let products = [];
+    let products=[];
     for(let i=1;i<=4;i++){
         products.push({
             img: document.getElementById("lprodImg"+i).value,
@@ -321,20 +409,19 @@ function saveLatest(){
             price: document.getElementById("lprodPrice"+i).value
         });
     }
-    db.ref("latestProducts").set(products,()=>{showToast("Latest Products Saved Successfully!");});
+    db.ref("latestProducts").set(products, ()=>showToast("Latest Products Saved!"));
 }
-function saveOffer(){
-    const data = {
-        title: document.getElementById("offerTitle").value,
-        desc: document.getElementById("offerDesc").value,
-        btnText: document.getElementById("offerBtnText").value,
-        btnUrl: document.getElementById("offerBtnUrl").value,
-        img: document.getElementById("offerImg").value
-    };
-    db.ref("offer").set(data,()=>{showToast("Offer Saved Successfully!");});
-}
+
+function saveOffer(){ db.ref("offer").set({
+    title: document.getElementById("offerTitle").value,
+    desc: document.getElementById("offerDesc").value,
+    btnText: document.getElementById("offerBtnText").value,
+    btnUrl: document.getElementById("offerBtnUrl").value,
+    img: document.getElementById("offerImg").value
+}, ()=>showToast("Offer Saved!")); }
+
 function saveTestimonials(){
-    let testimonials = [];
+    let testimonials=[];
     for(let i=1;i<=3;i++){
         testimonials.push({
             user: document.getElementById("testUser"+i).value,
@@ -342,23 +429,114 @@ function saveTestimonials(){
             img: document.getElementById("testImg"+i).value
         });
     }
-    db.ref("testimonials").set(testimonials,()=>{showToast("Testimonials Saved Successfully!");});
+    db.ref("testimonials").set(testimonials, ()=>showToast("Testimonials Saved!"));
 }
+
 function saveBrands(){
-    let brands = [];
+    let brands=[];
     for(let i=1;i<=5;i++){
         brands.push({img: document.getElementById("brandImg"+i).value});
     }
-    db.ref("brands").set(brands,()=>{showToast("Brands Saved Successfully!");});
+    db.ref("brands").set(brands, ()=>showToast("Brands Saved!"));
 }
-function saveFooter(){
-    const data = {
-        text: document.getElementById("footerText").value,
-        copyright: document.getElementById("footerCopyright").value
-    };
-    db.ref("footer").set(data,()=>{showToast("Footer Saved Successfully!");});
+
+function saveFooter(){ db.ref("footer").set({
+    text: document.getElementById("footerText").value,
+    copyright: document.getElementById("footerCopyright").value
+}, ()=>showToast("Footer Saved!")); }
+
+// ===== Fetch Data on Page Load =====
+window.onload = function(){
+  // Header
+  db.ref("header").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      document.getElementById("headerTitle").value=data.title||"";
+      document.getElementById("headerDesc").value=data.desc||"";
+      document.getElementById("headerBtnText").value=data.btnText||"";
+      document.getElementById("headerBtnUrl").value=data.btnUrl||"";
+      document.getElementById("headerImg").value=data.img||"";
+    }
+  });
+
+  // Categories
+  db.ref("categories").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      document.getElementById("cat1").value=data.cat1||"";
+      document.getElementById("cat2").value=data.cat2||"";
+      document.getElementById("cat3").value=data.cat3||"";
+    }
+  });
+
+  // Featured Products
+  db.ref("featuredProducts").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      for(let i=0;i<data.length;i++){
+        document.getElementById("fprodImg"+(i+1)).value=data[i].img||"";
+        document.getElementById("fprodTitle"+(i+1)).value=data[i].title||"";
+        document.getElementById("fprodPrice"+(i+1)).value=data[i].price||"";
+      }
+    }
+  });
+
+  // Latest Products
+  db.ref("latestProducts").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      for(let i=0;i<data.length;i++){
+        document.getElementById("lprodImg"+(i+1)).value=data[i].img||"";
+        document.getElementById("lprodTitle"+(i+1)).value=data[i].title||"";
+        document.getElementById("lprodPrice"+(i+1)).value=data[i].price||"";
+      }
+    }
+  });
+
+  // Offer
+  db.ref("offer").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      document.getElementById("offerTitle").value=data.title||"";
+      document.getElementById("offerDesc").value=data.desc||"";
+      document.getElementById("offerBtnText").value=data.btnText||"";
+      document.getElementById("offerBtnUrl").value=data.btnUrl||"";
+      document.getElementById("offerImg").value=data.img||"";
+    }
+  });
+
+  // Testimonials
+  db.ref("testimonials").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      for(let i=0;i<data.length;i++){
+        document.getElementById("testUser"+(i+1)).value=data[i].user||"";
+        document.getElementById("testComment"+(i+1)).value=data[i].comment||"";
+        document.getElementById("testImg"+(i+1)).value=data[i].img||"";
+      }
+    }
+  });
+
+  // Brands
+  db.ref("brands").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      for(let i=0;i<data.length;i++){
+        document.getElementById("brandImg"+(i+1)).value=data[i].img||"";
+      }
+    }
+  });
+
+  // Footer
+  db.ref("footer").once("value").then(snapshot=>{
+    const data=snapshot.val();
+    if(data){
+      document.getElementById("footerText").value=data.text||"";
+      document.getElementById("footerCopyright").value=data.copyright||"";
+    }
+  });
 }
 </script>
-
 </body>
 </html>
+  
