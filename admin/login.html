@@ -4,49 +4,94 @@
 <meta charset="UTF-8">
 <title>Admin Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:Arial;background:#f2f2f2;}
-.box{max-width:400px;margin:80px auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);}
-input,button{width:100%;padding:10px;margin:10px 0;box-sizing:border-box;}
-button{background:#ff523b;color:#fff;border:none;cursor:pointer;font-size:16px;}
+body{
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+}
+.box{
+  max-width:400px;
+  margin:80px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+input,button{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+button{
+  background:#ff523b;
+  color:#fff;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{opacity:0.9;}
 </style>
 </head>
+
 <body>
 
 <div class="box">
   <h2>Admin Login</h2>
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
+  <button id="loginBtn">Login</button>
 </div>
 
-<!-- Firebase + Login Script -->
 <script type="module">
-import { auth } from "../js/firebase.js"; // path check करो
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+/* ================= FIREBASE CONFIG ================= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-window.login = async function() {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+const firebaseConfig = {
+  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+  authDomain: "myshop-1dbc9.firebaseapp.com",
+  projectId: "myshop-1dbc9",
+  storageBucket: "myshop-1dbc9.appspot.com",
+  messagingSenderId: "81466489688",
+  appId: "1:81466489688:web:e225da8670b2314dd1432d"
+};
 
-    if(!email || !password){
-        alert("Please fill all fields");
-        return;
-    }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-    try{
-        await signInWithEmailAndPassword(auth, email, password);
-        // Login success
-        window.location.href = "add-product.html";
-    }catch(error){
-        // Login fail
-        alert(error.message);
-        console.error(error);
-    }
-}
+/* ================= LOGIN LOGIC ================= */
+const emailEl = document.getElementById("email");
+const passEl  = document.getElementById("password");
+const loginBtn = document.getElementById("loginBtn");
 
-// Test function load
-console.log("Login function ready:", window.login);
+loginBtn.addEventListener("click", async () => {
+  const email = emailEl.value.trim();
+  const password = passEl.value.trim();
+
+  if(!email || !password){
+    alert("Please fill all fields");
+    return;
+  }
+
+  try{
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Admin Login Successful ✅");
+    window.location.href = "add-product.html";
+  }catch(error){
+    alert(error.message);
+    console.error(error);
+  }
+});
+
+console.log("🔥 Firebase Admin Login Ready");
 </script>
 
 </body>
