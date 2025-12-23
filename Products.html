@@ -61,7 +61,7 @@ function menutoggle() {
 }
 </script>
 
-<!-- FIREBASE -->
+<!-- FIREBASE SCRIPT -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, onSnapshot, query, orderBy, doc, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -81,6 +81,7 @@ const db = getFirestore(app);
 const productList = document.getElementById("product-list");
 const sort = document.getElementById("sort");
 
+// Function to load products
 function loadProducts(q) {
   onSnapshot(q, snap => {
     productList.innerHTML = "";
@@ -88,14 +89,14 @@ function loadProducts(q) {
     snap.forEach(docSnap => {
       const p = docSnap.data();
       productList.innerHTML += `
-      <div class="col-4">
-        <a href="product-detail.html?id=${docSnap.id}">
-          <img src="${p.image}" alt="${p.name}">
-          <h4>${p.name}</h4>
-        </a>
-        <p>₹${p.price}</p>
-        <button class="btn" onclick="addToCart('${docSnap.id}')">Buy</button>
-      </div>`;
+        <div class="col-4">
+          <a href="product-detail.html?id=${docSnap.id}">
+            <img src="${p.image}" alt="${p.name}">
+            <h4>${p.name}</h4>
+          </a>
+          <p>₹${p.price}</p>
+          <button class="btn" onclick="addToCart('${docSnap.id}')">Buy</button>
+        </div>`;
     });
   }, err => console.error(err));
 }
@@ -105,12 +106,13 @@ loadProducts(collection(db, "products"));
 
 // Sorting
 sort.onchange = () => {
-  if (sort.value === "price")
+  if (sort.value === "price") {
     loadProducts(query(collection(db,"products"), orderBy("price","asc")));
-  else if (sort.value === "latest")
+  } else if (sort.value === "latest") {
     loadProducts(query(collection(db,"products"), orderBy("createdAt","desc")));
-  else
+  } else {
     loadProducts(collection(db,"products"));
+  }
 };
 
 // Add to cart
@@ -120,11 +122,27 @@ window.addToCart = async (id) => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const p = docSnap.data();
+
+      // Check if product already in cart
+      const cartQuery = query(collection(db, "cart"));
+      let alreadyInCart = false;
+      onSnapshot(cartQuery, snapshot => {
+        snapshot.forEach(cartDoc => {
+          if(cartDoc.data().name === p.name) alreadyInCart = true;
+        });
+      });
+
+      if(alreadyInCart){
+        alert("Product already in cart!");
+        return;
+      }
+
       await addDoc(collection(db, "cart"), {
         name: p.name,
         price: p.price,
         image: p.image,
-        quantity: 1
+        quantity: 1,
+        addedAt: new Date()
       });
       alert("Product added to cart!");
     }
