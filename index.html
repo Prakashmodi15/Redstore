@@ -1,93 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Products - RedStore</title>
-<link rel="stylesheet" href="CSS/style.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body style="font-family: 'Poppins', sans-serif;">
+<html lang = "en">
 
-<!-- ===== STEP 2: HEADER & NAVBAR (A.html Style) ===== -->
-<header>
-  <div class="container">
-    <div class="navbar d-flex justify-content-between align-items-center py-2">
-      <!-- Logo -->
-      <div class="logo">
-        <a href="index.html">
-          <img src="https://i.ibb.co/YBzZvPSs/logo-white.png" width="125px" alt="Red Shop Logo">
-        </a>
-      </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--we have added this view port tag and set initial scale to 1 so that our side shoudl be adjustable according to different devices especially for mobile devices-->
+        <title>RedStore | The #1 Ecommerce Website </title>
+        <link rel="stylesheet" href="CSS/style.css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"><!--poppins font from google fonts website then select popping select some types and then embed-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"><!--link to connect to font awesome 4 to use different icons, just type font awesome 4 cdn and click on first link and copy the url and past it here with rel="stylesheet"-->
+    </head>
 
-      <!-- Menu Items -->
-      <nav>
-        <ul id="MenuItems" class="d-flex gap-4 list-unstyled mb-0 align-items-center">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="products.html" class="active">Products</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="account.html">Account</a></li>
-          <li>
-            <a href="cart.html">
-              <img src="https://i.ibb.co/0RP5K2Hg/cart.png" alt="Cart" width="25px">
-            </a>
-          </li>
-        </ul>
-      </nav>
+<body         <!--making header-->
+    <div class="header">
+        <div class="container">
+
+            <!--making navigation bar consist of logo and menu links-->
+            <div class="navbar">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" alt="RedStore logo" width=125px></a>
+                </div>
+    
+                <!--menu-->
+                 <nav> 
+                    <ul id="MenuItems"><!--use this id in js-->                   
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="Products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="account.html">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html"><img src="images/cart.png" alt="cart" width=30px height=30px></a><!--adding cart image in navigation section -->
+                <img src="images/menu.png" class="menu-icon" onclick="menutoggle()"><!--this is the menu icon which  will be displayed on smaller screens with 3 lines, and when we click on it, it will open upside down or like dropdown menu, to open like this we have pass one menutoggle function to it which we have written in the end in js-->
+            </div>
+
+        
+            <!--making another section in header class container-->
+            <div class="row">
+
+                <!--dividing this section into 2 columns-->
+                <!--1st column for heading button and text-->
+                <div class="col-2">
+                    <h1>Give Your Workout<br>A New Style!</h1>
+                    <p>Success isn't always about greatness. It's about consistency.
+                    Consistent <br>hard work gains success. Greatness will come.
+                    </p>
+                    <a href="" class="btn">Explore Now &#8594;</a><!--where &#8594 is the code of arrow icon in explore now button-->
+                </div>
+
+                <!--2nd for image-->
+                <div class="col-2">
+                    <img src="images/image1.png" alt="header image">
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>
- <!-- ===== STEP 3: HERO SECTION (A.html Style with Background) ===== -->
-<section class="hero bg-dark py-5">
-  <div class="container">
-    <div class="row align-items-center">
-      <!-- left -->
-      <div class="col-md-6">...</div>
 
-      <!-- right -->
-     <div class="col-md-6 text-center">
-  <img
-    id="heroImg"
-    src="https://i.ibb.co/gZKrh7Jc/image1.png"
-    class="img-fluid"
-    alt="Hero Image"
-  >
-</div>
-    </div>
-  </div>
-</section><!-- ===== STEP 4: CATEGORIES SECTION ===== -->
-<!-- ===== CATEGORIES SECTION ===== -->
-<section class="categories py-5">
+    <!-- ===== STEP 4: CATEGORIES SECTION ===== -->
+<section class="py-5">
     <div class="container">
-        <h2 class="text-center fw-bold mb-5">Shop by Categories</h2>
+
+        <h2 class="text-center fw-bold mb-5">
+            Shop by Categories
+        </h2>
+
         <div class="row g-4">
 
             <!-- Category 1 -->
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="cat1" src="https://i.ibb.co/SXS63KHd/category-1.jpg" class="card-img-top" alt="Category 1">
-                    <div class="card-body">
-                        <h5 id="catTitle1">Category One</h5>
+                <div class="card border-0 shadow-sm">
+                    <img id="cat1" src="images/cat1.jpg" class="card-img-top" alt="Category 1">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Category One</h5>
                     </div>
                 </div>
             </div>
 
             <!-- Category 2 -->
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="cat2" src="https://i.ibb.co/4cyCwk6/category-2.jpg" class="card-img-top" alt="Category 2">
-                    <div class="card-body">
-                        <h5 id="catTitle2">Category Two</h5>
+                <div class="card border-0 shadow-sm">
+                    <img id="cat2" src="images/cat2.jpg" class="card-img-top" alt="Category 2">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Category Two</h5>
                     </div>
                 </div>
             </div>
 
             <!-- Category 3 -->
             <div class="col-md-4">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="cat3" src="https://i.ibb.co/V02XzKcT/category-3.jpg" class="card-img-top" alt="Category 3">
-                    <div class="card-body">
-                        <h5 id="catTitle3">Category Three</h5>
+                <div class="card border-0 shadow-sm">
+                    <img id="cat3" src="images/cat3.jpg" class="card-img-top" alt="Category 3">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Category Three</h5>
                     </div>
                 </div>
             </div>
@@ -95,305 +100,6 @@
         </div>
     </div>
 </section>
-<!-- ===== FEATURED PRODUCTS SECTION ===== -->
-<section id="featured-products" class="py-5 bg-light">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5">Featured Products</h2>
-
-        <!-- Carousel -->
-        <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" id="carouselInner">
-                <!-- Firebase se yahan slides inject honge -->
-            </div>
-
-            <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
-            </button>
-        </div>
-    </div>
-</section>
-<!-- ===== TESTIMONIALS SECTION ===== -->
-<section class="py-5 bg-white">
-    <div class="container">
-        <div class="row">
-
-            <!-- Testimonial 1 -->
-            <div class="col-3 text-center">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="https://i.ibb.co/LzGYNQ8Q" class="rounded-circle" width="100" height="100" alt="User 1">
-                <h3>Sean Parker</h3>
-            </div>
-
-            <!-- Testimonial 2 -->
-            <div class="col-3 text-center">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="https://i.ibb.co/YFfZ6tf8" class="rounded-circle" width="100" height="100" alt="User 2">
-                <h3>Mike Smith</h3>
-            </div>
-
-            <!-- Testimonial 3 -->
-            <div class="col-3 text-center">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="https://i.ibb.co/GQfFxMdf" class="rounded-circle" width="100" height="100" alt="User 3">
-                <h3>Mable Joe</h3>
-            </div>
-
-            <!-- Testimonial 4 -->
-            <div class="col-3 text-center">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="https://i.ibb.co/bMFz6CHK" class="rounded-circle" width="100" height="100" alt="User 4">
-                <h3>Anna Lee</h3>
-            </div>
-
-            <!-- Testimonial 5 -->
-            <div class="col-3 text-center">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="https://i.ibb.co/ccgV4wJJ" class="rounded-circle" width="100" height="100" alt="User 5">
-                <h3>John Doe</h3>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ===== BRANDS SECTION ===== -->
-<section class="brands py-5 bg-light">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-4">Our Trusted Brands</h2>
-        <div class="row justify-content-center align-items-center g-3">
-            <div class="col-4 col-md-2"><img src="https://i.ibb.co/Q7jkYPc2/buy-1.jpg" class="img-fluid" alt="Brand 1"></div>
-            <div class="col-4 col-md-2"><img src="https://i.ibb.co/nsv8SRB2/buy-2.jpg" class="img-fluid" alt="Brand 2"></div>
-            <div class="col-4 col-md-2"><img src="https://i.ibb.co/7JgTFJ58/buy-3.jpg" class="img-fluid" alt="Brand 3"></div>
-            <div class="col-4 col-md-2"><img src="https://i.ibb.co/YFpwDTDF/product-4.jpg" class="img-fluid" alt="Brand 4"></div>
-            <div class="col-4 col-md-2"><img src="https://i.ibb.co/Q7jkYPc2/buy-1.jpg" class="img-fluid" alt="Brand 5"></div>
-        </div>
-    </div>
-</section>
-  <!-- ===== FOOTER ===== -->
-<footer class="footer py-4 bg-dark text-white">
-    <div class="container">
-        <div class="row">
-
-            <!-- Footer Column 1: App Download -->
-            <div class="col-md-3">
-                <h5>Download Our App</h5>
-                <p>Download App for Android and iOS mobile phone.</p>
-                <div class="app-logo">
-                    <a href="download.html">
-                        <img id="playStoreImg" src="https://ibb.co/V0vWbzg8" alt="Play Store" style="width:100px;">
-                    </a>
-                    <a href="download.html">
-                        <img id="appStoreImg" src="https://ibb.co/kv9FTS4" alt="App Store" style="width:100px;">
-                    </a>
-                </div>
-            </div>
-
-            <!-- Footer Column 2: Logo & Description -->
-            <div class="col-md-3 text-center">
-                <img id="footerLogo" src="https://ibb.co/k6P2c03K" alt="RedStore Logo" style="width:125px;">
-                <p id="footerDesc" class="mt-2">
-                    Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.
-                </p>
-            </div>
-
-            <!-- Footer Column 3: Useful Links -->
-            <div class="col-md-3">
-                <h5>Useful Links</h5>
-                <ul id="usefulLinks">
-                    <li>Coupons</li>
-                    <li>Blog Post</li>
-                    <li>Return Policy</li>
-                    <li>Join Affiliate</li>
-                </ul>
-            </div>
-
-            <!-- Footer Column 4: Social Media -->
-            <div class="col-md-3">
-                <h5>Follow Us</h5>
-                <ul id="socialLinks">
-                    <li>Facebook</li>
-                    <li>Twitter</li>
-                    <li>Instagram</li>
-                    <li>Youtube</li>
-                </ul>
-            </div>
-
-        </div>
-
-        <hr class="bg-white">
-        <p class="text-center" id="copyright">
-            © 2025 Your Company. All rights reserved.
-        </p>
-    </div>
-</footer>
-
-<!-- Firebase script for Footer -->
-
-        if(f){
-            document.getElementById('footerLogo').src = f.logo || 'https://ibb.co/k6P2c03K';
-            document.getElementById('footerDesc').innerText = f.text || 'Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.';
-            document.getElementById('playStoreImg').src = f.playStore || 'https://ibb.co/V0vWbzg8';
-            document.getElementById('appStoreImg').src = f.appStore || 'https://ibb.co/kv9FTS4';
-            
-            const links = f.usefulLinks || ["Coupons", "Blog Post", "Return Policy", "Join Affiliate"];
-            const usefulLinksEl = document.getElementById('usefulLinks');
-            usefulLinksEl.innerHTML = '';
-            links.forEach(link => {
-                const li = document.createElement('li');
-                li.innerText = link;
-                usefulLinksEl.appendChild(li);
-            });
-
-            const social = f.socialLinks || ["Facebook","Twitter","Instagram","Youtube"];
-            const socialLinksEl = document.getElementById('socialLinks');
-            socialLinksEl.innerHTML = '';
-            social.forEach(s => {
-                const li = document.createElement('li');
-                li.innerText = s;
-                socialLinksEl.appendChild(li);
-            });
-
-            document.getElementById('copyright').innerText = f.copyright || '© 2025 Your Company. All rights reserved.';
-        }
-    });
-  
-<script>
-/* ===== Firebase Config ===== */
-   = {
-    apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
-    authDomain: "myshop-1dbc9.firebaseapp.com",
-    databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
-    projectId: "myshop-1dbc9",
-    storageBucket: "myshop-1dbc9.appspot.com",
-    messagingSenderId: "81466489688",
-    appId: "1:81466489688:web:e225da8670b2314dd1432d"
-};
-/* ===== Hero Section ===== */
-db.ref('hero').on('value', snap => {
-    const h = snap.val();
-    if(h){
-       // document.getElementById('heroImg').src = h.img || "";
-      //  document.getElementById('heroHeading').innerText = h.heading || "";
-        //document.getElementById('heroSubheading').innerText = h.subheading || "";
-    }
-});
-
-/* ===== Categories ===== */
-db.ref('categories').on('value', snap => {
-    const c = snap.val();
-    if(c){
-        document.getElementById('cat1').src = c.cat1 || "";
-        document.getElementById('cat2').src = c.cat2 || "";
-        document.getElementById('cat3').src = c.cat3 || "";
-    }
-});
-
-/* ===== Products (Featured & Latest) ===== */
-db.ref('products').on('value', snap => {
-    const p = snap.val();
-    if(p){
-        for(let i=1;i<=12;i++){
-            const prod = p[`prod${i}`];
-            if(prod){
-                document.getElementById(`prod${i}Img`).src = prod.img || "";
-                document.getElementById(`prod${i}Title`).innerText = prod.title || "";
-                document.getElementById(`prod${i}Price`).innerText = "$" + (prod.price || "0");
-            }
-        }
-    }
-});
-
-/* ===== Offer ===== */
-db.ref('offer').on('value', snap => {
-    const o = snap.val();
-    if(o){
-        document.getElementById('offerImg').src = o.img || "";
-        document.getElementById('offerTitle').innerText = o.title || "";
-        document.getElementById('offerDesc').innerText = o.desc || "";
-        document.getElementById('offerBtnText').innerText = o.btnText || "";
-        document.getElementById('offerBtnUrl').href = o.btnUrl || "#";
-    }
-});
-
-/* ===== Testimonials ===== */
-db.ref('testimonials').on('value', snap => {
-    const t = snap.val();
-    if(t){
-        for(let i=1;i<=5;i++){
-            document.getElementById(`testImg${i}`).src = t[`user${i}`].img || "";
-            document.getElementById(`testUser${i}`).innerText = t[`user${i}`].name || "";
-            document.getElementById(`testComment${i}`).innerText = t[`user${i}`].comment || "";
-        }
-    }
-});
-
-/* ===== Brands ===== */
-db.ref('brands').on('value', snap => {
-    const b = snap.val();
-    if(b){
-        for(let i=1;i<=5;i++){
-            document.getElementById(`brandImg${i}`).src = b[`brand${i}`] || "";
-        }
-    }
-});
-
-/* ===== Footer ===== */
-db.ref('footer').on('value', snap => {
-    const f = snap.val();
-    if(f){
-        document.getElementById('footerLogo').src = f.logo || "";
-        document.getElementById('footerText').innerText = f.text || "";
-        document.getElementById('playStore').src = f.playStore || "";
-        document.getElementById('appStore').src = f.appStore || "";
-        document.getElementById('playStore').parentElement.href = "download.html";
-        document.getElementById('appStore').parentElement.href = "download.html";
-    }
-});
-</script>
     <!-- ===== STEP 5: FEATURED PRODUCTS ===== -->
 <section id="featured-products" class="py-5 bg-light">
     <div class="container">
@@ -447,7 +153,7 @@ db.ref('footer').on('value', snap => {
                     <div class="card-body">
                         <h5 id="fprodTitle4">Product Four</h5>
                         <p id="fprodPrice4" class="fw-bold text-danger">₹1299</p>
-                       <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -583,7 +289,8 @@ db.ref('footer').on('value', snap => {
         </div>
     </div>
 </section>
- <!-- ===== STEP 9: BRANDS ===== -->
+
+    <!-- ===== STEP 9: BRANDS ===== -->
 <section class="py-5 bg-light">
     <div class="container">
 
@@ -625,12 +332,13 @@ db.ref('footer').on('value', snap => {
         <p id="footerText">© 2025 Your Company. All rights reserved.</p>
     </div>
 </footer>
-<!-- Firebase SDK (ONLY ONCE) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-  const firebaseConfig = {
+/* ===== Firebase Config ===== */
+const firebaseConfig = {
     apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
     authDomain: "myshop-1dbc9.firebaseapp.com",
     databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
@@ -638,13 +346,87 @@ db.ref('footer').on('value', snap => {
     storageBucket: "myshop-1dbc9.appspot.com",
     messagingSenderId: "81466489688",
     appId: "1:81466489688:web:e225da8670b2314dd1432d"
-  };
+};
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  /* SAFE MODE – abhi editable OFF */
+/* ===== Categories ===== */
+db.ref('categories').on('value', snap => {
+    const d = snap.val();
+    if(d){
+        cat1.src = d.cat1 || "";
+        cat2.src = d.cat2 || "";
+        cat3.src = d.cat3 || "";
+    }
+});
+
+/* ===== Featured Products ===== */
+db.ref('featuredProducts').on('value', snap => {
+    const p = snap.val();
+    if(p){
+        for(let i=1;i<=4;i++){
+            document.getElementById(`fprodImg${i}`).src = p[`prod${i}`].img || "";
+            document.getElementById(`fprodTitle${i}`).innerText = p[`prod${i}`].title || "";
+            document.getElementById(`fprodPrice${i}`).innerText = p[`prod${i}`].price || "";
+        }
+    }
+});
+
+/* ===== Latest Products ===== */
+db.ref('latestProducts').on('value', snap => {
+    const p = snap.val();
+    if(p){
+        for(let i=1;i<=4;i++){
+            document.getElementById(`lprodImg${i}`).src = p[`prod${i}`].img || "";
+            document.getElementById(`lprodTitle${i}`).innerText = p[`prod${i}`].title || "";
+            document.getElementById(`lprodPrice${i}`).innerText = p[`prod${i}`].price || "";
+        }
+    }
+});
+
+/* ===== Offer ===== */
+db.ref('offer').on('value', snap => {
+    const o = snap.val();
+    if(o){
+        offerImg.src = o.img || "";
+        offerTitle.innerText = o.title || "";
+        offerDesc.innerText = o.desc || "";
+        offerBtnText.innerText = o.btnText || "";
+        offerBtnUrl.href = o.btnUrl || "#";
+    }
+});
+
+/* ===== Testimonials ===== */
+db.ref('testimonials').on('value', snap => {
+    const t = snap.val();
+    if(t){
+        for(let i=1;i<=3;i++){
+            document.getElementById(`testImg${i}`).src = t[`user${i}`].img || "";
+            document.getElementById(`testUser${i}`).innerText = t[`user${i}`].name || "";
+            document.getElementById(`testComment${i}`).innerText = t[`user${i}`].comment || "";
+        }
+    }
+});
+
+/* ===== Brands ===== */
+db.ref('brands').on('value', snap => {
+    const b = snap.val();
+    if(b){
+        for(let i=1;i<=5;i++){
+            document.getElementById(`brandImg${i}`).src = b[`brand${i}`] || "";
+        }
+    }
+});
+
+/* ===== Footer ===== */
+db.ref('footer').on('value', snap => {
+    const f = snap.val();
+    if(f){
+        footerText.innerText = f.text || "";
+    }
+});
 </script>
-</body>
+    </body>
 </html>
     
