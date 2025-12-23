@@ -99,25 +99,12 @@
 </div>
 
 <!-- ================= MENU TOGGLE ================= -->
-<script>
-    var MenuItems = document.getElementById("MenuItems");
-    MenuItems.style.maxHeight = "0px";
-
-    function menutoggle() {
-        if (MenuItems.style.maxHeight === "0px") {
-            MenuItems.style.maxHeight = "200px";
-        } else {
-            MenuItems.style.maxHeight = "0px";
-        }
-    }
 <script type="module">
 import { initializeApp } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, onSnapshot, query, orderBy }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import { getFirestore, collection, onSnapshot } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-/* ===== FIREBASE CONFIG ===== */
 const firebaseConfig = {
   apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
   authDomain: "myshop-1dbc9.firebaseapp.com",
@@ -129,26 +116,39 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 const productList = document.getElementById("product-list");
+const sortSelect = document.querySelector("select");
 
-/* ===== REAL-TIME LISTENER ===== */
-onSnapshot(collection(db, "products"), (snapshot) => {
+let currentQuery = collection(db,"products");
 
-  productList.innerHTML = ""; // clear old products
-
-  snapshot.forEach(doc => {
-    const p = doc.data();
-
-    productList.innerHTML += `
-      <div class="col-4">
-        <img src="${p.image}">
-        <h4>${p.name}</h4>
-        <p>₹${p.price}</p>
-      </div>
-    `;
+function load(q){
+  onSnapshot(q,snap=>{
+    productList.innerHTML="";
+    snap.forEach(d=>{
+      const p=d.data();
+      productList.innerHTML+=`
+        <div class="col-4">
+          <img src="${p.image}">
+          <h4>${p.name}</h4>
+          <p>₹${p.price}</p>
+        </div>
+      `;
+    });
   });
+}
 
+load(currentQuery);
+
+sortSelect.addEventListener("change",()=>{
+  if(sortSelect.value==="Sort by Price"){
+    load(query(collection(db,"products"),orderBy("price","asc")));
+  }
+  else if(sortSelect.value==="Sort by Latest"){
+    load(query(collection(db,"products"),orderBy("createdAt","desc")));
+  }
+  else{
+    load(collection(db,"products"));
+  }
 });
 </script>
 
