@@ -38,32 +38,24 @@
     </div>
   </div>
  <!-- ===== STEP 3: HERO SECTION (A.html Style with Background) ===== -->
-<section class="hero-section py-5" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/gZKrh7Jc/image1.png') no-repeat center center; background-size: cover; color: #fff;">
+<section class="hero bg-dark py-5">
   <div class="container">
     <div class="row align-items-center">
+      <!-- left -->
+      <div class="col-md-6">...</div>
 
-      <!-- Left Content -->
-      <div class="col-md-6">
-        <h1 class="fw-bold mb-3" style="color: #fff;">
-          Give Your Workout <br> A New Style!
-        </h1>
-        <p class="text-light mb-4">
-          Success isn't always about greatness. It's about consistency.
-          Consistent hard work gains success. Greatness will come.
-        </p>
-        <a href="products.html" class="btn btn-danger px-4 py-2">
-          Explore Now →
-        </a>
-      </div>
-
-      <!-- Right Image -->
-      <div class="col-md-6 text-center">
-        <img src="https://i.ibb.co/gZKrh7Jc/image1.png" class="img-fluid" alt="Hero Image">
-      </div>
-
+      <!-- right -->
+     <div class="col-md-6 text-center">
+  <img
+    id="heroImg"
+    src="https://i.ibb.co/gZKrh7Jc/image1.png"
+    class="img-fluid"
+    alt="Hero Image"
+  >
+</div>
     </div>
   </div>
-</section>   <!-- ===== STEP 4: CATEGORIES SECTION ===== -->
+</section><!-- ===== STEP 4: CATEGORIES SECTION ===== -->
 <!-- ===== CATEGORIES SECTION ===== -->
 <section class="categories py-5">
     <div class="container">
@@ -125,7 +117,7 @@
     </div>
 </section>
 <!-- ===== TESTIMONIALS SECTION ===== -->
-<section class="testimonial py-5">
+<section class="py-5 bg-white">
     <div class="container">
         <div class="row">
 
@@ -280,11 +272,7 @@
 </footer>
 
 <!-- Firebase script for Footer -->
-<script>
-    const footerRef = db.ref('footer');
-    
-    footerRef.on('value', snap => {
-        const f = snap.val();
+
         if(f){
             document.getElementById('footerLogo').src = f.logo || 'https://ibb.co/k6P2c03K';
             document.getElementById('footerDesc').innerText = f.text || 'Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.';
@@ -313,14 +301,9 @@
         }
     });
   
-<!-- Firebase Script for Categories -->
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
 <script>
 /* ===== Firebase Config ===== */
-const firebaseConfig = {
+   = {
     apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
     authDomain: "myshop-1dbc9.firebaseapp.com",
     databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
@@ -329,17 +312,13 @@ const firebaseConfig = {
     messagingSenderId: "81466489688",
     appId: "1:81466489688:web:e225da8670b2314dd1432d"
 };
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
 /* ===== Hero Section ===== */
 db.ref('hero').on('value', snap => {
     const h = snap.val();
     if(h){
-        document.getElementById('heroImg').src = h.img || "";
-        document.getElementById('heroHeading').innerText = h.heading || "";
-        document.getElementById('heroSubheading').innerText = h.subheading || "";
+       // document.getElementById('heroImg').src = h.img || "";
+      //  document.getElementById('heroHeading').innerText = h.heading || "";
+        //document.getElementById('heroSubheading').innerText = h.subheading || "";
     }
 });
 
@@ -468,7 +447,7 @@ db.ref('footer').on('value', snap => {
                     <div class="card-body">
                         <h5 id="fprodTitle4">Product Four</h5>
                         <p id="fprodPrice4" class="fw-bold text-danger">₹1299</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+                       <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
                     </div>
                 </div>
             </div>
@@ -604,43 +583,7 @@ db.ref('footer').on('value', snap => {
         </div>
     </div>
 </section>
-    <!-- ===== STEP 9: BRANDS ===== -->
-<section class="py-5 bg-light">
-    <div class="container">
-
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Our Trusted Brands</h2>
-            <p class="text-muted">
-                We work with the best brands in the market
-            </p>
-        </div>
-
-        <div class="row justify-content-center align-items-center">
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg1" src="images/brand1.png" class="img-fluid" alt="Brand 1">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg2" src="images/brand2.png" class="img-fluid" alt="Brand 2">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg3" src="images/brand3.png" class="img-fluid" alt="Brand 3">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg4" src="images/brand4.png" class="img-fluid" alt="Brand 4">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg5" src="images/brand5.png" class="img-fluid" alt="Brand 5">
-            </div>
-
-        </div>
-    </div>
-</section>
-    <!-- ===== STEP 9: BRANDS ===== -->
+ <!-- ===== STEP 9: BRANDS ===== -->
 <section class="py-5 bg-light">
     <div class="container">
 
@@ -682,13 +625,12 @@ db.ref('footer').on('value', snap => {
         <p id="footerText">© 2025 Your Company. All rights reserved.</p>
     </div>
 </footer>
-    <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- Firebase SDK (ONLY ONCE) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <script>
-/* ===== Firebase Config ===== */
-const firebaseConfig = {
+  const firebaseConfig = {
     apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
     authDomain: "myshop-1dbc9.firebaseapp.com",
     databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
@@ -696,87 +638,13 @@ const firebaseConfig = {
     storageBucket: "myshop-1dbc9.appspot.com",
     messagingSenderId: "81466489688",
     appId: "1:81466489688:web:e225da8670b2314dd1432d"
-};
+  };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
-/* ===== Categories ===== */
-db.ref('categories').on('value', snap => {
-    const d = snap.val();
-    if(d){
-        cat1.src = d.cat1 || "";
-        cat2.src = d.cat2 || "";
-        cat3.src = d.cat3 || "";
-    }
-});
-
-/* ===== Featured Products ===== */
-db.ref('featuredProducts').on('value', snap => {
-    const p = snap.val();
-    if(p){
-        for(let i=1;i<=4;i++){
-            document.getElementById(`fprodImg${i}`).src = p[`prod${i}`].img || "";
-            document.getElementById(`fprodTitle${i}`).innerText = p[`prod${i}`].title || "";
-            document.getElementById(`fprodPrice${i}`).innerText = p[`prod${i}`].price || "";
-        }
-    }
-});
-
-/* ===== Latest Products ===== */
-db.ref('latestProducts').on('value', snap => {
-    const p = snap.val();
-    if(p){
-        for(let i=1;i<=4;i++){
-            document.getElementById(`lprodImg${i}`).src = p[`prod${i}`].img || "";
-            document.getElementById(`lprodTitle${i}`).innerText = p[`prod${i}`].title || "";
-            document.getElementById(`lprodPrice${i}`).innerText = p[`prod${i}`].price || "";
-        }
-    }
-});
-
-/* ===== Offer ===== */
-db.ref('offer').on('value', snap => {
-    const o = snap.val();
-    if(o){
-        offerImg.src = o.img || "";
-        offerTitle.innerText = o.title || "";
-        offerDesc.innerText = o.desc || "";
-        offerBtnText.innerText = o.btnText || "";
-        offerBtnUrl.href = o.btnUrl || "#";
-    }
-});
-
-/* ===== Testimonials ===== */
-db.ref('testimonials').on('value', snap => {
-    const t = snap.val();
-    if(t){
-        for(let i=1;i<=3;i++){
-            document.getElementById(`testImg${i}`).src = t[`user${i}`].img || "";
-            document.getElementById(`testUser${i}`).innerText = t[`user${i}`].name || "";
-            document.getElementById(`testComment${i}`).innerText = t[`user${i}`].comment || "";
-        }
-    }
-});
-
-/* ===== Brands ===== */
-db.ref('brands').on('value', snap => {
-    const b = snap.val();
-    if(b){
-        for(let i=1;i<=5;i++){
-            document.getElementById(`brandImg${i}`).src = b[`brand${i}`] || "";
-        }
-    }
-});
-
-/* ===== Footer ===== */
-db.ref('footer').on('value', snap => {
-    const f = snap.val();
-    if(f){
-        footerText.innerText = f.text || "";
-    }
-});
+  /* SAFE MODE – abhi editable OFF */
 </script>
-    </body>
+</body>
 </html>
     
