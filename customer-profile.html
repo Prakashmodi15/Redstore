@@ -129,12 +129,67 @@
   </div>
 </div>
 
-<script>
-function logout(){
-  if(confirm("Logout from account?")){
-    location.href="account.html";
-  }
-}
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+import { getAuth, onAuthStateChanged }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
+ getFirestore,
+ doc,
+ getDoc,
+ setDoc
+} from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+ authDomain:"myshop-1dbc9.firebaseapp.com",
+ projectId:"myshop-1dbc9",
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+onAuthStateChanged(auth, async(user)=>{
+ if(!user){
+  location.href="account.html";
+  return;
+ }
+
+ const ref = doc(db,"users",user.uid);
+ const snap = await getDoc(ref);
+
+ if(snap.exists()){
+  const d = snap.data();
+  name.value = d.name || "";
+  email.value = d.email || "";
+  mobile.value = d.mobile || "";
+  address.value = d.address || "";
+ }
+});
+
+/* SAVE / UPDATE PROFILE */
+window.saveProfile = async()=>{
+ const user = auth.currentUser;
+ if(!user) return;
+
+ await setDoc(
+  doc(db,"users",user.uid),
+  {
+   name: name.value,
+   mobile: mobile.value,
+   address: address.value,
+   updatedAt: new Date()
+  },
+  { merge:true } // 🔥 MOST IMPORTANT
+ );
+
+ alert("Profile Saved ✅");
+};
 </script>
 
 </body>
