@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account | RedStore</title>
+
+<link rel="stylesheet" href="CSS/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.account-box{
+  background:#fff;
+  border-radius:14px;
+  padding:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom:40px;
+}
+.account-box h3{
+  margin-bottom:20px;
+  font-weight:600;
+}
+.account-box input, .account-box textarea{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  margin-bottom:12px;
+}
+.order-card{
+  border-radius:12px;
+  padding:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.logout-btn{
+  background:#222;
+}
+.logout-btn:hover{
+  background:#ff523b;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo.png" width="125px"></a>
+      </div>
+
+      <nav>
+        <ul id="MenuItems">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="customer-profile.html">Account</a></li>
+        </ul>
+      </nav>
+
+      <a href="cart.html"><img src="images/cart.png" width="30px"></a>
+      <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="small container">
+
+  <!-- 1 -->
+  <div class="account-box">
+    <h3><i class="fa fa-user"></i> Profile Details</h3>
+    <div class="row">
+      <div class="col-2">
+        <img src="images/user-1.png" style="width:180px;border-radius:50%">
+      </div>
+      <div class="col-2">
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email">
+        <input type="text" placeholder="Mobile">
+        <textarea rows="3" placeholder="Address"></textarea>
+        <a class="btn">Save Changes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="account-box">
+    <h3><i class="fa fa-shopping-bag"></i> My Orders</h3>
+    <div class="row">
+      <div class="col-4 order-card">
+        <img src="images/product-1.jpg">
+        <h4>Red Printed T-Shirt</h4>
+        <p>₹499</p>
+        <small>Status: <b style="color:green">Delivered</b></small>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="account-box">
+    <h3><i class="fa fa-map-marker"></i> Saved Address</h3>
+    <p>
+      Prakash Modi<br>
+      Raniwara, Rajasthan<br>
+      India – 343040
+    </p>
+    <a class="btn">Edit Address</a>
+  </div>
+
+  <!-- 4 -->
+  <div class="account-box" style="text-align:center">
+    <a onclick="logout()" class="btn logout-btn">
+      <i class="fa fa-sign-out"></i> Logout
+    </a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="container">
+    <hr>
+    <p class="copyright">
+      © 2025 RedStore
+    </p>
+  </div>
+</div>
+
+<script>
+function logout(){
+  if(confirm("Logout from account?")){
+    location.href="account.html";
+  }
+}
+</script>
+
+</body>
+</html>
