@@ -20,6 +20,7 @@
 .account-box h3{
   margin-bottom:20px;
   font-weight:600;
+  font-size:20px;
 }
 .account-box input, .account-box textarea{
   width:100%;
@@ -27,21 +28,49 @@
   border-radius:8px;
   border:1px solid #ddd;
   margin-bottom:12px;
+  font-size:14px;
+}
+.account-box input:disabled{
+  background:#f3f3f3;
 }
 .order-card{
   border-radius:12px;
   padding:15px;
   box-shadow:0 6px 18px rgba(0,0,0,.08);
+  margin-bottom:12px;
 }
 .logout-btn{
   background:#222;
+  color:#fff;
+  padding:12px 25px;
+  border-radius:8px;
+  text-decoration:none;
 }
 .logout-btn:hover{
   background:#ff523b;
+  color:#fff;
+}
+.btn{
+  background:#ff523b;
+  color:#fff;
+  padding:10px 25px;
+  border-radius:8px;
+  text-decoration:none;
+  cursor:pointer;
+  display:inline-block;
+}
+.btn:hover{
+  background:#ff784f;
+}
+.profile-img{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:12px;
 }
 </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
@@ -51,7 +80,6 @@
       <div class="logo">
         <a href="index.html"><img src="images/logo.png" width="125px"></a>
       </div>
-
       <nav>
         <ul id="MenuItems">
           <li><a href="index.html">Home</a></li>
@@ -59,7 +87,6 @@
           <li><a href="customer-profile.html">Account</a></li>
         </ul>
       </nav>
-
       <a href="cart.html"><img src="images/cart.png" width="30px"></a>
       <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
     </div>
@@ -69,27 +96,28 @@
 <!-- PROFILE -->
 <div class="small container">
 
-  <!-- 1 -->
+  <!-- 1. Profile Details -->
   <div class="account-box">
     <h3><i class="fa fa-user"></i> Profile Details</h3>
     <div class="row">
       <div class="col-2">
-        <img src="images/user-1.png" style="width:180px;border-radius:50%">
+        <img id="profileImg" src="images/user-1.png" class="profile-img">
+        <input type="file" id="profileUpload">
       </div>
       <div class="col-2">
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="text" placeholder="Mobile">
-        <textarea rows="3" placeholder="Address"></textarea>
-        <a class="btn">Save Changes</a>
+        <input type="text" id="name" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email" disabled>
+        <input type="text" id="mobile" placeholder="Mobile">
+        <textarea id="address" rows="3" placeholder="Address"></textarea>
+        <a class="btn" onclick="saveProfile()">Save Changes</a>
       </div>
     </div>
   </div>
 
-  <!-- 2 -->
+  <!-- 2. My Orders -->
   <div class="account-box">
     <h3><i class="fa fa-shopping-bag"></i> My Orders</h3>
-    <div class="row">
+    <div class="row" id="ordersContainer">
       <div class="col-4 order-card">
         <img src="images/product-1.jpg">
         <h4>Red Printed T-Shirt</h4>
@@ -99,18 +127,14 @@
     </div>
   </div>
 
-  <!-- 3 -->
+  <!-- 3. Saved Address -->
   <div class="account-box">
     <h3><i class="fa fa-map-marker"></i> Saved Address</h3>
-    <p>
-      Prakash Modi<br>
-      Raniwara, Rajasthan<br>
-      India – 343040
-    </p>
-    <a class="btn">Edit Address</a>
+    <p id="savedAddress">Loading address...</p>
+    <a class="btn" onclick="editAddress()">Edit Address</a>
   </div>
 
-  <!-- 4 -->
+  <!-- 4. Logout -->
   <div class="account-box" style="text-align:center">
     <a onclick="logout()" class="btn logout-btn">
       <i class="fa fa-sign-out"></i> Logout
@@ -123,72 +147,102 @@
 <div class="footer">
   <div class="container">
     <hr>
-    <p class="copyright">
-      © 2025 RedStore
-    </p>
+    <p class="copyright">© 2025 RedStore</p>
   </div>
 </div>
 
+<!-- MENU TOGGLE -->
+<script>
+var MenuItems=document.getElementById("MenuItems");
+MenuItems.style.maxHeight="0px";
+function menutoggle(){
+  MenuItems.style.maxHeight = MenuItems.style.maxHeight=="0px"?"200px":"0px";
+}
+</script>
+
+<!-- FIREBASE -->
 <script type="module">
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import { getAuth, onAuthStateChanged }
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-import {
- getFirestore,
- doc,
- getDoc,
- setDoc
-} from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig={
  apiKey:"AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
  authDomain:"myshop-1dbc9.firebaseapp.com",
  projectId:"myshop-1dbc9",
+ storageBucket:"myshop-1dbc9.appspot.com"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const mobileInput = document.getElementById("mobile");
+const addressInput = document.getElementById("address");
+const savedAddress = document.getElementById("savedAddress");
+const profileImg = document.getElementById("profileImg");
+const profileUpload = document.getElementById("profileUpload");
+
+// Auto fill profile
 onAuthStateChanged(auth, async(user)=>{
- if(!user){
-  location.href="account.html";
-  return;
- }
-
+ if(!user){ location.href="account.html"; return; }
  const ref = doc(db,"users",user.uid);
  const snap = await getDoc(ref);
 
  if(snap.exists()){
   const d = snap.data();
-  name.value = d.name || "";
-  email.value = d.email || "";
-  mobile.value = d.mobile || "";
-  address.value = d.address || "";
+  nameInput.value = d.name || "";
+  emailInput.value = d.email || user.email;
+  mobileInput.value = d.mobile || "";
+  addressInput.value = d.address || "";
+  savedAddress.innerHTML = d.address || "No address saved";
+  if(d.photoURL) profileImg.src = d.photoURL;
+ } else {
+  await setDoc(ref, { name:"", email:user.email, mobile:"", address:"", photoURL:"", createdAt:new Date() });
+  emailInput.value = user.email;
+  savedAddress.innerHTML = "No address saved";
  }
 });
 
-/* SAVE / UPDATE PROFILE */
+// Save profile + upload photo
 window.saveProfile = async()=>{
  const user = auth.currentUser;
  if(!user) return;
 
- await setDoc(
-  doc(db,"users",user.uid),
-  {
-   name: name.value,
-   mobile: mobile.value,
-   address: address.value,
-   updatedAt: new Date()
-  },
-  { merge:true } // 🔥 MOST IMPORTANT
- );
+ let photoURL = profileImg.src;
 
+ // Upload photo if selected
+ if(profileUpload.files.length > 0){
+  const file = profileUpload.files[0];
+  const storageRef = sRef(storage, `customer-profilephoto/${user.uid}_${file.name}`);
+  await uploadBytes(storageRef, file);
+  photoURL = await getDownloadURL(storageRef);
+  profileImg.src = photoURL;
+ }
+
+ await setDoc(doc(db,"users",user.uid),{
+  name: nameInput.value,
+  mobile: mobileInput.value,
+  address: addressInput.value,
+  photoURL: photoURL,
+  updatedAt: new Date()
+ }, { merge:true });
+
+ savedAddress.innerHTML = addressInput.value || "No address saved";
  alert("Profile Saved ✅");
+};
+
+// Edit address shortcut
+window.editAddress = ()=>{ addressInput.focus(); };
+
+// Logout
+window.logout = async()=>{
+ await signOut(auth);
+ location.href="account.html";
 };
 </script>
 
