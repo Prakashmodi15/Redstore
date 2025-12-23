@@ -14,19 +14,19 @@
   <div class="container">
     <div class="navbar">
       <div class="logo">
-        <a href="/index.html"><img src="/images/logo.png" width="125px" alt="RedStore Logo"></a>
+        <a href="index.html"><img src="images/logo.png" width="125px" alt="RedStore Logo"></a>
       </div>
       <nav>
         <ul id="MenuItems">
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/products.html" class="active">Products</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-          <li><a href="/account.html">Account</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html" class="active">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="account.html">Account</a></li>
         </ul>
       </nav>
-      <img src="/images/cart.png" width="30" alt="Cart">
-      <img src="/images/menu.png" class="menu-icon" onclick="menutoggle()">
+      <a href="cart.html"><img src="images/cart.png" width="30" alt="Cart"></a>
+      <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
     </div>
   </div>
 
@@ -64,11 +64,8 @@
   <!-- FIREBASE PRODUCTS SCRIPT -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import {
-      getFirestore, collection, onSnapshot, query, orderBy
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // 🔹 Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
       authDomain: "myshop-1dbc9.firebaseapp.com",
@@ -84,7 +81,6 @@
     const productList = document.getElementById("product-list");
     const sort = document.getElementById("sort");
 
-    // 🔹 Load Products Function
     function loadProducts(q) {
       onSnapshot(q, snap => {
         productList.innerHTML = "";
@@ -95,21 +91,20 @@
           const p = doc.data();
           productList.innerHTML += `
             <div class="col-4">
-              <a href="/product-detail.html?id=${doc.id}">
+              <a href="product-detail.html?id=${doc.id}">
                 <img src="${p.image}" alt="${p.name}">
                 <h4>${p.name}</h4>
               </a>
               <p>₹${p.price}</p>
+              <a href="cart.html" class="btn">Add to Cart</a>
             </div>
           `;
         });
       }, err => console.error("Firebase error:", err));
     }
 
-    // 🔹 Default load
     loadProducts(collection(db, "products"));
 
-    // 🔹 Sorting
     sort.onchange = () => {
       if (sort.value === "price") {
         loadProducts(query(collection(db, "products"), orderBy("price", "asc")));
