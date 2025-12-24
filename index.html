@@ -230,7 +230,6 @@
 </div>
 </section>
    <!-- ===== STEP 10: FOOTER ===== -->
-<!-- ===== Footer Section ===== -->
 <footer class="py-5 bg-dark text-white">
     <div class="container">
 
@@ -239,26 +238,26 @@
             <!-- Column 1: Download App -->
             <div class="col-12 col-md-4">
                 <h5 class="fw-bold mb-3">Download Our App</h5>
-                <p>Download App for Android and iOS mobile phones.</p>
-                <a href="#"><img src="images/google-play.png" alt="Google Play" class="img-fluid me-2"></a>
-                <a href="#"><img src="images/app-store.png" alt="App Store" class="img-fluid"></a>
+                <p id="footerDownloadText">Download App for Android and iOS mobile phones.</p>
+                <a href="#"><img id="footerGooglePlay" src="images/google-play.png" alt="Google Play" class="img-fluid me-2"></a>
+                <a href="#"><img id="footerAppStore" src="images/app-store.png" alt="App Store" class="img-fluid"></a>
             </div>
 
             <!-- Column 2: REDSTORE Info -->
             <div class="col-12 col-md-4">
-                <h5 class="fw-bold mb-3">REDSTORE</h5>
-                <p>Athletes</p>
-                <p>Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.</p>
+                <h5 id="footerInfoTitle" class="fw-bold mb-3">REDSTORE</h5>
+                <p id="footerInfoSubtitle">Athletes</p>
+                <p id="footerInfoDesc">Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.</p>
             </div>
 
             <!-- Column 3: Useful Links -->
             <div class="col-12 col-md-4">
                 <h5 class="fw-bold mb-3">Useful Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">Coupons</a></li>
-                    <li><a href="#" class="text-white">Blog Post</a></li>
-                    <li><a href="#" class="text-white">Return Policy</a></li>
-                    <li><a href="#" class="text-white">Join Affiliate</a></li>
+                    <li><a id="footerLinkCoupons" href="#" class="text-white">Coupons</a></li>
+                    <li><a id="footerLinkBlog" href="#" class="text-white">Blog Post</a></li>
+                    <li><a id="footerLinkReturn" href="#" class="text-white">Return Policy</a></li>
+                    <li><a id="footerLinkAffiliate" href="#" class="text-white">Join Affiliate</a></li>
                 </ul>
             </div>
         </div>
@@ -267,23 +266,23 @@
         <div class="row g-4 mb-4">
             <div class="col-12 col-md-6">
                 <h5 class="fw-bold mb-3">Follow Us</h5>
-                <a href="#" class="text-white me-3"><i class="fa fa-facebook"></i></a>
-                <a href="#" class="text-white me-3"><i class="fa fa-twitter"></i></a>
-                <a href="#" class="text-white me-3"><i class="fa fa-instagram"></i></a>
-                <a href="#" class="text-white"><i class="fa fa-youtube"></i></a>
+                <a id="footerFacebook" href="#" class="text-white me-3"><i class="fa fa-facebook"></i></a>
+                <a id="footerTwitter" href="#" class="text-white me-3"><i class="fa fa-twitter"></i></a>
+                <a id="footerInstagram" href="#" class="text-white me-3"><i class="fa fa-instagram"></i></a>
+                <a id="footerYoutube" href="#" class="text-white"><i class="fa fa-youtube"></i></a>
             </div>
 
             <div class="col-12 col-md-6 text-md-end">
-                <a href="#" class="text-white me-3">Privacy Policy</a>
-                <a href="#" class="text-white me-3">Terms of Service</a>
-                <a href="#" class="text-white">Contact</a>
+                <a id="footerPrivacy" href="#" class="text-white me-3">Privacy Policy</a>
+                <a id="footerTerms" href="#" class="text-white me-3">Terms of Service</a>
+                <a id="footerContact" href="#" class="text-white">Contact</a>
             </div>
         </div>
 
         <!-- Bottom Row: Copyright -->
         <div class="row">
             <div class="col-12 text-center">
-                <p class="mb-0">© 2025 Your Company. All rights reserved.</p>
+                <p class="mb-0" id="footerCopyright">© 2025 Your Company. All rights reserved.</p>
             </div>
         </div>
 
@@ -308,6 +307,16 @@ const firebaseConfig = {
 /* 🔥 THIS WAS MISSING */
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+
+/* ===== Logo Dynamic ===== */
+db.ref('siteSettings').on('value', snap => {
+    const s = snap.val();
+    if(s){
+        document.querySelector('.logo a img').src = s.logoImage || "images/logo.png";
+        document.querySelector('.logo a img').alt = s.logoText || "RedStore logo";
+    }
+});
+
 /* ===== Header Section ===== */
 db.ref('header').on('value', snap => {
     const h = snap.val();
@@ -374,12 +383,38 @@ db.ref('brands').on('value', snap => {
         }
     }
 });
-
-/* ===== Footer ===== */
 db.ref('footer').on('value', snap => {
     const f = snap.val();
     if(f){
-        footerText.innerText = f.text || "";
+        // Download App
+        document.getElementById('footerDownloadText').innerText = f.downloadApp.text || "";
+        document.getElementById('footerGooglePlay').src = f.downloadApp.googlePlay || "";
+        document.getElementById('footerAppStore').src = f.downloadApp.appStore || "";
+
+        // Info
+        document.getElementById('footerInfoTitle').innerText = f.info.title || "";
+        document.getElementById('footerInfoSubtitle').innerText = f.info.subtitle || "";
+        document.getElementById('footerInfoDesc').innerText = f.info.desc || "";
+
+        // Useful Links
+        document.getElementById('footerLinkCoupons').href = f.links.coupons || "#";
+        document.getElementById('footerLinkBlog').href = f.links.blog || "#";
+        document.getElementById('footerLinkReturn').href = f.links.returnPolicy || "#";
+        document.getElementById('footerLinkAffiliate').href = f.links.affiliate || "#";
+
+        // Social
+        document.getElementById('footerFacebook').href = f.social.facebook || "#";
+        document.getElementById('footerTwitter').href = f.social.twitter || "#";
+        document.getElementById('footerInstagram').href = f.social.instagram || "#";
+        document.getElementById('footerYoutube').href = f.social.youtube || "#";
+
+        // Policies
+        document.getElementById('footerPrivacy').href = f.policies.privacy || "#";
+        document.getElementById('footerTerms').href = f.policies.terms || "#";
+        document.getElementById('footerContact').href = f.policies.contact || "#";
+
+        // Copyright
+        document.getElementById('footerCopyright').innerText = f.copyright || "";
     }
 });
   /* ===== Categories ===== */
