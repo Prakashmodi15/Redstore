@@ -121,23 +121,16 @@ body{
 </div>
 
 <div class="admin-container">
-  <!-- ===== Site Settings ===== -->
-<div class="admin-card">
-  <h2>Site Settings (Logo & Menu)</h2>
-
-  <div class="input-group">
-    <label>Logo Text / Website Name</label>
-    <input type="text" id="logoText" placeholder="Website Name">
-  </div>
-
-  <div class="input-group">
-    <label>Logo Image URL</label>
-    <input type="text" id="logoImage" placeholder="Logo Image URL">
-  </div>
-
-  <h3>Navbar Menu</h3>
-
-  <div class="input-group">
+<h3>Site Logo</h3>
+<div>
+    <label>Logo Image URL:</label>
+    <input type="text" id="adminLogoImage" placeholder="Logo image URL">
+</div>
+<div>
+    <label>Logo Alt Text:</label>
+    <input type="text" id="adminLogoText" placeholder="Logo alt text">
+</div>
+<button id="saveLogoBtn">Save Logo</button><div class="input-group">
     <label>Home</label>
     <input type="text" id="navHome">
   </div>
@@ -366,19 +359,79 @@ body{
     </div>
     <button class="save-btn" onclick="saveBrands()">Save Brands</button>
   </div>
-  <!-- ===== Footer Section ===== -->
-  <div class="admin-card">
-    <h2>Footer Section</h2>
-    <div class="input-group">
-      <label>Footer Text:</label>
-      <textarea id="footerText" placeholder="Enter Footer Text"></textarea>
-    </div>
-    <div class="input-group">
-      <label>Copyright:</label>
-      <input type="text" id="footerCopyright" placeholder="© 2025 My Shop">
-    </div>
-    <button class="save-btn" onclick="saveFooter()">Save Footer</button>
-  </div>
+ <h3>Footer Settings</h3>
+
+<!-- Download App -->
+<div>
+    <label>Download Text:</label>
+    <input type="text" id="adminFooterDownloadText" placeholder="Download App text">
+</div>
+<div>
+    <label>Google Play URL:</label>
+    <input type="text" id="adminFooterGooglePlay" placeholder="Google Play image URL">
+</div>
+<div>
+    <label>App Store URL:</label>
+    <input type="text" id="adminFooterAppStore" placeholder="App Store image URL">
+</div>
+
+<!-- Info -->
+<div>
+    <label>Title:</label>
+    <input type="text" id="adminFooterInfoTitle" placeholder="REDSTORE title">
+</div>
+<div>
+    <label>Subtitle:</label>
+    <input type="text" id="adminFooterInfoSubtitle" placeholder="Subtitle">
+</div>
+<div>
+    <label>Description:</label>
+    <input type="text" id="adminFooterInfoDesc" placeholder="Description">
+</div>
+
+<!-- Useful Links -->
+<div>
+    <label>Coupons URL:</label>
+    <input type="text" id="adminFooterLinkCoupons" placeholder="Coupons URL">
+</div>
+<div>
+    <label>Blog URL:</label>
+    <input type="text" id="adminFooterLinkBlog" placeholder="Blog URL">
+</div>
+<div>
+    <label>Return Policy URL:</label>
+    <input type="text" id="adminFooterLinkReturn" placeholder="Return Policy URL">
+</div>
+<div>
+    <label>Affiliate URL:</label>
+    <input type="text" id="adminFooterLinkAffiliate" placeholder="Affiliate URL">
+</div>
+
+<!-- Social Links -->
+<div>
+    <label>Facebook URL:</label>
+    <input type="text" id="adminFooterFacebook" placeholder="Facebook URL">
+</div>
+<div>
+    <label>Twitter URL:</label>
+    <input type="text" id="adminFooterTwitter" placeholder="Twitter URL">
+</div>
+<div>
+    <label>Instagram URL:</label>
+    <input type="text" id="adminFooterInstagram" placeholder="Instagram URL">
+</div>
+<div>
+    <label>YouTube URL:</label>
+    <input type="text" id="adminFooterYoutube" placeholder="YouTube URL">
+</div>
+
+<!-- Copyright -->
+<div>
+    <label>Copyright Text:</label>
+    <input type="text" id="adminFooterCopyright" placeholder="© 2025 Your Company">
+</div>
+
+<button id="saveFooterBtn">Save Footer</button>
 
 </div> <!-- End admin-container -->
 
@@ -401,6 +454,17 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+document.getElementById('saveLogoBtn').addEventListener('click', () => {
+    const logoImage = document.getElementById('adminLogoImage').value;
+    const logoText = document.getElementById('adminLogoText').value;
+
+    firebase.database().ref('siteSettings').update({
+        logoImage: logoImage,
+        logoText: logoText
+    }).then(() => {
+        alert("Logo updated successfully!");
+    });
+});
 
 // ===== Toast Function =====
 function showToast(msg){
@@ -573,16 +637,40 @@ window.onload = function(){
         document.getElementById("brandImg"+(i+1)).value=data[i].img||"";
       }
     }
-  });
-
-  // Footer
-  db.ref("footer").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      document.getElementById("footerText").value=data.text||"";
-      document.getElementById("footerCopyright").value=data.copyright||"";
-    }
-  });
+  });document.getElementById('saveFooterBtn').addEventListener('click', () => {
+    firebase.database().ref('footer').set({
+        downloadApp: {
+            text: document.getElementById('adminFooterDownloadText').value,
+            googlePlay: document.getElementById('adminFooterGooglePlay').value,
+            appStore: document.getElementById('adminFooterAppStore').value
+        },
+        info: {
+            title: document.getElementById('adminFooterInfoTitle').value,
+            subtitle: document.getElementById('adminFooterInfoSubtitle').value,
+            desc: document.getElementById('adminFooterInfoDesc').value
+        },
+        links: {
+            coupons: document.getElementById('adminFooterLinkCoupons').value,
+            blog: document.getElementById('adminFooterLinkBlog').value,
+            returnPolicy: document.getElementById('adminFooterLinkReturn').value,
+            affiliate: document.getElementById('adminFooterLinkAffiliate').value
+        },
+        social: {
+            facebook: document.getElementById('adminFooterFacebook').value,
+            twitter: document.getElementById('adminFooterTwitter').value,
+            instagram: document.getElementById('adminFooterInstagram').value,
+            youtube: document.getElementById('adminFooterYoutube').value
+        },
+        policies: {
+            privacy: "#", // optional
+            terms: "#",
+            contact: "#"
+        },
+        copyright: document.getElementById('adminFooterCopyright').value
+    }).then(() => {
+        alert("Footer updated successfully!");
+    });
+});
   // Site Settings
 db.ref("siteSettings").once("value").then(snapshot=>{
   const data = snapshot.val();
@@ -602,4 +690,3 @@ db.ref("siteSettings").once("value").then(snapshot=>{
 </script>
 </body>
 </html>
-  
