@@ -121,6 +121,44 @@ body{
 </div>
 
 <div class="admin-container">
+  <!-- ===== Site Settings ===== -->
+<div class="admin-card">
+  <h2>Site Settings (Logo & Menu)</h2>
+
+  <div class="input-group">
+    <label>Logo Text / Website Name</label>
+    <input type="text" id="logoText" placeholder="Website Name">
+  </div>
+
+  <div class="input-group">
+    <label>Logo Image URL</label>
+    <input type="text" id="logoImage" placeholder="Logo Image URL">
+  </div>
+
+  <h3>Navbar Menu</h3>
+
+  <div class="input-group">
+    <label>Home</label>
+    <input type="text" id="navHome">
+  </div>
+
+  <div class="input-group">
+    <label>Products</label>
+    <input type="text" id="navProducts">
+  </div>
+
+  <div class="input-group">
+    <label>About</label>
+    <input type="text" id="navAbout">
+  </div>
+
+  <div class="input-group">
+    <label>Contact</label>
+    <input type="text" id="navContact">
+  </div>
+
+  <button class="save-btn" onclick="saveSiteSettings()">Save Site Settings</button>
+</div>
   <!-- ===== Header Section ===== -->
   <div class="admin-card">
     <h2>Header Section</h2>
@@ -328,7 +366,6 @@ body{
     </div>
     <button class="save-btn" onclick="saveBrands()">Save Brands</button>
   </div>
-
   <!-- ===== Footer Section ===== -->
   <div class="admin-card">
     <h2>Footer Section</h2>
@@ -444,7 +481,18 @@ function saveFooter(){ db.ref("footer").set({
     text: document.getElementById("footerText").value,
     copyright: document.getElementById("footerCopyright").value
 }, ()=>showToast("Footer Saved!")); }
-
+ function saveSiteSettings(){
+  db.ref("siteSettings").set({
+    logoText: document.getElementById("logoText").value,
+    logoImage: document.getElementById("logoImage").value,
+    nav:{
+      home: document.getElementById("navHome").value,
+      products: document.getElementById("navProducts").value,
+      about: document.getElementById("navAbout").value,
+      contact: document.getElementById("navContact").value
+    }
+  }, ()=>showToast("Site Settings Saved!"));
+}
 // ===== Fetch Data on Page Load =====
 window.onload = function(){
   // Header
@@ -535,6 +583,21 @@ window.onload = function(){
       document.getElementById("footerCopyright").value=data.copyright||"";
     }
   });
+  // Site Settings
+db.ref("siteSettings").once("value").then(snapshot=>{
+  const data = snapshot.val();
+  if(data){
+    document.getElementById("logoText").value = data.logoText || "";
+    document.getElementById("logoImage").value = data.logoImage || "";
+
+    if(data.nav){
+      document.getElementById("navHome").value = data.nav.home || "";
+      document.getElementById("navProducts").value = data.nav.products || "";
+      document.getElementById("navAbout").value = data.nav.about || "";
+      document.getElementById("navContact").value = data.nav.contact || "";
+    }
+  }
+});
 }
 </script>
 </body>
