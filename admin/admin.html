@@ -718,7 +718,6 @@ function saveOffer() {
     .then(() => showToast('ऑफर सेव हो गया!'))
     .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
 }
-
 function saveTestimonials() {
   for (let i = 1; i <= 3; i++) {
     db.ref('testimonials/' + (i - 1)).update({
@@ -728,10 +727,6 @@ function saveTestimonials() {
     });
   }
   showToast('समीक्षाएं सेव हो गईं!');
-}
-  db.ref('testimonials').set(testimonials)
-    .then(() => showToast('समीक्षाएं सेव हो गईं!'))
-    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
 }
 
 function saveBrands() {
