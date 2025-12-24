@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--we have added this view port tag and set initial scale to 1 so that our side shoudl be adjustable according to different devices especially for mobile devices-->
         <title>RedStore | The #1 Ecommerce Website </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="CSS/style.css"> 
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"><!--poppins font from google fonts website then select popping select some types and then embed-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"><!--link to connect to font awesome 4 to use different icons, just type font awesome 4 cdn and click on first link and copy the url and past it here with rel="stylesheet"-->
@@ -66,13 +67,13 @@
         <div class="row">
 
             <div class="col-3">
-                <img src="images/cat1.jpg" alt="Category 1">
+                <img id="cat1" alt="Category 1">
             </div>
             <div class="col-3">
-                <img src="images/cat2.jpg" alt="Category 2">
+                <img id="cat2" alt="Category 2">
             </div>
             <div class="col-3">
-                <img src="images/cat3.jpg" alt="Category 3">
+               <img id="cat3" alt="Category 3">
             </div>
 
         </div>
@@ -85,59 +86,32 @@
         <h2 class="text-center fw-bold mb-5">
             Featured Products
         </h2>
-
-        <div class="row g-4">
-
-            <!-- Product 1 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="fprodImg1" src="images/prod1.jpg" class="card-img-top" alt="Product 1">
-                    <div class="card-body">
-                        <h5 id="fprodTitle1">Product One</h5>
-                        <p id="fprodPrice1" class="fw-bold text-danger">₹999</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="fprodImg2" src="images/prod2.jpg" class="card-img-top" alt="Product 2">
-                    <div class="card-body">
-                        <h5 id="fprodTitle2">Product Two</h5>
-                        <p id="fprodPrice2" class="fw-bold text-danger">₹1099</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="fprodImg3" src="images/prod3.jpg" class="card-img-top" alt="Product 3">
-                    <div class="card-body">
-                        <h5 id="fprodTitle3">Product Three</h5>
-                        <p id="fprodPrice3" class="fw-bold text-danger">₹899</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="fprodImg4" src="images/prod4.jpg" class="card-img-top" alt="Product 4">
-                    <div class="card-body">
-                        <h5 id="fprodTitle4">Product Four</h5>
-                        <p id="fprodPrice4" class="fw-bold text-danger">₹1299</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+<div class="row g-4">
+    <div class="col-6 col-md-3 text-center">
+        <img id="fprodImg1" src="images/prod1.jpg" class="img-fluid" alt="Product 1">
+        <h5 id="fprodTitle1">Product One</h5>
+        <p id="fprodPrice1" class="fw-bold text-danger">₹999</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
     </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="fprodImg2" src="images/prod2.jpg" class="img-fluid" alt="Product 2">
+        <h5 id="fprodTitle2">Product Two</h5>
+        <p id="fprodPrice2" class="fw-bold text-danger">₹1099</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+    </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="fprodImg3" src="images/prod3.jpg" class="img-fluid" alt="Product 3">
+        <h5 id="fprodTitle3">Product Three</h5>
+        <p id="fprodPrice3" class="fw-bold text-danger">₹899</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+    </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="fprodImg4" src="images/prod4.jpg" class="img-fluid" alt="Product 4">
+        <h5 id="fprodTitle4">Product Four</h5>
+        <p id="fprodPrice4" class="fw-bold text-danger">₹1299</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+    </div>
+</div>
 </section>
     <!-- ===== STEP 6: LATEST PRODUCTS ===== -->
 <section class="py-5">
@@ -148,73 +122,46 @@
         </h2>
 
         <div class="row g-4">
-
-            <!-- Product 1 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="lprodImg1" src="images/latest1.jpg" class="card-img-top" alt="Latest Product 1">
-                    <div class="card-body">
-                        <h5 id="lprodTitle1">Latest One</h5>
-                        <p id="lprodPrice1" class="fw-bold text-danger">₹799</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="lprodImg2" src="images/latest2.jpg" class="card-img-top" alt="Latest Product 2">
-                    <div class="card-body">
-                        <h5 id="lprodTitle2">Latest Two</h5>
-                        <p id="lprodPrice2" class="fw-bold text-danger">₹899</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="lprodImg3" src="images/latest3.jpg" class="card-img-top" alt="Latest Product 3">
-                    <div class="card-body">
-                        <h5 id="lprodTitle3">Latest Three</h5>
-                        <p id="lprodPrice3" class="fw-bold text-danger">₹999</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="col-md-3">
-                <div class="card border-0 shadow-sm text-center">
-                    <img id="lprodImg4" src="images/latest4.jpg" class="card-img-top" alt="Latest Product 4">
-                    <div class="card-body">
-                        <h5 id="lprodTitle4">Latest Four</h5>
-                        <p id="lprodPrice4" class="fw-bold text-danger">₹1199</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="lprodImg1" src="images/latest1.jpg" class="img-fluid" alt="Latest Product 1">
+        <h5 id="lprodTitle1">Latest One</h5>
+        <p id="lprodPrice1" class="fw-bold text-danger">₹799</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
     </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="lprodImg2" src="images/latest2.jpg" class="img-fluid" alt="Latest Product 2">
+        <h5 id="lprodTitle2">Latest Two</h5>
+        <p id="lprodPrice2" class="fw-bold text-danger">₹899</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+    </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="lprodImg3" src="images/latest3.jpg" class="img-fluid" alt="Latest Product 3">
+        <h5 id="lprodTitle3">Latest Three</h5>
+        <p id="lprodPrice3" class="fw-bold text-danger">₹999</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+    </div>
+    <div class="col-6 col-md-3 text-center">
+        <img id="lprodImg4" src="images/latest4.jpg" class="img-fluid" alt="Latest Product 4">
+        <h5 id="lprodTitle4">Latest Four</h5>
+        <p id="lprodPrice4" class="fw-bold text-danger">₹1199</p>
+        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+    </div>
+</div>
 </section>
-    <!-- ===== STEP 7: SPECIAL OFFER ===== -->
+   <!-- ===== STEP 7: SPECIAL OFFER ===== -->
+<!-- ===== STEP 7: SPECIAL OFFER ===== -->
 <section class="py-5 bg-light">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-4">
 
-            <!-- Offer Image -->
-            <div class="col-md-6 text-center mb-4 mb-md-0">
+            <!-- Column 1: Offer Image -->
+            <div class="col-12 col-md-6 text-center">
                 <img id="offerImg" src="images/offer.png" class="img-fluid rounded" alt="Special Offer">
             </div>
 
-            <!-- Offer Content -->
-            <div class="col-md-6">
-                <h2 id="offerTitle" class="fw-bold mb-3">
-                    Exclusive Offer
-                </h2>
+            <!-- Column 2: Offer Content -->
+            <div class="col-12 col-md-6">
+                <h2 id="offerTitle" class="fw-bold mb-3">Exclusive Offer</h2>
                 <p id="offerDesc" class="text-muted mb-4">
                     Grab the best deals on premium products. Limited time offer!
                 </p>
@@ -234,38 +181,23 @@
             <h2 class="fw-bold">What Our Customers Say</h2>
             <p class="text-muted">Real feedback from our happy customers</p>
         </div>
-
-        <div class="row">
-
-            <!-- Testimonial 1 -->
-            <div class="col-md-4 text-center mb-4">
-                <img id="testImg1" src="images/user1.jpg" class="rounded-circle mb-3" width="100" height="100" alt="User 1">
-                <h5 id="testUser1">Rahul Sharma</h5>
-                <p id="testComment1" class="text-muted">
-                    Excellent quality products and very fast delivery!
-                </p>
-            </div>
-
-            <!-- Testimonial 2 -->
-            <div class="col-md-4 text-center mb-4">
-                <img id="testImg2" src="images/user2.jpg" class="rounded-circle mb-3" width="100" height="100" alt="User 2">
-                <h5 id="testUser2">Priya Verma</h5>
-                <p id="testComment2" class="text-muted">
-                    Best prices and great customer support. Highly recommended.
-                </p>
-            </div>
-
-            <!-- Testimonial 3 -->
-            <div class="col-md-4 text-center mb-4">
-                <img id="testImg3" src="images/user3.jpg" class="rounded-circle mb-3" width="100" height="100" alt="User 3">
-                <h5 id="testUser3">Amit Patel</h5>
-                <p id="testComment3" class="text-muted">
-                    Smooth shopping experience. Will order again!
-                </p>
-            </div>
-
-        </div>
+<div class="row g-4">
+    <div class="col-12 col-md-4 text-center">
+        <img id="testImg1" src="images/user1.jpg" class="rounded-circle mb-3" width="100" height="100" alt="User 1">
+        <h5 id="testUser1">Rahul Sharma</h5>
+        <p id="testComment1" class="text-muted">Excellent quality products!</p>
     </div>
+    <div class="col-12 col-md-4 text-center">
+        <img id="testImg2" src="images/user2.jpg" class="rounded-circle mb-3" width="100" height="100" alt="User 2">
+        <h5 id="testUser2">Priya Verma</h5>
+        <p id="testComment2" class="text-muted">Best prices & support!</p>
+    </div>
+    <div class="col-12 col-md-4 text-center">
+        <img id="testImg3" src="images/user3.jpg" class="rounded-circle mb-3" width="100" height="100" alt="User 3">
+        <h5 id="testUser3">Amit Patel</h5>
+        <p id="testComment3" class="text-muted">Smooth shopping experience!</p>
+    </div>
+</div>
 </section>
 
     <!-- ===== STEP 9: BRANDS ===== -->
@@ -279,35 +211,82 @@
             </p>
         </div>
 
-        <div class="row justify-content-center align-items-center">
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg1" src="images/brand1.png" class="img-fluid" alt="Brand 1">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg2" src="images/brand2.png" class="img-fluid" alt="Brand 2">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg3" src="images/brand3.png" class="img-fluid" alt="Brand 3">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg4" src="images/brand4.png" class="img-fluid" alt="Brand 4">
-            </div>
-
-            <div class="col-4 col-md-2 text-center mb-4">
-                <img id="brandImg5" src="images/brand5.png" class="img-fluid" alt="Brand 5">
-            </div>
-
-        </div>
+        <div class="row justify-content-center align-items-center g-3">
+    <div class="col-4 col-md-2 text-center">
+        <img id="brandImg1" src="images/brand1.png" class="img-fluid" alt="Brand 1">
     </div>
+    <div class="col-4 col-md-2 text-center">
+        <img id="brandImg2" src="images/brand2.png" class="img-fluid" alt="Brand 2">
+    </div>
+    <div class="col-4 col-md-2 text-center">
+        <img id="brandImg3" src="images/brand3.png" class="img-fluid" alt="Brand 3">
+    </div>
+    <div class="col-4 col-md-2 text-center">
+        <img id="brandImg4" src="images/brand4.png" class="img-fluid" alt="Brand 4">
+    </div>
+    <div class="col-4 col-md-2 text-center">
+        <img id="brandImg5" src="images/brand5.png" class="img-fluid" alt="Brand 5">
+    </div>
+</div>
 </section>
-    <!-- ===== STEP 10: FOOTER ===== -->
-<footer class="py-4 bg-dark text-white text-center">
+   <!-- ===== STEP 10: FOOTER ===== -->
+<!-- ===== Footer Section ===== -->
+<footer class="py-5 bg-dark text-white">
     <div class="container">
-        <p id="footerText">© 2025 Your Company. All rights reserved.</p>
+
+        <!-- Top Row: Download App, REDSTORE, Useful Links -->
+        <div class="row g-4 mb-4">
+            <!-- Column 1: Download App -->
+            <div class="col-12 col-md-4">
+                <h5 class="fw-bold mb-3">Download Our App</h5>
+                <p>Download App for Android and iOS mobile phones.</p>
+                <a href="#"><img src="images/google-play.png" alt="Google Play" class="img-fluid me-2"></a>
+                <a href="#"><img src="images/app-store.png" alt="App Store" class="img-fluid"></a>
+            </div>
+
+            <!-- Column 2: REDSTORE Info -->
+            <div class="col-12 col-md-4">
+                <h5 class="fw-bold mb-3">REDSTORE</h5>
+                <p>Athletes</p>
+                <p>Our purpose is to sustainably make the pleasure and benefits of sports accessible to the many.</p>
+            </div>
+
+            <!-- Column 3: Useful Links -->
+            <div class="col-12 col-md-4">
+                <h5 class="fw-bold mb-3">Useful Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Coupons</a></li>
+                    <li><a href="#" class="text-white">Blog Post</a></li>
+                    <li><a href="#" class="text-white">Return Policy</a></li>
+                    <li><a href="#" class="text-white">Join Affiliate</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Middle Row: Follow Us -->
+        <div class="row g-4 mb-4">
+            <div class="col-12 col-md-6">
+                <h5 class="fw-bold mb-3">Follow Us</h5>
+                <a href="#" class="text-white me-3"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="text-white me-3"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="text-white me-3"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="text-white"><i class="fa fa-youtube"></i></a>
+            </div>
+
+            <div class="col-12 col-md-6 text-md-end">
+                <a href="#" class="text-white me-3">Privacy Policy</a>
+                <a href="#" class="text-white me-3">Terms of Service</a>
+                <a href="#" class="text-white">Contact</a>
+            </div>
+        </div>
+
+        <!-- Bottom Row: Copyright -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="mb-0">© 2025 Your Company. All rights reserved.</p>
+            </div>
+        </div>
+
     </div>
 </footer>
     <!-- Firebase SDK -->
@@ -326,43 +305,28 @@ const firebaseConfig = {
     appId: "1:81466489688:web:e225da8670b2314dd1432d"
 };
 
+/* 🔥 THIS WAS MISSING */
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-
-/* ===== Categories ===== */
-db.ref('categories').on('value', snap => {
-    const d = snap.val();
-    if(d){
-        cat1.src = d.cat1 || "";
-        cat2.src = d.cat2 || "";
-        cat3.src = d.cat3 || "";
+/* ===== Header Section ===== */
+db.ref('header').on('value', snap => {
+    const h = snap.val();
+    if(h){
+        document.getElementById("headerTitle").innerText = h.title || "";
+        document.getElementById("headerDesc").innerText = h.desc || "";
+        document.getElementById("headerBtn").innerText = h.btnText || "";
+        document.getElementById("headerBtn").href = h.btnUrl || "#";
+        document.getElementById("headerImg").src = h.img || "";
     }
 });
-  // Firebase setup assume कर लिया
-var categoriesRef = firebase.database().ref('categories');
-
-categoriesRef.once('value').then(function(snapshot) {
-    var categories = snapshot.val();
-    var row = document.getElementById('categoriesRow');
-
-    for (var key in categories) {
-        if (categories.hasOwnProperty(key)) {
-            var col = document.createElement('div');
-            col.className = 'col-3';
-            col.innerHTML = '<img src="'+categories[key]+'" alt="">';
-            row.appendChild(col);
-        }
-    }
-});
-
-/* ===== Featured Products ===== */
+  /* ===== Featured Products ===== */
 db.ref('featuredProducts').on('value', snap => {
     const p = snap.val();
     if(p){
-        for(let i=1;i<=4;i++){
-            document.getElementById(`fprodImg${i}`).src = p[`prod${i}`].img || "";
-            document.getElementById(`fprodTitle${i}`).innerText = p[`prod${i}`].title || "";
-            document.getElementById(`fprodPrice${i}`).innerText = p[`prod${i}`].price || "";
+        for(let i=0;i<p.length;i++){
+            document.getElementById(`fprodImg${i+1}`).src = p[i].img || "";
+            document.getElementById(`fprodTitle${i+1}`).innerText = p[i].title || "";
+            document.getElementById(`fprodPrice${i+1}`).innerText = p[i].price || "";
         }
     }
 });
@@ -371,10 +335,10 @@ db.ref('featuredProducts').on('value', snap => {
 db.ref('latestProducts').on('value', snap => {
     const p = snap.val();
     if(p){
-        for(let i=1;i<=4;i++){
-            document.getElementById(`lprodImg${i}`).src = p[`prod${i}`].img || "";
-            document.getElementById(`lprodTitle${i}`).innerText = p[`prod${i}`].title || "";
-            document.getElementById(`lprodPrice${i}`).innerText = p[`prod${i}`].price || "";
+        for(let i=0;i<p.length;i++){
+            document.getElementById(`lprodImg${i+1}`).src = p[i].img || "";
+            document.getElementById(`lprodTitle${i+1}`).innerText = p[i].title || "";
+            document.getElementById(`lprodPrice${i+1}`).innerText = p[i].price || "";
         }
     }
 });
@@ -383,32 +347,30 @@ db.ref('latestProducts').on('value', snap => {
 db.ref('offer').on('value', snap => {
     const o = snap.val();
     if(o){
-        offerImg.src = o.img || "";
-        offerTitle.innerText = o.title || "";
-        offerDesc.innerText = o.desc || "";
-        offerBtnText.innerText = o.btnText || "";
-        offerBtnUrl.href = o.btnUrl || "#";
-    }
+       document.getElementById("offerImg").src = o.img || "";
+document.getElementById("offerTitle").innerText = o.title || "";
+document.getElementById("offerDesc").innerText = o.desc || "";
+document.getElementById("offerBtnText").innerText = o.btnText || "";
+document.getElementById("offerBtnUrl").href = o.btnUrl || "#";}
 });
 
 /* ===== Testimonials ===== */
 db.ref('testimonials').on('value', snap => {
     const t = snap.val();
     if(t){
-        for(let i=1;i<=3;i++){
-            document.getElementById(`testImg${i}`).src = t[`user${i}`].img || "";
-            document.getElementById(`testUser${i}`).innerText = t[`user${i}`].name || "";
-            document.getElementById(`testComment${i}`).innerText = t[`user${i}`].comment || "";
+        for(let i=0;i<t.length;i++){
+            document.getElementById(`testImg${i+1}`).src = t[i].img || "";
+            document.getElementById(`testUser${i+1}`).innerText = t[i].user || "";
+            document.getElementById(`testComment${i+1}`).innerText = t[i].comment || "";
         }
     }
 });
-
 /* ===== Brands ===== */
 db.ref('brands').on('value', snap => {
     const b = snap.val();
     if(b){
-        for(let i=1;i<=5;i++){
-            document.getElementById(`brandImg${i}`).src = b[`brand${i}`] || "";
+        for(let i=0;i<b.length;i++){
+            document.getElementById(`brandImg${i+1}`).src = b[i].img || "";
         }
     }
 });
@@ -418,6 +380,15 @@ db.ref('footer').on('value', snap => {
     const f = snap.val();
     if(f){
         footerText.innerText = f.text || "";
+    }
+});
+  /* ===== Categories ===== */
+db.ref('categories').on('value', snap => {
+    const c = snap.val();
+    if(c){
+        document.getElementById("cat1").src = c.cat1 || "";
+        document.getElementById("cat2").src = c.cat2 || "";
+        document.getElementById("cat3").src = c.cat3 || "";
     }
 });
 </script>
