@@ -688,29 +688,23 @@ function saveHeaderText() {
 }
 
 function saveFeaturedProducts() {
-  const products = [];
   for (let i = 1; i <= 4; i++) {
-    products.push({
+    db.ref('featuredProducts/' + (i - 1)).update({
       title: document.getElementById('fprodTitle' + i).value,
       price: document.getElementById('fprodPrice' + i).value
     });
   }
-  db.ref('featuredProducts').set(products)
-    .then(() => showToast('फीचर्ड प्रोडक्ट्स सेव हो गए!'))
-    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
+  showToast('फीचर्ड प्रोडक्ट्स सेव हो गए!');
 }
 
 function saveLatestProducts() {
-  const products = [];
   for (let i = 1; i <= 4; i++) {
-    products.push({
+    db.ref('latestProducts/' + (i - 1)).update({
       title: document.getElementById('lprodTitle' + i).value,
       price: document.getElementById('lprodPrice' + i).value
     });
   }
-  db.ref('latestProducts').set(products)
-    .then(() => showToast('नए प्रोडक्ट्स सेव हो गए!'))
-    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
+  showToast('नए प्रोडक्ट्स सेव हो गए!');
 }
 
 function saveOffer() {
@@ -726,14 +720,15 @@ function saveOffer() {
 }
 
 function saveTestimonials() {
-  const testimonials = [];
   for (let i = 1; i <= 3; i++) {
-    testimonials.push({
+    db.ref('testimonials/' + (i - 1)).update({
       user: document.getElementById('testUser' + i).value,
       comment: document.getElementById('testComment' + i).value,
       rating: document.getElementById('testRating' + i).value
     });
   }
+  showToast('समीक्षाएं सेव हो गईं!');
+}
   db.ref('testimonials').set(testimonials)
     .then(() => showToast('समीक्षाएं सेव हो गईं!'))
     .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
