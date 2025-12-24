@@ -41,65 +41,43 @@
                 <!--dividing this section into 2 columns-->
                 <!--1st column for heading button and text-->
                 <div class="col-2">
-                    <h1>Give Your Workout<br>A New Style!</h1>
-                    <p>Success isn't always about greatness. It's about consistency.
-                    Consistent <br>hard work gains success. Greatness will come.
-                    </p>
-                    <a href="" class="btn">Explore Now &#8594;</a><!--where &#8594 is the code of arrow icon in explore now button-->
-                </div>
+                    <h1 id="headerTitle">Give Your Workout<br>A New Style!</h1>
+                   <p id="headerDesc">
+                    Success isn't always about greatness. It's about consistency.
+                   Consistent <br>hard work gains success. Greatness will come.
+                   </p>
+                    <a id="headerBtn" href="#" class="btn">
+                    Explore Now &#8594;
+                    </a><!--where &#8594 is the code of arrow icon in explore now button-->
+                    </div>
 
                 <!--2nd for image-->
                 <div class="col-2">
-                    <img src="images/image1.png" alt="header image">
+                    <img id="headerImg" src="images/image1.png" alt="header image">
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- ===== STEP 4: CATEGORIES SECTION ===== -->
-<section class="py-5">
-    <div class="container">
+    <!-- ===== STEP 4: <!-- CATEGORIES -->
+<div class="categories">
+    <div class="small container">
+        <div class="row">
 
-        <h2 class="text-center fw-bold mb-5">
-            Shop by Categories
-        </h2>
-
-        <div class="row g-4">
-
-            <!-- Category 1 -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <img id="cat1" src="images/cat1.jpg" class="card-img-top" alt="Category 1">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold">Category One</h5>
-                    </div>
-                </div>
+            <div class="col-3">
+                <img src="images/cat1.jpg" alt="Category 1">
             </div>
-
-            <!-- Category 2 -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <img id="cat2" src="images/cat2.jpg" class="card-img-top" alt="Category 2">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold">Category Two</h5>
-                    </div>
-                </div>
+            <div class="col-3">
+                <img src="images/cat2.jpg" alt="Category 2">
             </div>
-
-            <!-- Category 3 -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <img id="cat3" src="images/cat3.jpg" class="card-img-top" alt="Category 3">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold">Category Three</h5>
-                    </div>
-                </div>
+            <div class="col-3">
+                <img src="images/cat3.jpg" alt="Category 3">
             </div>
 
         </div>
     </div>
-</section>
+</div>
     <!-- ===== STEP 5: FEATURED PRODUCTS ===== -->
 <section id="featured-products" class="py-5 bg-light">
     <div class="container">
@@ -358,6 +336,22 @@ db.ref('categories').on('value', snap => {
         cat1.src = d.cat1 || "";
         cat2.src = d.cat2 || "";
         cat3.src = d.cat3 || "";
+    }
+});
+  // Firebase setup assume कर लिया
+var categoriesRef = firebase.database().ref('categories');
+
+categoriesRef.once('value').then(function(snapshot) {
+    var categories = snapshot.val();
+    var row = document.getElementById('categoriesRow');
+
+    for (var key in categories) {
+        if (categories.hasOwnProperty(key)) {
+            var col = document.createElement('div');
+            col.className = 'col-3';
+            col.innerHTML = '<img src="'+categories[key]+'" alt="">';
+            row.appendChild(col);
+        }
     }
 });
 
