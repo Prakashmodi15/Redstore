@@ -1,441 +1,545 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel - RedStore Premium</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<title>RedStore Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ===== Embedded Premium CSS ===== */
-body{
-  font-family: 'Poppins', sans-serif;
-  background:#f2f4f8;
-  margin:0;
-  padding:0;
-}
-.admin-header{
-  background: #1E88E5;
-  color:#fff;
-  padding:30px 20px;
-  text-align:center;
-}
-.admin-header h1{
-  margin:0;
-  font-size:32px;
-}
-.admin-header p{
-  margin:5px 0 0;
-  font-size:16px;
-}
-.admin-container{
-  max-width:1200px;
-  margin:20px auto;
-  padding:0 20px;
-}
-.admin-card{
-  background:#fff;
-  padding:25px;
-  margin-bottom:25px;
-  border-radius:10px;
-  box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-.admin-card h2{
-  margin-top:0;
-  color:#1E88E5;
-  border-bottom:2px solid #1E88E5;
-  padding-bottom:5px;
-  margin-bottom:20px;
-}
-.input-group{
-  margin-bottom:15px;
-}
-.input-group label{
-  display:block;
-  font-weight:500;
-  margin-bottom:5px;
-}
-.input-group input,
-.input-group textarea{
-  width:100%;
-  padding:10px;
-  border:1px solid #ccc;
-  border-radius:6px;
-  font-size:14px;
-  transition:0.3s;
-}
-.input-group input:focus,
-.input-group textarea:focus{
-  border-color:#1E88E5;
-  outline:none;
-}
-.save-btn{
-  background:#1E88E5;
-  color:#fff;
-  padding:12px 28px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:16px;
-  transition:0.3s;
-  margin-top:10px;
-}
-.save-btn:hover{
-  background:#1565C0;
-}
-.product-edit{
-  background:#f9f9f9;
-  padding:15px;
-  border-radius:6px;
-  margin-bottom:15px;
-}
-#toast{
-  visibility:hidden;
-  min-width:250px;
-  background-color:#333;
-  color:#fff;
-  text-align:center;
-  border-radius:4px;
-  padding:12px;
-  position:fixed;
-  z-index:1000;
-  left:50%;
-  bottom:30px;
-  transform:translateX(-50%);
-  font-size:16px;
-}
-#toast.show{
-  visibility:visible;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-@keyframes fadein{from{bottom:0;opacity:0;}to{bottom:30px;opacity:1;}}
-@keyframes fadeout{from{bottom:30px;opacity:1;}to{bottom:0;opacity:0;}}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background: #f0f2f5; color: #333; }
+.admin-header { background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%); color: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3); }
+.admin-header h1 { font-size: 32px; margin-bottom: 10px; font-weight: 600; }
+.admin-header p { font-size: 16px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+.admin-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+.admin-card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: transform 0.3s; }
+.admin-card:hover { transform: translateY(-3px); }
+.admin-card h2 { color: #1e40af; border-bottom: 3px solid #3b82f6; padding-bottom: 12px; margin-bottom: 25px; font-size: 24px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.admin-card h2:before { content: "📦"; font-size: 20px; }
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; font-weight: 500; margin-bottom: 8px; color: #4b5563; font-size: 15px; }
+.input-group input, .input-group textarea, .input-group select { width: 100%; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 15px; transition: all 0.3s; background: #f9fafb; }
+.input-group input:focus, .input-group textarea:focus { border-color: #3b82f6; background: white; outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+.input-group textarea { min-height: 100px; resize: vertical; }
+.upload-btn { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 500; margin-top: 10px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2); }
+.upload-btn:hover { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3); }
+.upload-btn:before { content: "⬆️"; }
+.save-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 14px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; margin-top: 20px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
+.save-btn:hover { background: linear-gradient(135deg, #059669 0%, #047857 100%); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3); }
+.save-btn:before { content: "💾"; }
+.product-edit { background: #f8fafc; border-radius: 10px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #3b82f6; }
+.product-edit h3 { color: #1e40af; margin-bottom: 15px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+.file-info { background: #dbeafe; padding: 10px 15px; border-radius: 6px; margin-top: 8px; font-size: 13px; color: #1e40af; border: 1px solid #bfdbfe; display: none; }
+.file-info:before { content: "📄 "; }
+.status-msg { padding: 10px; border-radius: 6px; margin-top: 10px; font-size: 14px; display: none; }
+.status-success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; display: block; }
+.status-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; display: block; }
+.status-loading { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; display: block; }
+#toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 15px 30px; border-radius: 10px; z-index: 10000; font-weight: 500; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); display: none; align-items: center; gap: 10px; }
+#toast.show { display: flex; animation: slideUp 0.3s, fadeOut 0.3s 2.7s; }
+#toast:before { font-size: 18px; }
+@keyframes slideUp { from { bottom: -50px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+.section-note { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
+.section-note:before { content: "💡 "; font-weight: bold; }
+.loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
 <div class="admin-header">
-  <h1>RedStore Admin Panel</h1>
-  <p>Edit your website content below. Click "Save" to update each section.</p>
+  <h1>🚀 RedStore Admin Panel</h1>
+  <p>सीधे इमेज अपलोड करें और सभी कंटेंट मैनेज करें | सभी Upload बटन काम करते हैं</p>
 </div>
 
 <div class="admin-container">
-<h3>Site Logo</h3>
-<div>
-    <label>Logo Image URL:</label>
-    <input type="text" id="adminLogoImage" placeholder="Logo image URL">
-</div>
-<div>
-    <label>Logo Alt Text:</label>
-    <input type="text" id="adminLogoText" placeholder="Logo alt text">
-</div>
-<button id="saveLogoBtn">Save Logo</button><div class="input-group">
-    <label>Home</label>
-    <input type="text" id="navHome">
-  </div>
 
+<!-- ===== Site Logo Section ===== -->
+<div class="admin-card">
+  <h2>🏢 साइट लोगो सेटिंग</h2>
+  <div class="section-note">लोगो अपलोड करने के बाद "लोगो सेव करें" बटन क्लिक करें</div>
   <div class="input-group">
-    <label>Products</label>
-    <input type="text" id="navProducts">
+    <label>लोगो इमेज चुनें (PNG, JPG, Max 5MB):</label>
+    <input type="file" id="logoFile" accept="image/png, image/jpeg, image/jpg" onchange="showFileInfo('logoFile', 'logoInfo')">
+    <div class="file-info" id="logoInfo"></div>
+    <button class="upload-btn" onclick="uploadImage('logoFile', 'siteSettings/logoImage', 'logoStatus')">लोगो अपलोड करें</button>
+    <div id="logoStatus" class="status-msg"></div>
   </div>
-
   <div class="input-group">
-    <label>About</label>
-    <input type="text" id="navAbout">
+    <label>लोगो Alt टेक्स्ट:</label>
+    <input type="text" id="logoText" placeholder="लोगो का नाम" value="RedStore">
   </div>
+  <button class="save-btn" onclick="saveLogoText()">लोगो सेव करें</button>
+</div>
 
+<!-- ===== Header Section ===== -->
+<div class="admin-card">
+  <h2>📷 हेडर सेक्शन</h2>
   <div class="input-group">
-    <label>Contact</label>
-    <input type="text" id="navContact">
+    <label>हेडर टाइटल:</label>
+    <input type="text" id="headerTitle" placeholder="हेडर टाइटल" value="Give Your Workout A New Style!">
   </div>
-
-  <button class="save-btn" onclick="saveSiteSettings()">Save Site Settings</button>
-</div>
-  <!-- ===== Header Section ===== -->
-  <div class="admin-card">
-    <h2>Header Section</h2>
-    <div class="input-group">
-      <label>Heading:</label>
-      <input type="text" id="headerTitle" placeholder="Enter Header Title">
-    </div>
-    <div class="input-group">
-      <label>Description:</label>
-      <textarea id="headerDesc" placeholder="Enter Description"></textarea>
-    </div>
-    <div class="input-group">
-      <label>Button Text:</label>
-      <input type="text" id="headerBtnText" placeholder="Button Text">
-    </div>
-    <div class="input-group">
-      <label>Button URL:</label>
-      <input type="text" id="headerBtnUrl" placeholder="Button URL">
-    </div>
-    <div class="input-group">
-      <label>Image URL:</label>
-      <input type="text" id="headerImg" placeholder="Image URL">
-    </div>
-    <button class="save-btn" onclick="saveHeader()">Save Header</button>
+  <div class="input-group">
+    <label>विवरण:</label>
+    <textarea id="headerDesc" placeholder="हेडर विवरण">Success isn't always about greatness. It's about consistency. Consistent hard work gains success. Greatness will come.</textarea>
   </div>
-
-  <!-- ===== Categories Section ===== -->
-  <div class="admin-card">
-    <h2>Categories Section</h2>
-    <div class="input-group">
-      <label>Category 1 Image URL:</label>
-      <input type="text" id="cat1" placeholder="Image URL">
-    </div>
-    <div class="input-group">
-      <label>Category 2 Image URL:</label>
-      <input type="text" id="cat2" placeholder="Image URL">
-    </div>
-    <div class="input-group">
-      <label>Category 3 Image URL:</label>
-      <input type="text" id="cat3" placeholder="Image URL">
-    </div>
-    <button class="save-btn" onclick="saveCategories()">Save Categories</button>
+  <div class="input-group">
+    <label>हेडर बैनर इमेज:</label>
+    <input type="file" id="headerFile" accept="image/*" onchange="showFileInfo('headerFile', 'headerInfo')">
+    <div class="file-info" id="headerInfo"></div>
+    <button class="upload-btn" onclick="uploadImage('headerFile', 'header/img', 'headerStatus')">हेडर इमेज अपलोड करें</button>
+    <div id="headerStatus" class="status-msg"></div>
   </div>
+  <button class="save-btn" onclick="saveHeaderText()">हेडर सेव करें</button>
+</div>
 
-  <!-- ===== Featured Products Section ===== -->
-  <div class="admin-card">
-    <h2>Featured Products</h2>
-    <div id="featuredProducts">
-      <div class="product-edit">
-        <label>Product 1 Image:</label>
-        <input type="text" id="fprodImg1" placeholder="Image URL">
-        <label>Product 1 Title:</label>
-        <input type="text" id="fprodTitle1" placeholder="Title">
-        <label>Product 1 Price:</label>
-        <input type="text" id="fprodPrice1" placeholder="Price">
-      </div>
-      <div class="product-edit">
-        <label>Product 2 Image:</label>
-        <input type="text" id="fprodImg2" placeholder="Image URL">
-        <label>Product 2 Title:</label>
-        <input type="text" id="fprodTitle2" placeholder="Title">
-        <label>Product 2 Price:</label>
-        <input type="text" id="fprodPrice2" placeholder="Price">
-      </div>
-      <div class="product-edit">
-        <label>Product 3 Image:</label>
-        <input type="text" id="fprodImg3" placeholder="Image URL">
-        <label>Product 3 Title:</label>
-        <input type="text" id="fprodTitle3" placeholder="Title">
-        <label>Product 3 Price:</label>
-        <input type="text" id="fprodPrice3" placeholder="Price">
-      </div>
-      <div class="product-edit">
-        <label>Product 4 Image:</label>
-        <input type="text" id="fprodImg4" placeholder="Image URL">
-        <label>Product 4 Title:</label>
-        <input type="text" id="fprodTitle4" placeholder="Title">
-        <label>Product 4 Price:</label>
-        <input type="text" id="fprodPrice4" placeholder="Price">
-      </div>
-    </div>
-    <button class="save-btn" onclick="saveFeatured()">Save Featured Products</button>
-  </div>
-  <!-- ===== Latest Products Section ===== -->
-  <div class="admin-card">
-    <h2>Latest Products</h2>
-    <div id="latestProducts">
-      <div class="product-edit">
-        <label>Product 1 Image:</label>
-        <input type="text" id="lprodImg1" placeholder="Image URL">
-        <label>Product 1 Title:</label>
-        <input type="text" id="lprodTitle1" placeholder="Title">
-        <label>Product 1 Price:</label>
-        <input type="text" id="lprodPrice1" placeholder="Price">
-      </div>
-      <div class="product-edit">
-        <label>Product 2 Image:</label>
-        <input type="text" id="lprodImg2" placeholder="Image URL">
-        <label>Product 2 Title:</label>
-        <input type="text" id="lprodTitle2" placeholder="Title">
-        <label>Product 2 Price:</label>
-        <input type="text" id="lprodPrice2" placeholder="Price">
-      </div>
-      <div class="product-edit">
-        <label>Product 3 Image:</label>
-        <input type="text" id="lprodImg3" placeholder="Image URL">
-        <label>Product 3 Title:</label>
-        <input type="text" id="lprodTitle3" placeholder="Title">
-        <label>Product 3 Price:</label>
-        <input type="text" id="lprodPrice3" placeholder="Price">
-      </div>
-      <div class="product-edit">
-        <label>Product 4 Image:</label>
-        <input type="text" id="lprodImg4" placeholder="Image URL">
-        <label>Product 4 Title:</label>
-        <input type="text" id="lprodTitle4" placeholder="Title">
-        <label>Product 4 Price:</label>
-        <input type="text" id="lprodPrice4" placeholder="Price">
-      </div>
-    </div>
-    <button class="save-btn" onclick="saveLatest()">Save Latest Products</button>
-  </div>
-
-  <!-- ===== Offer Section ===== -->
-  <div class="admin-card">
-    <h2>Offer Section</h2>
+<!-- ===== Categories Section ===== -->
+<div class="admin-card">
+  <h2>📂 प्रोडक्ट कैटेगरीज</h2>
+  <div class="section-note">हर कैटेगरी के लिए अलग-अलग इमेज अपलोड करें</div>
+  
+  <div class="product-edit">
+    <h3>👕 कैटेगरी 1 - टी-शर्ट्स</h3>
     <div class="input-group">
-      <label>Title:</label>
-      <input type="text" id="offerTitle" placeholder="Enter Offer Title">
+      <label>कैटेगरी 1 इमेज:</label>
+      <input type="file" id="cat1File" accept="image/*" onchange="showFileInfo('cat1File', 'cat1Info')">
+      <div class="file-info" id="cat1Info"></div>
+      <button class="upload-btn" onclick="uploadImage('cat1File', 'categories/cat1', 'cat1Status')">कैटेगरी 1 अपलोड</button>
+      <div id="cat1Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>👟 कैटेगरी 2 - जूते</h3>
+    <div class="input-group">
+      <label>कैटेगरी 2 इमेज:</label>
+      <input type="file" id="cat2File" accept="image/*" onchange="showFileInfo('cat2File', 'cat2Info')">
+      <div class="file-info" id="cat2Info"></div>
+      <button class="upload-btn" onclick="uploadImage('cat2File', 'categories/cat2', 'cat2Status')">कैटेगरी 2 अपलोड</button>
+      <div id="cat2Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>👖 कैटेगरी 3 - पैंट्स</h3>
+    <div class="input-group">
+      <label>कैटेगरी 3 इमेज:</label>
+      <input type="file" id="cat3File" accept="image/*" onchange="showFileInfo('cat3File', 'cat3Info')">
+      <div class="file-info" id="cat3Info"></div>
+      <button class="upload-btn" onclick="uploadImage('cat3File', 'categories/cat3', 'cat3Status')">कैटेगरी 3 अपलोड</button>
+      <div id="cat3Status" class="status-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Featured Products Section ===== -->
+<div class="admin-card">
+  <h2>⭐ फीचर्ड प्रोडक्ट्स</h2>
+  <div class="section-note">प्रत्येक प्रोडक्ट की इमेज अपलोड करें, फिर सभी डिटेल्स सेव करें</div>
+  
+  <div class="product-edit">
+    <h3>🛒 प्रोडक्ट 1</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="fprod1File" accept="image/*" onchange="showFileInfo('fprod1File', 'fprod1Info')">
+      <div class="file-info" id="fprod1Info"></div>
+      <button class="upload-btn" onclick="uploadImage('fprod1File', 'featuredProducts/0/img', 'fprod1Status')">इमेज अपलोड</button>
+      <div id="fprod1Status" class="status-msg"></div>
     </div>
     <div class="input-group">
-      <label>Description:</label>
-      <textarea id="offerDesc" placeholder="Enter Offer Description"></textarea>
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="fprodTitle1" placeholder="प्रोडक्ट नाम" value="Red Printed T-Shirt">
     </div>
     <div class="input-group">
-      <label>Button Text:</label>
-      <input type="text" id="offerBtnText" placeholder="Button Text">
+      <label>कीमत:</label>
+      <input type="text" id="fprodPrice1" placeholder="कीमत" value="₹899">
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>🛒 प्रोडक्ट 2</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="fprod2File" accept="image/*" onchange="showFileInfo('fprod2File', 'fprod2Info')">
+      <div class="file-info" id="fprod2Info"></div>
+      <button class="upload-btn" onclick="uploadImage('fprod2File', 'featuredProducts/1/img', 'fprod2Status')">इमेज अपलोड</button>
+      <div id="fprod2Status" class="status-msg"></div>
     </div>
     <div class="input-group">
-      <label>Button URL:</label>
-      <input type="text" id="offerBtnUrl" placeholder="Button URL">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="fprodTitle2" placeholder="प्रोडक्ट नाम" value="HRX Sports Shoes">
     </div>
     <div class="input-group">
-      <label>Image URL:</label>
-      <input type="text" id="offerImg" placeholder="Image URL">
+      <label>कीमत:</label>
+      <input type="text" id="fprodPrice2" placeholder="कीमत" value="₹2,499">
     </div>
-    <button class="save-btn" onclick="saveOffer()">Save Offer</button>
   </div>
-
-  <!-- ===== Testimonials Section ===== -->
-  <div class="admin-card">
-    <h2>Testimonials</h2>
-    <div id="testimonials">
-      <div class="product-edit">
-        <label>User 1:</label>
-        <input type="text" id="testUser1" placeholder="User Name">
-        <label>Comment 1:</label>
-        <textarea id="testComment1" placeholder="User Comment"></textarea>
-        <label>Image URL 1:</label>
-        <input type="text" id="testImg1" placeholder="Image URL">
-      </div>
-      <div class="product-edit">
-        <label>User 2:</label>
-        <input type="text" id="testUser2" placeholder="User Name">
-        <label>Comment 2:</label>
-        <textarea id="testComment2" placeholder="User Comment"></textarea>
-        <label>Image URL 2:</label>
-        <input type="text" id="testImg2" placeholder="Image URL">
-      </div>
-      <div class="product-edit">
-        <label>User 3:</label>
-        <input type="text" id="testUser3" placeholder="User Name">
-        <label>Comment 3:</label>
-        <textarea id="testComment3" placeholder="User Comment"></textarea>
-        <label>Image URL 3:</label>
-        <input type="text" id="testImg3" placeholder="Image URL">
-      </div>
+  
+  <div class="product-edit">
+    <h3>🛒 प्रोडक्ट 3</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="fprod3File" accept="image/*" onchange="showFileInfo('fprod3File', 'fprod3Info')">
+      <div class="file-info" id="fprod3Info"></div>
+      <button class="upload-btn" onclick="uploadImage('fprod3File', 'featuredProducts/2/img', 'fprod3Status')">इमेज अपलोड</button>
+      <div id="fprod3Status" class="status-msg"></div>
     </div>
-    <button class="save-btn" onclick="saveTestimonials()">Save Testimonials</button>
-  </div>
-  <!-- ===== Brands Section ===== -->
-  <div class="admin-card">
-    <h2>Brands</h2>
-    <div id="brands">
-      <div class="product-edit">
-        <label>Brand 1 Image:</label>
-        <input type="text" id="brandImg1" placeholder="Image URL">
-      </div>
-      <div class="product-edit">
-        <label>Brand 2 Image:</label>
-        <input type="text" id="brandImg2" placeholder="Image URL">
-      </div>
-      <div class="product-edit">
-        <label>Brand 3 Image:</label>
-        <input type="text" id="brandImg3" placeholder="Image URL">
-      </div>
-      <div class="product-edit">
-        <label>Brand 4 Image:</label>
-        <input type="text" id="brandImg4" placeholder="Image URL">
-      </div>
-      <div class="product-edit">
-        <label>Brand 5 Image:</label>
-        <input type="text" id="brandImg5" placeholder="Image URL">
-      </div>
+    <div class="input-group">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="fprodTitle3" placeholder="प्रोडक्ट नाम" value="Track Pants">
     </div>
-    <button class="save-btn" onclick="saveBrands()">Save Brands</button>
+    <div class="input-group">
+      <label>कीमत:</label>
+      <input type="text" id="fprodPrice3" placeholder="कीमत" value="₹1,299">
+    </div>
   </div>
- <h3>Footer Settings</h3>
-
-<!-- Download App -->
-<div>
-    <label>Download Text:</label>
-    <input type="text" id="adminFooterDownloadText" placeholder="Download App text">
-</div>
-<div>
-    <label>Google Play URL:</label>
-    <input type="text" id="adminFooterGooglePlay" placeholder="Google Play image URL">
-</div>
-<div>
-    <label>App Store URL:</label>
-    <input type="text" id="adminFooterAppStore" placeholder="App Store image URL">
-</div>
-
-<!-- Info -->
-<div>
-    <label>Title:</label>
-    <input type="text" id="adminFooterInfoTitle" placeholder="REDSTORE title">
-</div>
-<div>
-    <label>Subtitle:</label>
-    <input type="text" id="adminFooterInfoSubtitle" placeholder="Subtitle">
-</div>
-<div>
-    <label>Description:</label>
-    <input type="text" id="adminFooterInfoDesc" placeholder="Description">
+  
+  <div class="product-edit">
+    <h3>🛒 प्रोडक्ट 4</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="fprod4File" accept="image/*" onchange="showFileInfo('fprod4File', 'fprod4Info')">
+      <div class="file-info" id="fprod4Info"></div>
+      <button class="upload-btn" onclick="uploadImage('fprod4File', 'featuredProducts/3/img', 'fprod4Status')">इमेज अपलोड</button>
+      <div id="fprod4Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="fprodTitle4" placeholder="प्रोडक्ट नाम" value="Blue Printed T-Shirt">
+    </div>
+    <div class="input-group">
+      <label>कीमत:</label>
+      <input type="text" id="fprodPrice4" placeholder="कीमत" value="₹799">
+    </div>
+  </div>
+  
+  <button class="save-btn" onclick="saveFeaturedProducts()">सभी फीचर्ड प्रोडक्ट्स सेव करें</button>
 </div>
 
-<!-- Useful Links -->
-<div>
-    <label>Coupons URL:</label>
-    <input type="text" id="adminFooterLinkCoupons" placeholder="Coupons URL">
-</div>
-<div>
-    <label>Blog URL:</label>
-    <input type="text" id="adminFooterLinkBlog" placeholder="Blog URL">
-</div>
-<div>
-    <label>Return Policy URL:</label>
-    <input type="text" id="adminFooterLinkReturn" placeholder="Return Policy URL">
-</div>
-<div>
-    <label>Affiliate URL:</label>
-    <input type="text" id="adminFooterLinkAffiliate" placeholder="Affiliate URL">
+<!-- ===== Latest Products Section ===== -->
+<div class="admin-card">
+  <h2>🆕 नए प्रोडक्ट्स</h2>
+  <div class="section-note">यहाँ नए प्रोडक्ट्स की डिटेल्स डालें</div>
+  
+  <div class="product-edit">
+    <h3>🎁 प्रोडक्ट 1</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="lprod1File" accept="image/*" onchange="showFileInfo('lprod1File', 'lprod1Info')">
+      <div class="file-info" id="lprod1Info"></div>
+      <button class="upload-btn" onclick="uploadImage('lprod1File', 'latestProducts/0/img', 'lprod1Status')">इमेज अपलोड</button>
+      <div id="lprod1Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="lprodTitle1" placeholder="प्रोडक्ट नाम" value="Casual Shirt">
+    </div>
+    <div class="input-group">
+      <label>कीमत:</label>
+      <input type="text" id="lprodPrice1" placeholder="कीमत" value="₹1,199">
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>🎁 प्रोडक्ट 2</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="lprod2File" accept="image/*" onchange="showFileInfo('lprod2File', 'lprod2Info')">
+      <div class="file-info" id="lprod2Info"></div>
+      <button class="upload-btn" onclick="uploadImage('lprod2File', 'latestProducts/1/img', 'lprod2Status')">इमेज अपलोड</button>
+      <div id="lprod2Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="lprodTitle2" placeholder="प्रोडक्ट नाम" value="Formal Shoes">
+    </div>
+    <div class="input-group">
+      <label>कीमत:</label>
+      <input type="text" id="lprodPrice2" placeholder="कीमत" value="₹3,499">
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>🎁 प्रोडक्ट 3</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="lprod3File" accept="image/*" onchange="showFileInfo('lprod3File', 'lprod3Info')">
+      <div class="file-info" id="lprod3Info"></div>
+      <button class="upload-btn" onclick="uploadImage('lprod3File', 'latestProducts/2/img', 'lprod3Status')">इमेज अपलोड</button>
+      <div id="lprod3Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="lprodTitle3" placeholder="प्रोडक्ट नाम" value="Denim Jacket">
+    </div>
+    <div class="input-group">
+      <label>कीमत:</label>
+      <input type="text" id="lprodPrice3" placeholder="कीमत" value="₹2,899">
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>🎁 प्रोडक्ट 4</h3>
+    <div class="input-group">
+      <label>प्रोडक्ट इमेज:</label>
+      <input type="file" id="lprod4File" accept="image/*" onchange="showFileInfo('lprod4File', 'lprod4Info')">
+      <div class="file-info" id="lprod4Info"></div>
+      <button class="upload-btn" onclick="uploadImage('lprod4File', 'latestProducts/3/img', 'lprod4Status')">इमेज अपलोड</button>
+      <div id="lprod4Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>प्रोडक्ट नाम:</label>
+      <input type="text" id="lprodTitle4" placeholder="प्रोडक्ट नाम" value="Sports Watch">
+    </div>
+    <div class="input-group">
+      <label>कीमत:</label>
+      <input type="text" id="lprodPrice4" placeholder="कीमत" value="₹1,999">
+    </div>
+  </div>
+  
+  <button class="save-btn" onclick="saveLatestProducts()">नए प्रोडक्ट्स सेव करें</button>
 </div>
 
-<!-- Social Links -->
-<div>
-    <label>Facebook URL:</label>
-    <input type="text" id="adminFooterFacebook" placeholder="Facebook URL">
-</div>
-<div>
-    <label>Twitter URL:</label>
-    <input type="text" id="adminFooterTwitter" placeholder="Twitter URL">
-</div>
-<div>
-    <label>Instagram URL:</label>
-    <input type="text" id="adminFooterInstagram" placeholder="Instagram URL">
-</div>
-<div>
-    <label>YouTube URL:</label>
-    <input type="text" id="adminFooterYoutube" placeholder="YouTube URL">
+<!-- ===== Offer Section ===== -->
+<div class="admin-card">
+  <h2>🎉 ऑफर सेक्शन</h2>
+  <div class="input-group">
+    <label>ऑफर टाइटल:</label>
+    <input type="text" id="offerTitle" placeholder="ऑफर टाइटल" value="Exclusive Offer!">
+  </div>
+  <div class="input-group">
+    <label>ऑफर डिस्क्रिप्शन:</label>
+    <textarea id="offerDesc" placeholder="ऑफर डिटेल्स">Get 50% off on all products. Limited time offer. Hurry up!</textarea>
+  </div>
+  <div class="input-group">
+    <label>ऑफर इमेज:</label>
+    <input type="file" id="offerFile" accept="image/*" onchange="showFileInfo('offerFile', 'offerInfo')">
+    <div class="file-info" id="offerInfo"></div>
+    <button class="upload-btn" onclick="uploadImage('offerFile', 'offer/img', 'offerStatus')">ऑफर इमेज अपलोड</button>
+    <div id="offerStatus" class="status-msg"></div>
+  </div>
+  <div class="input-group">
+    <label>बटन टेक्स्ट:</label>
+    <input type="text" id="offerBtnText" placeholder="बटन टेक्स्ट" value="Shop Now">
+  </div>
+  <div class="input-group">
+    <label>बटन URL:</label>
+    <input type="text" id="offerBtnUrl" placeholder="बटन लिंक" value="/products">
+  </div>
+  <button class="save-btn" onclick="saveOffer()">ऑफर सेव करें</button>
 </div>
 
-<!-- Copyright -->
-<div>
-    <label>Copyright Text:</label>
-    <input type="text" id="adminFooterCopyright" placeholder="© 2025 Your Company">
+<!-- ===== Testimonials Section ===== -->
+<div class="admin-card">
+  <h2>⭐ ग्राहक समीक्षाएं</h2>
+  <div class="section-note">ग्राहकों की फोटो और समीक्षाएं अपलोड करें</div>
+  
+  <div class="product-edit">
+    <h3>👤 ग्राहक 1</h3>
+    <div class="input-group">
+      <label>ग्राहक फोटो:</label>
+      <input type="file" id="test1File" accept="image/*" onchange="showFileInfo('test1File', 'test1Info')">
+      <div class="file-info" id="test1Info"></div>
+      <button class="upload-btn" onclick="uploadImage('test1File', 'testimonials/0/img', 'test1Status')">फोटो अपलोड</button>
+      <div id="test1Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>ग्राहक नाम:</label>
+      <input type="text" id="testUser1" placeholder="ग्राहक नाम" value="राहुल शर्मा">
+    </div>
+    <div class="input-group">
+      <label>समीक्षा:</label>
+      <textarea id="testComment1" placeholder="ग्राहक समीक्षा">बहुत अच्छे प्रोडक्ट्स और तेज डिलीवरी। क्वालिटी बहुत अच्छी है!</textarea>
+    </div>
+    <div class="input-group">
+      <label>रेटिंग (1-5):</label>
+      <select id="testRating1">
+        <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+        <option value="4">⭐⭐⭐⭐ (4)</option>
+        <option value="3">⭐⭐⭐ (3)</option>
+        <option value="2">⭐⭐ (2)</option>
+        <option value="1">⭐ (1)</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>👤 ग्राहक 2</h3>
+    <div class="input-group">
+      <label>ग्राहक फोटो:</label>
+      <input type="file" id="test2File" accept="image/*" onchange="showFileInfo('test2File', 'test2Info')">
+      <div class="file-info" id="test2Info"></div>
+      <button class="upload-btn" onclick="uploadImage('test2File', 'testimonials/1/img', 'test2Status')">फोटो अपलोड</button>
+      <div id="test2Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>ग्राहक नाम:</label>
+      <input type="text" id="testUser2" placeholder="ग्राहक नाम" value="प्रिया पाटील">
+    </div>
+    <div class="input-group">
+      <label>समीक्षा:</label>
+      <textarea id="testComment2" placeholder="ग्राहक समीक्षा">सर्विस बहुत अच्छी है। प्रोडक्ट्स ठीक समय पर मिले।</textarea>
+    </div>
+    <div class="input-group">
+      <label>रेटिंग (1-5):</label>
+      <select id="testRating2">
+        <option value="4">⭐⭐⭐⭐ (4)</option>
+        <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+        <option value="3">⭐⭐⭐ (3)</option>
+        <option value="2">⭐⭐ (2)</option>
+        <option value="1">⭐ (1)</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>👤 ग्राहक 3</h3>
+    <div class="input-group">
+      <label>ग्राहक फोटो:</label>
+      <input type="file" id="test3File" accept="image/*" onchange="showFileInfo('test3File', 'test3Info')">
+      <div class="file-info" id="test3Info"></div>
+      <button class="upload-btn" onclick="uploadImage('test3File', 'testimonials/2/img', 'test3Status')">फोटो अपलोड</button>
+      <div id="test3Status" class="status-msg"></div>
+    </div>
+    <div class="input-group">
+      <label>ग्राहक नाम:</label>
+      <input type="text" id="testUser3" placeholder="ग्राहक नाम" value="अमित वर्मा">
+    </div>
+    <div class="input-group">
+      <label>समीक्षा:</label>
+      <textarea id="testComment3" placeholder="ग्राहक समीक्षा">प्राइस कॉम्पिटिटिव है और क्वालिटी बेहतरीन। जल्दी दोबारा खरीदारी करूंगा।</textarea>
+    </div>
+    <div class="input-group">
+      <label>रेटिंग (1-5):</label>
+      <select id="testRating3">
+        <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+        <option value="4">⭐⭐⭐⭐ (4)</option>
+        <option value="3">⭐⭐⭐ (3)</option>
+        <option value="2">⭐⭐ (2)</option>
+        <option value="1">⭐ (1)</option>
+      </select>
+    </div>
+  </div>
+  
+  <button class="save-btn" onclick="saveTestimonials()">समीक्षाएं सेव करें</button>
 </div>
 
-<button id="saveFooterBtn">Save Footer</button>
+<!-- ===== Brands Section ===== -->
+<div class="admin-card">
+  <h2>🏢 ब्रांड्स सेक्शन</h2>
+  <div class="section-note">ब्रांड लोगो अपलोड करें (Recommended: 200x100px)</div>
+  
+  <div class="product-edit">
+    <h3>1. ब्रांड 1 लोगो</h3>
+    <div class="input-group">
+      <label>ब्रांड 1 इमेज:</label>
+      <input type="file" id="brand1File" accept="image/*" onchange="showFileInfo('brand1File', 'brand1Info')">
+      <div class="file-info" id="brand1Info"></div>
+      <button class="upload-btn" onclick="uploadImage('brand1File', 'brands/0/img', 'brand1Status')">ब्रांड 1 अपलोड</button>
+      <div id="brand1Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>2. ब्रांड 2 लोगो</h3>
+    <div class="input-group">
+      <label>ब्रांड 2 इमेज:</label>
+      <input type="file" id="brand2File" accept="image/*" onchange="showFileInfo('brand2File', 'brand2Info')">
+      <div class="file-info" id="brand2Info"></div>
+      <button class="upload-btn" onclick="uploadImage('brand2File', 'brands/1/img', 'brand2Status')">ब्रांड 2 अपलोड</button>
+      <div id="brand2Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>3. ब्रांड 3 लोगो</h3>
+    <div class="input-group">
+      <label>ब्रांड 3 इमेज:</label>
+      <input type="file" id="brand3File" accept="image/*" onchange="showFileInfo('brand3File', 'brand3Info')">
+      <div class="file-info" id="brand3Info"></div>
+      <button class="upload-btn" onclick="uploadImage('brand3File', 'brands/2/img', 'brand3Status')">ब्रांड 3 अपलोड</button>
+      <div id="brand3Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>4. ब्रांड 4 लोगो</h3>
+    <div class="input-group">
+      <label>ब्रांड 4 इमेज:</label>
+      <input type="file" id="brand4File" accept="image/*" onchange="showFileInfo('brand4File', 'brand4Info')">
+      <div class="file-info" id="brand4Info"></div>
+      <button class="upload-btn" onclick="uploadImage('brand4File', 'brands/3/img', 'brand4Status')">ब्रांड 4 अपलोड</button>
+      <div id="brand4Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <div class="product-edit">
+    <h3>5. ब्रांड 5 लोगो</h3>
+    <div class="input-group">
+      <label>ब्रांड 5 इमेज:</label>
+      <input type="file" id="brand5File" accept="image/*" onchange="showFileInfo('brand5File', 'brand5Info')">
+      <div class="file-info" id="brand5Info"></div>
+      <button class="upload-btn" onclick="uploadImage('brand5File', 'brands/4/img', 'brand5Status')">ब्रांड 5 अपलोड</button>
+      <div id="brand5Status" class="status-msg"></div>
+    </div>
+  </div>
+  
+  <button class="save-btn" onclick="saveBrands()">ब्रांड्स सेव करें</button>
+</div>
+
+<!-- ===== Footer Section ===== -->
+<div class="admin-card">
+  <h2>📱 फुटर सेक्शन</h2>
+  <div class="section-note">ऐप डाउनलोड बटन और सोशल मीडिया लिंक्स</div>
+  
+  <div class="input-group">
+    <label>Google Play इमेज:</label>
+    <input type="file" id="footerGooglePlayFile" accept="image/*" onchange="showFileInfo('footerGooglePlayFile', 'footerGooglePlayInfo')">
+    <div class="file-info" id="footerGooglePlayInfo"></div>
+    <button class="upload-btn" onclick="uploadImage('footerGooglePlayFile', 'footer/downloadApp/googlePlay', 'footerGooglePlayStatus')">Google Play इमेज अपलोड</button>
+    <div id="footerGooglePlayStatus" class="status-msg"></div>
+  </div>
+  
+  <div class="input-group">
+    <label>App Store इमेज:</label>
+    <input type="file" id="footerAppStoreFile" accept="image/*" onchange="showFileInfo('footerAppStoreFile', 'footerAppStoreInfo')">
+    <div class="file-info" id="footerAppStoreInfo"></div>
+    <button class="upload-btn" onclick="uploadImage('footerAppStoreFile', 'footer/downloadApp/appStore', 'footerAppStoreStatus')">App Store इमेज अपलोड</button>
+    <div id="footerAppStoreStatus" class="status-msg"></div>
+  </div>
+  
+  <div class="input-group">
+    <label>डाउनलोड ऐप टेक्स्ट:</label>
+    <input type="text" id="footerDownloadText" placeholder="डाउनलोड ऐप टेक्स्ट" value="Download Our Mobile App">
+  </div>
+  
+  <div class="input-group">
+    <label>कॉपीराइट टेक्स्ट:</label>
+    <input type="text" id="footerCopyright" placeholder="कॉपीराइट टेक्स्ट" value="© 2024 RedStore. All Rights Reserved.">
+  </div>
+  
+  <div class="input-group">
+    <label>फेसबुक लिंक:</label>
+    <input type="text" id="footerFacebook" placeholder="फेसबुक URL" value="https://facebook.com/redstore">
+  </div>
+  
+  <div class="input-group">
+    <label>इंस्टाग्राम लिंक:</label>
+    <input type="text" id="footerInstagram" placeholder="इंस्टाग्राम URL" value="https://instagram.com/redstore">
+  </div>
+  
+  <div class="input-group">
+    <label>ट्विटर लिंक:</label>
+    <input type="text" id="footerTwitter" placeholder="ट्विटर URL" value="https://twitter.com/redstore">
+  </div>
+  
+  <button class="save-btn" onclick="saveFooter()">फुटर सेव करें</button>
+</div>
 
 </div> <!-- End admin-container -->
 
-<!-- ===== Toast for Save ===== -->
+<!-- ===== Toast Notification ===== -->
 <div id="toast"></div>
 
 <!-- ===== Firebase JS ===== -->
@@ -443,6 +547,7 @@ body{
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
+// ===== Firebase Configuration =====
 const firebaseConfig = {
   apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
   authDomain: "myshop-1dbc9.firebaseapp.com",
@@ -454,239 +559,285 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-document.getElementById('saveLogoBtn').addEventListener('click', () => {
-    const logoImage = document.getElementById('adminLogoImage').value;
-    const logoText = document.getElementById('adminLogoText').value;
 
-    firebase.database().ref('siteSettings').update({
-        logoImage: logoImage,
-        logoText: logoText
-    }).then(() => {
-        alert("Logo updated successfully!");
+// ===== ImgBB Configuration =====
+const IMGBB_API_KEY = '80c26b679da7cc8790c8ab386cc3ba0e';
+const IMGBB_UPLOAD_URL = 'https://api.imgbb.com/1/upload';
+
+// ===== Utility Functions =====
+function showToast(msg, type = 'success') {
+  const toast = document.getElementById('toast');
+  let icon = '✅';
+  if (type === 'error') icon = '❌';
+  if (type === 'warning') icon = '⚠️';
+  if (type === 'info') icon = 'ℹ️';
+  
+  toast.innerHTML = `${icon} ${msg}`;
+  toast.style.backgroundColor = type === 'error' ? '#ef4444' : 
+                               type === 'warning' ? '#f59e0b' : 
+                               type === 'info' ? '#3b82f6' : '#10b981';
+  toast.className = 'show';
+  setTimeout(() => {
+    toast.className = toast.className.replace('show', '');
+  }, 3000);
+}
+
+function showFileInfo(fileInputId, infoDivId) {
+  const fileInput = document.getElementById(fileInputId);
+  const infoDiv = document.getElementById(infoDivId);
+  
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+    infoDiv.innerHTML = `<strong>चयनित:</strong> ${file.name} (${fileSize} MB, ${file.type})`;
+    infoDiv.style.display = 'block';
+  }
+}
+
+function showStatus(elementId, message, type = 'info') {
+  const element = document.getElementById(elementId);
+  element.textContent = message;
+  element.className = 'status-msg';
+  if (type === 'success') element.classList.add('status-success');
+  else if (type === 'error') element.classList.add('status-error');
+  else if (type === 'loading') element.classList.add('status-loading');
+  element.style.display = 'block';
+}
+
+// ===== MAIN Image Upload Function =====
+async function uploadImage(fileInputId, firebasePath, statusId) {
+  const fileInput = document.getElementById(fileInputId);
+  const statusElement = document.getElementById(statusId);
+  
+  if (!fileInput.files.length) {
+    showStatus(statusId, 'कृपया पहले एक इमेज चुनें!', 'error');
+    showToast('कृपया इमेज चुनें', 'error');
+    return;
+  }
+  
+  const file = fileInput.files[0];
+  
+  // File validation
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSize) {
+    showStatus(statusId, 'फाइल बहुत बड़ी है! (Max 5MB)', 'error');
+    showToast('फाइल 5MB से बड़ी है', 'error');
+    return;
+  }
+  
+  showStatus(statusId, 'इमेज अपलोड हो रही है...', 'loading');
+  
+  const formData = new FormData();
+  formData.append('key', IMGBB_API_KEY);
+  formData.append('image', file);
+  
+  try {
+    const response = await fetch(IMGBB_UPLOAD_URL, {
+      method: 'POST',
+      body: formData
     });
-});
-
-// ===== Toast Function =====
-function showToast(msg){
-  const toast = document.getElementById("toast");
-  toast.innerText = msg;
-  toast.className = "show";
-  setTimeout(()=>{toast.className = toast.className.replace("show","");},3000);
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      const imageUrl = result.data.url;
+      
+      // Save to Firebase
+      const updates = {};
+      updates[firebasePath] = imageUrl;
+      
+      await db.ref().update(updates);
+      
+      showStatus(statusId, '✅ इमेज सफलतापूर्वक अपलोड हुई!', 'success');
+      showToast('इमेज अपलोड और सेव हो गई!');
+      
+      // Clear file input
+      fileInput.value = '';
+      const infoDivId = fileInputId + 'Info';
+      const infoDiv = document.getElementById(infoDivId);
+      if (infoDiv) infoDiv.style.display = 'none';
+      
+    } else {
+      showStatus(statusId, `अपलोड विफल: ${result.error?.message || 'अज्ञात त्रुटि'}`, 'error');
+      showToast('अपलोड विफल', 'error');
+    }
+    
+  } catch (error) {
+    console.error('Upload error:', error);
+    showStatus(statusId, 'अपलोड विफल। कृपया पुनः प्रयास करें।', 'error');
+    showToast('नेटवर्क त्रुटि', 'error');
+  }
 }
 
 // ===== Save Functions =====
-function saveHeader(){ db.ref("header").set({
-    title: document.getElementById("headerTitle").value,
-    desc: document.getElementById("headerDesc").value,
-    btnText: document.getElementById("headerBtnText").value,
-    btnUrl: document.getElementById("headerBtnUrl").value,
-    img: document.getElementById("headerImg").value
-}, ()=>showToast("Header Saved!")); }
-
-function saveCategories(){ db.ref("categories").set({
-    cat1: document.getElementById("cat1").value,
-    cat2: document.getElementById("cat2").value,
-    cat3: document.getElementById("cat3").value
-}, ()=>showToast("Categories Saved!")); }
-
-function saveFeatured(){
-    let products=[];
-    for(let i=1;i<=4;i++){
-        products.push({
-            img: document.getElementById("fprodImg"+i).value,
-            title: document.getElementById("fprodTitle"+i).value,
-            price: document.getElementById("fprodPrice"+i).value
-        });
-    }
-    db.ref("featuredProducts").set(products, ()=>showToast("Featured Products Saved!"));
+function saveLogoText() {
+  const logoText = document.getElementById('logoText').value;
+  db.ref('siteSettings/logoText').set(logoText)
+    .then(() => showToast('लोगो टेक्स्ट सेव हो गया!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
 }
 
-function saveLatest(){
-    let products=[];
-    for(let i=1;i<=4;i++){
-        products.push({
-            img: document.getElementById("lprodImg"+i).value,
-            title: document.getElementById("lprodTitle"+i).value,
-            price: document.getElementById("lprodPrice"+i).value
-        });
-    }
-    db.ref("latestProducts").set(products, ()=>showToast("Latest Products Saved!"));
+function saveHeaderText() {
+  const headerData = {
+    title: document.getElementById('headerTitle').value,
+    desc: document.getElementById('headerDesc').value
+  };
+  db.ref('header').update(headerData)
+    .then(() => showToast('हेडर टेक्स्ट सेव हो गया!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
 }
 
-function saveOffer(){ db.ref("offer").set({
-    title: document.getElementById("offerTitle").value,
-    desc: document.getElementById("offerDesc").value,
-    btnText: document.getElementById("offerBtnText").value,
-    btnUrl: document.getElementById("offerBtnUrl").value,
-    img: document.getElementById("offerImg").value
-}, ()=>showToast("Offer Saved!")); }
-
-function saveTestimonials(){
-    let testimonials=[];
-    for(let i=1;i<=3;i++){
-        testimonials.push({
-            user: document.getElementById("testUser"+i).value,
-            comment: document.getElementById("testComment"+i).value,
-            img: document.getElementById("testImg"+i).value
-        });
-    }
-    db.ref("testimonials").set(testimonials, ()=>showToast("Testimonials Saved!"));
-}
-
-function saveBrands(){
-    let brands=[];
-    for(let i=1;i<=5;i++){
-        brands.push({img: document.getElementById("brandImg"+i).value});
-    }
-    db.ref("brands").set(brands, ()=>showToast("Brands Saved!"));
-}
-
-function saveFooter(){ db.ref("footer").set({
-    text: document.getElementById("footerText").value,
-    copyright: document.getElementById("footerCopyright").value
-}, ()=>showToast("Footer Saved!")); }
- function saveSiteSettings(){
-  db.ref("siteSettings").set({
-    logoText: document.getElementById("logoText").value,
-    logoImage: document.getElementById("logoImage").value,
-    nav:{
-      home: document.getElementById("navHome").value,
-      products: document.getElementById("navProducts").value,
-      about: document.getElementById("navAbout").value,
-      contact: document.getElementById("navContact").value
-    }
-  }, ()=>showToast("Site Settings Saved!"));
-}
-// ===== Fetch Data on Page Load =====
-window.onload = function(){
-  // Header
-  db.ref("header").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      document.getElementById("headerTitle").value=data.title||"";
-      document.getElementById("headerDesc").value=data.desc||"";
-      document.getElementById("headerBtnText").value=data.btnText||"";
-      document.getElementById("headerBtnUrl").value=data.btnUrl||"";
-      document.getElementById("headerImg").value=data.img||"";
-    }
-  });
-
-  // Categories
-  db.ref("categories").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      document.getElementById("cat1").value=data.cat1||"";
-      document.getElementById("cat2").value=data.cat2||"";
-      document.getElementById("cat3").value=data.cat3||"";
-    }
-  });
-
-  // Featured Products
-  db.ref("featuredProducts").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      for(let i=0;i<data.length;i++){
-        document.getElementById("fprodImg"+(i+1)).value=data[i].img||"";
-        document.getElementById("fprodTitle"+(i+1)).value=data[i].title||"";
-        document.getElementById("fprodPrice"+(i+1)).value=data[i].price||"";
-      }
-    }
-  });
-
-  // Latest Products
-  db.ref("latestProducts").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      for(let i=0;i<data.length;i++){
-        document.getElementById("lprodImg"+(i+1)).value=data[i].img||"";
-        document.getElementById("lprodTitle"+(i+1)).value=data[i].title||"";
-        document.getElementById("lprodPrice"+(i+1)).value=data[i].price||"";
-      }
-    }
-  });
-
-  // Offer
-  db.ref("offer").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      document.getElementById("offerTitle").value=data.title||"";
-      document.getElementById("offerDesc").value=data.desc||"";
-      document.getElementById("offerBtnText").value=data.btnText||"";
-      document.getElementById("offerBtnUrl").value=data.btnUrl||"";
-      document.getElementById("offerImg").value=data.img||"";
-    }
-  });
-
-  // Testimonials
-  db.ref("testimonials").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      for(let i=0;i<data.length;i++){
-        document.getElementById("testUser"+(i+1)).value=data[i].user||"";
-        document.getElementById("testComment"+(i+1)).value=data[i].comment||"";
-        document.getElementById("testImg"+(i+1)).value=data[i].img||"";
-      }
-    }
-  });
-
-  // Brands
-  db.ref("brands").once("value").then(snapshot=>{
-    const data=snapshot.val();
-    if(data){
-      for(let i=0;i<data.length;i++){
-        document.getElementById("brandImg"+(i+1)).value=data[i].img||"";
-      }
-    }
-  });document.getElementById('saveFooterBtn').addEventListener('click', () => {
-    firebase.database().ref('footer').set({
-        downloadApp: {
-            text: document.getElementById('adminFooterDownloadText').value,
-            googlePlay: document.getElementById('adminFooterGooglePlay').value,
-            appStore: document.getElementById('adminFooterAppStore').value
-        },
-        info: {
-            title: document.getElementById('adminFooterInfoTitle').value,
-            subtitle: document.getElementById('adminFooterInfoSubtitle').value,
-            desc: document.getElementById('adminFooterInfoDesc').value
-        },
-        links: {
-            coupons: document.getElementById('adminFooterLinkCoupons').value,
-            blog: document.getElementById('adminFooterLinkBlog').value,
-            returnPolicy: document.getElementById('adminFooterLinkReturn').value,
-            affiliate: document.getElementById('adminFooterLinkAffiliate').value
-        },
-        social: {
-            facebook: document.getElementById('adminFooterFacebook').value,
-            twitter: document.getElementById('adminFooterTwitter').value,
-            instagram: document.getElementById('adminFooterInstagram').value,
-            youtube: document.getElementById('adminFooterYoutube').value
-        },
-        policies: {
-            privacy: "#", // optional
-            terms: "#",
-            contact: "#"
-        },
-        copyright: document.getElementById('adminFooterCopyright').value
-    }).then(() => {
-        alert("Footer updated successfully!");
+function saveFeaturedProducts() {
+  const products = [];
+  for (let i = 1; i <= 4; i++) {
+    products.push({
+      title: document.getElementById('fprodTitle' + i).value,
+      price: document.getElementById('fprodPrice' + i).value
     });
-});
-  // Site Settings
-db.ref("siteSettings").once("value").then(snapshot=>{
-  const data = snapshot.val();
-  if(data){
-    document.getElementById("logoText").value = data.logoText || "";
-    document.getElementById("logoImage").value = data.logoImage || "";
-
-    if(data.nav){
-      document.getElementById("navHome").value = data.nav.home || "";
-      document.getElementById("navProducts").value = data.nav.products || "";
-      document.getElementById("navAbout").value = data.nav.about || "";
-      document.getElementById("navContact").value = data.nav.contact || "";
-    }
   }
-});
+  db.ref('featuredProducts').set(products)
+    .then(() => showToast('फीचर्ड प्रोडक्ट्स सेव हो गए!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
 }
+
+function saveLatestProducts() {
+  const products = [];
+  for (let i = 1; i <= 4; i++) {
+    products.push({
+      title: document.getElementById('lprodTitle' + i).value,
+      price: document.getElementById('lprodPrice' + i).value
+    });
+  }
+  db.ref('latestProducts').set(products)
+    .then(() => showToast('नए प्रोडक्ट्स सेव हो गए!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
+}
+
+function saveOffer() {
+  const offerData = {
+    title: document.getElementById('offerTitle').value,
+    desc: document.getElementById('offerDesc').value,
+    btnText: document.getElementById('offerBtnText').value,
+    btnUrl: document.getElementById('offerBtnUrl').value
+  };
+  db.ref('offer').update(offerData)
+    .then(() => showToast('ऑफर सेव हो गया!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
+}
+
+function saveTestimonials() {
+  const testimonials = [];
+  for (let i = 1; i <= 3; i++) {
+    testimonials.push({
+      user: document.getElementById('testUser' + i).value,
+      comment: document.getElementById('testComment' + i).value,
+      rating: document.getElementById('testRating' + i).value
+    });
+  }
+  db.ref('testimonials').set(testimonials)
+    .then(() => showToast('समीक्षाएं सेव हो गईं!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
+}
+
+function saveBrands() {
+  showToast('ब्रांड इमेज अपलोड होते ही स्वतः सेव हो जाती हैं!', 'info');
+}
+
+function saveFooter() {
+  const footerData = {
+    downloadText: document.getElementById('footerDownloadText').value,
+    copyright: document.getElementById('footerCopyright').value,
+    social: {
+      facebook: document.getElementById('footerFacebook').value,
+      instagram: document.getElementById('footerInstagram').value,
+      twitter: document.getElementById('footerTwitter').value
+    }
+  };
+  db.ref('footer').update(footerData)
+    .then(() => showToast('फुटर सेव हो गया!'))
+    .catch(error => showToast('त्रुटि: ' + error.message, 'error'));
+}
+
+// ===== Load Data on Page Load =====
+window.onload = async function() {
+  showToast('एडमिन पैनल लोड हो रहा है...', 'info');
+  
+  try {
+    // Load all data from Firebase
+    const snapshot = await db.ref().once('value');
+    const data = snapshot.val();
+    
+    if (data) {
+      // Site Settings
+      if (data.siteSettings) {
+        document.getElementById('logoText').value = data.siteSettings.logoText || '';
+      }
+      
+      // Header
+      if (data.header) {
+        document.getElementById('headerTitle').value = data.header.title || '';
+        document.getElementById('headerDesc').value = data.header.desc || '';
+      }
+      
+      // Featured Products
+      if (data.featuredProducts) {
+        data.featuredProducts.forEach((product, index) => {
+          if (product) {
+            document.getElementById('fprodTitle' + (index + 1)).value = product.title || '';
+            document.getElementById('fprodPrice' + (index + 1)).value = product.price || '';
+          }
+        });
+      }
+      
+      // Latest Products
+      if (data.latestProducts) {
+        data.latestProducts.forEach((product, index) => {
+          if (product) {
+            document.getElementById('lprodTitle' + (index + 1)).value = product.title || '';
+            document.getElementById('lprodPrice' + (index + 1)).value = product.price || '';
+          }
+        });
+      }
+      
+      // Offer
+      if (data.offer) {
+        document.getElementById('offerTitle').value = data.offer.title || '';
+        document.getElementById('offerDesc').value = data.offer.desc || '';
+        document.getElementById('offerBtnText').value = data.offer.btnText || '';
+        document.getElementById('offerBtnUrl').value = data.offer.btnUrl || '';
+      }
+      
+      // Testimonials
+      if (data.testimonials) {
+        data.testimonials.forEach((testimonial, index) => {
+          if (testimonial) {
+            document.getElementById('testUser' + (index + 1)).value = testimonial.user || '';
+            document.getElementById('testComment' + (index + 1)).value = testimonial.comment || '';
+            document.getElementById('testRating' + (index + 1)).value = testimonial.rating || '5';
+          }
+        });
+      }
+      
+      // Footer
+      if (data.footer) {
+        document.getElementById('footerDownloadText').value = data.footer.downloadText || '';
+        document.getElementById('footerCopyright').value = data.footer.copyright || '';
+        if (data.footer.social) {
+          document.getElementById('footerFacebook').value = data.footer.social.facebook || '';
+          document.getElementById('footerInstagram').value = data.footer.social.instagram || '';
+          document.getElementById('footerTwitter').value = data.footer.social.twitter || '';
+        }
+      }
+    }
+    
+    showToast('डेटा सफलतापूर्वक लोड हो गया! ✅');
+    
+  } catch (error) {
+    console.error('Error loading data:', error);
+    showToast('डेटा लोड करने में त्रुटि', 'error');
+  }
+};
 </script>
+
 </body>
 </html>
