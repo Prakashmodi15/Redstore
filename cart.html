@@ -3,198 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cart - RedStore</title>
-<link rel="stylesheet" href="CSS/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Your Orders - RedStore</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Poppins', sans-serif; background-color: #f8f9fa; }
+.container { margin-top: 40px; margin-bottom: 40px; }
+.table img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+.status { padding: 5px 10px; border-radius: 5px; font-weight: 600; color: white; text-align:center; }
+.status.Processing { background-color: #007bff; }
+.status.Pending { background-color: #fd7e14; }
+.status.Delivered { background-color: #28a745; }
+.alert-success { margin-top: 20px; }
+</style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="logo">
-            <img src="images/logo.png" alt="RedStore logo" width="125px">
-        </div>
-        <nav>
-            <ul id="MenuItems">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="Products.html">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="account.html">Account</a></li>
-            </ul>
-        </nav>
-        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+    <h2 class="mb-4 text-center">Your Orders</h2>
+    <div id="orderSuccessMsg" class="alert alert-success text-center d-none">
+        Order Placed Successfully!
     </div>
-</div>
-
-<!-- Order Success Message -->
-<div id="orderSuccessMsg" class="alert alert-success text-center d-none mt-3">
-    Order Placed Successfully!
-</div>
-
-<!-- Cart Items -->
-<div class="small container cart-page">
-    <table id="cartTable">
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
-        <!-- Cart items will be inserted dynamically here -->
-    </table>
-
-    <div class="total-price">
-        <table>
-            <tr>
-                <td>Subtotal</td>
-                <td id="subtotal">$0.00</td>
-            </tr>
-            <tr>
-                <td>Tax (10%)</td>
-                <td id="tax">$0.00</td>
-            </tr>
-            <tr>
-                <td>Total</td>
-                <td id="total">$0.00</td>
-            </tr>
+    <div id="noOrdersMsg" class="alert alert-warning text-center d-none">
+        No orders placed yet.
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle" id="ordersTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Orders dynamically inserted here -->
+            </tbody>
         </table>
     </div>
 </div>
 
-<!-- Footer same as before -->
-<div class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="footer-col-1">
-                <h3>Download Our App</h3>
-                <p>Download App for Android and iOS mobile phone.</p>
-                <div class="app-logo">
-                    <img src="images/play-store.png">
-                    <img src="images/app-store.png">
-                </div>  
-            </div>
-            <div class="footer-col-2">
-                <img src="images/logo-white.png">
-                <p>Our purpose is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
-            </div>
-            <div class="footer-col-3">
-                <h3>Useful Links</h3>
-                <ul>
-                    <li>Coupons</li>
-                    <li>Blog Post</li>
-                    <li>Return Policy</li>
-                    <li>Join Affiliate</li>
-                </ul>
-            </div>
-            <div class="footer-col-4">
-                <h3>Follow Us</h3>
-                <ul>
-                    <li>Facebook</li>
-                    <li>Twitter</li>
-                    <li>Instagram</li>
-                    <li>Youtube</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <a href="" class="copyright">Copyright 2025 - Made with ❤️ by Prakash Modi</a>
-    </div>
-</div>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
 
 <script>
-    // Firebase Config
-    const firebaseConfig = {
-        apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
-        authDomain: "myshop-1dbc9.firebaseapp.com",
-        databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
-        projectId: "myshop-1dbc9",
-        storageBucket: "myshop-1dbc9.appspot.com",
-        messagingSenderId: "81466489688",
-        appId: "1:81466489688:web:e225da8670b2314dd1432d"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+const firebaseConfig = {
+  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+  authDomain: "myshop-1dbc9.firebaseapp.com",
+  databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
+  projectId: "myshop-1dbc9",
+  storageBucket: "myshop-1dbc9.appspot.com",
+  messagingSenderId: "81466489688",
+  appId: "1:81466489688:web:e225da8670b2314dd1432d"
+};
 
-    // Show menu toggle
-    var MenuItems = document.getElementById("MenuItems");
-    MenuItems.style.maxHeight = "0px";
-    function menutoggle() {
-        if (MenuItems.style.maxHeight == "0px") {
-            MenuItems.style.maxHeight = "200px";
-        } else {
-            MenuItems.style.maxHeight = "0px";
-        }
-    }
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-    // Show success message if order placed
-    if(localStorage.getItem("orderPlaced") === "true"){
-        document.getElementById("orderSuccessMsg").classList.remove("d-none");
-        localStorage.removeItem("orderPlaced");
-    }
+// ===== Success Message =====
+if (localStorage.getItem("orderPlaced") === "true") {
+    document.getElementById("orderSuccessMsg").classList.remove("d-none");
+    localStorage.removeItem("orderPlaced");
+}
 
-    // Fetch orders from Firebase
-    db.ref('orders').once('value', snap => {
-        const orders = snap.val();
-        const cartTable = document.getElementById('cartTable');
-        let subtotal = 0;
+const tableBody = document.querySelector("#ordersTable tbody");
+const noOrdersMsg = document.getElementById("noOrdersMsg");
+const userId = localStorage.getItem("userId") || "guest";
 
-        if(orders){
-            Object.keys(orders).forEach(key => {
-                const order = orders[key];
-                const p = order.product;
-                const qty = order.quantity || 1;
-                const priceNum = Number(p.price.replace(/[₹$]/g,'')) || 0;
-                const subTotalRow = qty * priceNum;
-                subtotal += subTotalRow;
+// ===== Fetch Orders from Firebase =====
+db.ref("orders/" + userId).once("value").then(snapshot => {
+  if (!snapshot.exists()) {
+    noOrdersMsg.classList.remove("d-none");
+    return;
+  }
 
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>
-                        <div class="cart-info">
-                            <img src="${p.img}" alt="${p.title}">
-                            <div>
-                                <p>${p.title}</p>
-                                <small>Price: ${p.price}</small>
-                            </div>
-                        </div>
-                    </td>
-                    <td><input type="number" value="${qty}" min="1" onchange="updateSubtotal()"></td>
-                    <td>${p.price}</td>
-                `;
-                cartTable.appendChild(tr);
-            });
-        }
+  snapshot.forEach(child => {
+    const order = child.val();
 
-        document.getElementById('subtotal').innerText = "₹" + subtotal.toFixed(2);
-        const tax = subtotal * 0.1;
-        document.getElementById('tax').innerText = "₹" + tax.toFixed(2);
-        document.getElementById('total').innerText = "₹" + (subtotal + tax).toFixed(2);
-    });
-
-    // Update subtotal on quantity change
-    function updateSubtotal(){
-        const rows = document.querySelectorAll('#cartTable tr');
-        let subtotal = 0;
-        rows.forEach((row, index) => {
-            if(index === 0) return; // skip header
-            const priceText = row.querySelector('small').innerText.replace('Price: ₹','');
-            const qty = row.querySelector('input').value;
-            subtotal += Number(priceText) * Number(qty);
-            row.querySelectorAll('td')[2].innerText = "₹"+(Number(priceText)*Number(qty)).toFixed(2);
-        });
-        document.getElementById('subtotal').innerText = "₹"+subtotal.toFixed(2);
-        const tax = subtotal * 0.1;
-        document.getElementById('tax').innerText = "₹"+tax.toFixed(2);
-        document.getElementById('total').innerText = "₹"+(subtotal + tax).toFixed(2);
-    }
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <div class="d-flex align-items-center gap-3">
+          <img src="${order.image || 'https://via.placeholder.com/80'}" width="80" alt="${order.product}">
+          <span>${order.product}</span>
+        </div>
+      </td>
+      <td>${order.qty}</td>
+      <td>₹${parseFloat(order.price).toFixed(2)}</td>
+      <td>₹${parseFloat(order.total).toFixed(2)}</td>
+      <td>${order.payment}</td>
+      <td><span class="status ${order.status}">${order.status}</span></td>
+    `;
+    tableBody.appendChild(tr);
+  });
+});
 </script>
-
 </body>
 </html>
