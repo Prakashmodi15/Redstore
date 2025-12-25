@@ -1,44 +1,184 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Buy Now | RedStore</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Bootstrap -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Now - RedStore</title>
+    <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f8f9fa;
-    }
-    .product-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    .product-img {
-      max-height: 300px;
-      object-fit: contain;
-    }
-  </style>
+ <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .product-img {
+            width: 100%;
+            height: 350px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        .price-tag {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 28px;
+        }
+        .quantity-box {
+            width: 100px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+            padding: 10px 15px;
+            font-size: 18px;
+        }
+        .payment-method {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+        .payment-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-option:hover {
+            border-color: #3498db;
+            background-color: #f8f9fa;
+        }
+        .payment-option.selected {
+            border-color: #28a745;
+            background-color: #e8f5e9;
+        }
+        .qr-container {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .qr-code {
+            width: 220px;
+            height: 220px;
+            margin: 15px auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 10px;
+            background: white;
+        }
+        .btn-pay {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            font-weight: 600;
+            padding: 14px 30px;
+            border-radius: 10px;
+            border: none;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(40, 167, 69, 0.3);
+        }
+        .btn-pay:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+        .upi-input {
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #dee2e6;
+        }
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+        }
+        .footer {
+            background-color: #2d3436;
+            color: #dfe6e9;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+        .total-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ff4b2b;
+        }
+        @media (max-width: 768px) {
+            .product-img {
+                height: 250px;
+            }
+            .qr-code {
+                width: 180px;
+                height: 180px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1><i class="fas fa-shopping-bag"></i> RedStore</h1>
+                <a href="index.html" class="btn btn-outline-light"><i class="fas fa-home"></i> Back to Home</a>
+            </div>
+        </div>
+    </header>
 
-<!-- ===== HEADER ===== -->
-<nav class="navbar navbar-light bg-white shadow-sm mb-4">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">RedStore</a>
-  </div>
-</nav>
-
-<!-- ===== BUY NOW SECTION ===== -->
+    <main class="container my-5">
+        <div id="productAlert" class="alert alert-warning d-none" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> No product selected! Redirecting to home...
+        </div>
+        
+        <div class="row" id="checkoutContent">
+  <!-- ===== BUY NOW SECTION ===== -->
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -57,19 +197,15 @@
             <h3 id="bnTitle" class="fw-bold mb-2"></h3>
             <h4 id="bnPrice" class="text-danger fw-bold mb-3"></h4>
 
-            <div class="mb-3">
-              <label class="fw-semibold">Quantity</label>
-              <input type="number" id="bnQty" class="form-control w-50" value="1" min="1">
-            </div>
-
-            <button class="btn btn-danger w-100 mb-2" onclick="placeOrder()">
-              Place Order
-            </button>
-
-            <a href="index.html" class="btn btn-outline-secondary w-100">
-              Continue Shopping
-            </a>
-          </div>
+        <div class="mb-3">
+  <label class="fw-semibold">Quantity</label>
+  
+<input type="number" id="bnQty" class="form-control w-50"
+       value="1" min="1" oninput="updateAmount()">
+<h4 class="mt-3 text-danger">
+  Total Amount: ₹ <span id="totalAmount">0</span>
+</h4>
+   </div>
 
         </div>
 
@@ -78,50 +214,207 @@
     </div>
   </div>
 </div>
+<!-- PAYMENT METHODS -->
+<div class="payment-method">
+  <h4 class="mb-4">Select Payment Method</h4>
 
-<!-- ===== FOOTER ===== -->
-<footer class="text-center mt-5 mb-3 text-muted">
-  © 2025 RedStore. All rights reserved.
-</footer>
+  <!-- COD -->
+  <div class="payment-option" onclick="selectCOD()">
+    <h5>Cash on Delivery</h5>
+    <p class="text-muted">Pay when you receive your order</p>
+  </div>
 
-<!-- ===== SCRIPT ===== -->
+  <div id="codBox" class="d-none p-3 mt-2 rounded" style="background:#0d6efd;">
+    <button class="btn btn-light w-100 fw-bold" onclick="placeCODOrder()">
+      Place Order
+    </button>
+  </div>
+
+  <!-- UPI -->
+  <div class="payment-option mt-3" onclick="selectUPI()">
+    <h5>UPI Payment</h5>
+    <p class="text-muted">Pay using GPay / PhonePe / Mobikwik</p>
+  </div>
+
+  <div id="upiBox" class="d-none mt-3">
+
+    <!-- Logos -->
+    <div class="d-flex justify-content-center gap-3 mb-3">
+      <img src="gpay.png" height="40">
+      <img src="phonepe.png" height="40">
+      <img src="mobikwik.png" height="40">
+    </div>
+
+    <!-- QR -->
+    <div class="text-center">
+      <img id="upiQR" width="220">
+    </div>
+
+    <p class="text-center fw-bold mt-3">OR</p>
+
+    <input type="text" id="userUpi" class="form-control mb-2"
+           placeholder="yourname@upi">
+
+    <button class="btn btn-success w-100" onclick="payViaUPI()">
+      Pay Now
+    </button>
+  </div>
+</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2023 RedStore. All rights reserved.</p>
+            <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> in India</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database-compat.js"></script>
+
 <script>
-/* ===============================
+ /* ===============================
    BUY NOW PAGE ENGINE
    =============================== */
-
 const product = JSON.parse(localStorage.getItem("buyNowProduct"));
 
 if (!product) {
   alert("No product selected");
   window.location.href = "index.html";
+}document.getElementById("bnTitle").innerText = product.name;
+document.getElementById("bnPrice").innerText = "₹ " + product.price;
+document.getElementById("bnImg").src = product.image;
+document.getElementById("totalAmount").innerText = product.price;
+  
+  
+function updateAmount() {
+  const qty = parseInt(document.getElementById("bnQty").value) || 1;
+  const price = parseFloat(product.price);
+  const total = qty * price;
+  document.getElementById("totalAmount").innerText = total;
+}
+          
+
+
+/* ===============================
+   PAYMENT ENGINE
+=============================== */
+
+// Admin editable UPI
+const ADMIN_UPI_ID = localStorage.getItem("adminUpi") || "admin@upi";
+
+// COD select
+function selectCOD() {
+  document.getElementById("codBox").classList.remove("d-none");
+  document.getElementById("upiBox").classList.add("d-none");
 }
 
-/* Load Product */
-document.getElementById("bnImg").src = product.img;
-document.getElementById("bnTitle").innerText = product.title;
-document.getElementById("bnPrice").innerText = product.price;
+// UPI select
+function selectUPI() {
+  document.getElementById("upiBox").classList.remove("d-none");
+  document.getElementById("codBox").classList.add("d-none");
+  generateQR();
+}
 
-/* Place Order */
-function placeOrder() {
-  const qty = document.getElementById("bnQty").value;
+// QR generator
+function generateQR() {
+  const amount = document.getElementById("totalAmount").innerText;
+  if (!amount || amount === "0") return;
 
-  const orderData = {
-    title: product.title,
-    price: product.price,
-    img: product.img,
-    qty: qty,
-    orderTime: new Date().toISOString()
+  const txnId = "TXN" + Date.now();
+
+  const upiURL =
+    `upi://pay?pa=${ADMIN_UPI_ID}` +
+    `&pn=RedStore` +
+    `&am=${amount}` +
+    `&cu=INR` +
+    `&tn=Order ${txnId} (Valid 5 min)`;
+
+  document.getElementById("upiQR").src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
+    encodeURIComponent(upiURL);
+}
+const upiURL =
+  `upi://pay?pa=${ADMIN_UPI_ID}` +
+  `&pn=RedStore` +
+  `&am=${amount}` +
+  `&cu=INR` +
+  `&tn=Order ${txnId} | From ${customerUpi}`;
+
+window.location.href = upiURL;
+// Save order
+function saveOrder(method) {
+  const order = {
+    product: document.getElementById("bnTitle").innerText,
+    price: document.getElementById("bnPrice").innerText,
+    qty: document.getElementById("bnQty").value,
+    total: document.getElementById("totalAmount").innerText,
+    payment: method,
+    time: new Date().toLocaleString()
   };
 
-  // TEMP: Save for next step (checkout / COD / payment)
-  localStorage.setItem("finalOrder", JSON.stringify(orderData));
-
-  alert("Order ready for checkout");
-  // Next page (optional)
-  // window.location.href = "checkout.html";
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders.push(order);
+  localStorage.setItem("orders", JSON.stringify(orders));
 }
-</script>
 
+// COD order
+function placeCODOrder() {
+  saveOrder("COD");
+  showSuccess();
+}
+
+// UPI manual pay
+function payViaUPI() {
+  const customerUpi = document.getElementById("userUpi").value.trim();
+  if (!customerUpi) {
+    alert("अपनी UPI ID डालें");
+    return;
+  }
+
+  const amount = document.getElementById("totalAmount").innerText;
+  if (!amount || amount === "0") {
+    alert("Invalid amount");
+    return;
+  }
+
+  const txnId = "TXN" + Date.now();
+
+  // NOTE: payment ADMIN ko hi ja raha hai (UPI rule)
+  const upiURL =
+    `upi://pay?pa=${ADMIN_UPI_ID}` +
+    `&pn=RedStore` +
+    `&am=${amount}` +
+    `&cu=INR` +
+    `&tn=Order ${txnId} | From ${customerUpi}`;
+
+  
+  
+  // Customer UPI APP open
+  window.location.href = upiURL;
+
+  // Frontend limitation → assume success
+  setTimeout(() => {
+    saveOrder("UPI");
+    showSuccess();
+  }, 4000);
+}
+
+// Success screen
+function showSuccess() {
+  document.body.innerHTML = `
+    <div class="text-center mt-5">
+      <h1 style="color:green;font-size:60px;">✔</h1>
+      <h3>Order Placed Successfully</h3>
+      <p>Redirecting to cart...</p>
+    </div>
+  `;
+
+  setTimeout(() => {
+    window.location.href = "cart.html";
+  }, 2000);
+}
+  
+</script>
 </body>
 </html>
