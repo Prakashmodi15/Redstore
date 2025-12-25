@@ -300,12 +300,6 @@ const product = {
   image: image
 };
 
-function updateAmount() {
-  const qty = parseInt(document.getElementById("bnQty").value) || 1;
-  document.getElementById("totalAmount").innerText =
-    qty * product.price;
-}  
-  
 /* ===============================
    PAYMENT ENGINE
 =============================== */
@@ -325,6 +319,8 @@ function selectUPI() {
   document.getElementById("codBox").classList.add("d-none");
   generateQR();
 }
+
+// QR generator
 function updateAmount() {
   const qty = parseInt(document.getElementById("bnQty").value) || 1;
   const total = qty * product.price;
