@@ -268,11 +268,23 @@
         </div>
     </footer>
 
-    <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database-compat.js"></script>
+    <script 
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
 
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
+  authDomain: "myshop-1dbc9.firebaseapp.com",
+  databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
+  projectId: "myshop-1dbc9",
+  storageBucket: "myshop-1dbc9.appspot.com",
+  messagingSenderId: "81466489688",
+  appId: "1:81466489688:web:e225da8670b2314dd1432d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
  /* ===============================
    BUY NOW PAGE ENGINE
    =============================== */
@@ -350,24 +362,28 @@ function generateQR() {
     "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
     encodeURIComponent(upiURL);
 }
-
-// Save order
 function saveOrder(method) {
+  const userId = localStorage.getItem("userId") || "guest";
+
   const order = {
     product: document.getElementById("bnTitle").innerText,
-    price: product.price,              // number
-    qty: document.getElementById("bnQty").value,
-    total: document.getElementById("totalAmount").innerText,
+    price: product.price,
+    qty: Number(document.getElementById("bnQty").value),
+    total: Number(document.getElementById("totalAmount").innerText),
     payment: method,
-    image: product.image,              // ✅ IMAGE SAVE
-    time: new Date().toLocaleString()
+    image: product.image,
+    status: "Processing",
+    time: Date.now()
   };
 
+  // 🔹 LocalStorage (instant feedback)
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
   orders.push(order);
   localStorage.setItem("orders", JSON.stringify(orders));
-}
 
+  // 🔥 Firebase (permanent storage)
+  db.ref("orders/" + userId).push(order);
+}
 
 // COD order
 function placeCODOrder() {
