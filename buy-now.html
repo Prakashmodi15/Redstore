@@ -276,26 +276,36 @@
  /* ===============================
    BUY NOW PAGE ENGINE
    =============================== */
-const product = JSON.parse(localStorage.getItem("buyNowProduct"));
 
-if (!product) {
-  alert("No product selected");
+const params = new URLSearchParams(window.location.search);
+
+const name  = params.get("name");
+const price = params.get("price");
+const image = params.get("img");
+
+if (!name || !price || !image) {
+  alert("Product not selected");
   window.location.href = "index.html";
-}document.getElementById("bnTitle").innerText = product.name;
-document.getElementById("bnPrice").innerText = "₹ " + product.price;
-document.getElementById("bnImg").src = product.image;
-document.getElementById("totalAmount").innerText = product.price;
-  
-  
+}
+
+document.getElementById("bnTitle").innerText = name;
+document.getElementById("bnPrice").innerText = "₹ " + price;
+document.getElementById("bnImg").src = image;
+document.getElementById("totalAmount").innerText = price;
+
+// recreate product object (for qty & total)
+const product = {
+  name: name,
+  price: parseFloat(price),
+  image: image
+};
+
 function updateAmount() {
   const qty = parseInt(document.getElementById("bnQty").value) || 1;
-  const price = parseFloat(product.price);
-  const total = qty * price;
-  document.getElementById("totalAmount").innerText = total;
-}
-          
-
-
+  document.getElementById("totalAmount").innerText =
+    qty * product.price;
+}  
+  
 /* ===============================
    PAYMENT ENGINE
 =============================== */
@@ -315,33 +325,36 @@ function selectUPI() {
   document.getElementById("codBox").classList.add("d-none");
   generateQR();
 }
+function updateAmount() {
+  const qty = parseInt(document.getElementById("bnQty").value) || 1;
+  const total = qty * product.price;
+  document.getElementById("totalAmount").innerText = total;
 
-// QR generator
+  // अगर UPI select है तो QR भी update करो
+  if (!document.getElementById("upiBox").classList.contains("d-none")) {
+    generateQR();
+  }
+}
+
 function generateQR() {
   const amount = document.getElementById("totalAmount").innerText;
   if (!amount || amount === "0") return;
 
   const txnId = "TXN" + Date.now();
+  const customerUpi = document.getElementById("userUpi").value.trim() || "YourUPI@bank";
 
   const upiURL =
     `upi://pay?pa=${ADMIN_UPI_ID}` +
     `&pn=RedStore` +
     `&am=${amount}` +
     `&cu=INR` +
-    `&tn=Order ${txnId} (Valid 5 min)`;
+    `&tn=Order ${txnId} | From ${customerUpi}`;
 
   document.getElementById("upiQR").src =
     "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
     encodeURIComponent(upiURL);
 }
-const upiURL =
-  `upi://pay?pa=${ADMIN_UPI_ID}` +
-  `&pn=RedStore` +
-  `&am=${amount}` +
-  `&cu=INR` +
-  `&tn=Order ${txnId} | From ${customerUpi}`;
 
-window.location.href = upiURL;
 // Save order
 function saveOrder(method) {
   const order = {
