@@ -490,23 +490,26 @@ db.ref('categories').on('value', snap => {
         const type = this.dataset.type;
         const index = this.dataset.index;
 
-        let productId = "";
+        let productObj = null;
 
         if(type === "featured"){
-            productId = "featured_" + index;
+            productObj = window.featuredProducts[index]; // get object
         }
         else if(type === "latest"){
-            productId = "latest_" + index;
+            productObj = window.latestProducts[index];
         }
         else if(type === "offer"){
-            productId = "offer_0";
+            productObj = window.offerProduct;
         }
 
-        // 🔥 Redirect with ID
-        window.location.href = "buy-now.html?id=" + productId;
+        // Redirect with product info in URL
+        if(productObj){
+            window.location.href = `buy-now.html?name=${encodeURIComponent(productObj.title)}&price=${encodeURIComponent(productObj.price)}&img=${encodeURIComponent(productObj.img)}`;
+        } else {
+            alert("Product not found!");
+        }
     });
 });
-        
 /* ===== Menu Toggle Function ===== */
 function menutoggle() {
     var MenuItems = document.getElementById("MenuItems");
