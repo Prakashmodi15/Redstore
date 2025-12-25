@@ -273,21 +273,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database-compat.js"></script>
 
 <script>
-    /* ===== Firebase Config ===== */
-const firebaseConfig = {
-    apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
-    authDomain: "myshop-1dbc9.firebaseapp.com",
-    databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
-    projectId: "myshop-1dbc9",
-    storageBucket: "myshop-1dbc9.appspot.com",
-    messagingSenderId: "81466489688",
-    appId: "1:81466489688:web:e225da8670b2314dd1432d"
-};
-// 🔥 Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-    
-
  /* ===============================
    BUY NOW PAGE ENGINE
    =============================== */
@@ -367,33 +352,23 @@ function generateQR() {
 }
 
 // Save order
-// Replace the entire saveOrder() with this
 function saveOrder(method) {
-    const qty = parseInt(document.getElementById("bnQty").value) || 1;
-    const total = qty * product.price;
+  const order = {
+    product: document.getElementById("bnTitle").innerText,
+    price: product.price,              // number
+    qty: document.getElementById("bnQty").value,
+    total: document.getElementById("totalAmount").innerText,
+    payment: method,
+    image: product.image,              // ✅ IMAGE SAVE
+    time: new Date().toLocaleString()
+  };
 
-    const orderData = {
-        product: {
-            name: product.name,
-            price: product.price,
-            image: product.image
-        },
-        qty: qty,
-        total: total,
-        payment: method,
-        status: "Processing", // initial status
-        time: new Date().toLocaleString()
-    };
-
-    // Push to Firebase under 'orders' node
-    db.ref('orders').push(orderData, function(error) {
-    if(error) {
-        alert("Order failed! Try again.");
-    } else {
-        showSuccess();
-    }
-});
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders.push(order);
+  localStorage.setItem("orders", JSON.stringify(orders));
 }
+
+
 // COD order
 function placeCODOrder() {
   saveOrder("COD");
