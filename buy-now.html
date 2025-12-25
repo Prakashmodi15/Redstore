@@ -1,562 +1,126 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - RedStore</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .header {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        .product-img {
-            width: 100%;
-            height: 280px;
-            object-fit: contain;
-            border-radius: 10px;
-            background: #f8f9fa;
-            padding: 15px;
-        }
-        .price-tag {
-            color: #28a745;
-            font-weight: 700;
-            font-size: 28px;
-        }
-        .quantity-box {
-            max-width: 150px;
-            border-radius: 8px;
-            border: 2px solid #dee2e6;
-            padding: 10px 15px;
-            font-size: 18px;
-        }
-        .btn-quantity {
-            background: linear-gradient(135deg, #6c757d, #495057);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-        .payment-method {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-        }
-        .payment-option {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .payment-option:hover {
-            border-color: #3498db;
-            background-color: #f8f9fa;
-        }
-        .payment-option.selected {
-            border-color: #28a745;
-            background-color: #e8f5e9;
-        }
-        .qr-container {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #dee2e6;
-        }
-        .qr-code {
-            width: 220px;
-            height: 220px;
-            margin: 15px auto;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 10px;
-            background: white;
-        }
-        .btn-pay {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            font-weight: 600;
-            padding: 14px 30px;
-            border-radius: 10px;
-            border: none;
-            font-size: 18px;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-        .btn-pay:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(40, 167, 69, 0.3);
-        }
-        .btn-pay:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .upi-input {
-            border-radius: 8px;
-            padding: 12px 15px;
-            font-size: 16px;
-            border: 2px solid #dee2e6;
-        }
-        .success-checkmark {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
-            background: #28a745;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 40px;
-        }
-        .footer {
-            background-color: #2d3436;
-            color: #dfe6e9;
-            padding: 25px 0;
-            margin-top: 40px;
-        }
-        .total-amount {
-            font-size: 32px;
-            font-weight: 800;
-            color: #ff4b2b;
-        }
-        @media (max-width: 768px) {
-            .product-img {
-                height: 220px;
-            }
-            .qr-code {
-                width: 180px;
-                height: 180px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1><i class="fas fa-shopping-bag"></i> RedStore</h1>
-                <a href="cart.html" class="btn btn-outline-light"><i class="fas fa-arrow-left"></i> Back to Cart</a>
-            </div>
-        </div>
-    </header><main class="container my-5">
-    <div id="productAlert" class="alert alert-warning d-none" role="alert">
-        <i class="fas fa-exclamation-triangle"></i> No product selected! Redirecting to home...
-    </div>
-    
-    <div class="row" id="checkoutContent">
-        <!-- Product Details -->
-        <div class="col-lg-6">
-            <div class="product-card">
-                <div class="row">
-                    <div class="col-md-5">
-                        <img id="productImg" class="product-img" src="" alt="Product Image">
-                    </div>
-                    <div class="col-md-7">
-                        <h3 id="productTitle" class="mb-3">Product Title</h3>
-                        <h4 class="price-tag mb-3" id="productPrice">₹299</h4>
-                        <p id="productDesc" class="text-muted">Product description will appear here.</p>
-                        
-                        <div class="mt-4">
-                            <label class="form-label fw-bold">Quantity:</label>
-                            <div class="d-flex align-items-center gap-3">
-                                <input type="number" min="1" value="1" class="quantity-box" id="quantityInput">
-                                <button class="btn btn-quantity" id="updateQuantityBtn">Ok</button>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <h5>Payment Summary</h5>
-                            <div class="d-flex justify-content-between mt-3">
-                                <span>Item Price:</span>
-                                <span id="itemPrice">₹299</span>
-                            </div>
-                            <div class="d-flex justify-content-between mt-2">
-                                <span>Quantity:</span>
-                                <span id="displayQuantity">1</span>
-                            </div>
-                            <div class="d-flex justify-content-between mt-2">
-                                <span>Shipping:</span>
-                                <span class="text-success">FREE</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <strong>Total Amount:</strong>
-                                <strong class="total-amount" id="totalAmount">₹299</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Payment Options -->
-        <div class="col-lg-6">
-            <div class="payment-method">
-                <h4 class="mb-4"><i class="fas fa-credit-card"></i> Select Payment Method</h4>
-                
-                <!-- Cash on Delivery Option -->
-                <div class="payment-option" id="codOption">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod">
-                        <label class="form-check-label fw-bold" for="cod">
-                            Cash on Delivery
-                        </label>
-                    </div>
-                    <p class="text-muted mb-0 mt-2">
-                        <i class="fas fa-truck"></i> Pay when you receive your order
-                    </p>
-                </div>
-                
-                <!-- UPI Payment Option -->
-                <div class="payment-option" id="upiOption">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="upi" value="upi">
-                        <label class="form-check-label fw-bold" for="upi">
-                            UPI Payment
-                        </label>
-                    </div>
-                    <p class="text-muted mb-0 mt-2">
-                        <i class="fas fa-mobile-alt"></i> Pay instantly via UPI
-                    </p>
-                </div>
-                
-                <!-- UPI Payment Details (Hidden by default) -->
-                <div id="upiDetails" class="mt-4 d-none">
-                    <div class="qr-container">
-                        <h5><i class="fas fa-qrcode"></i> Scan to Pay</h5>
-                        <p class="text-muted">Scan QR code with any UPI app</p>
-                        
-                        <div class="qr-code">
-                            <img id="qrImage" src="" alt="UPI QR Code" class="img-fluid">
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">Or Enter Your UPI ID for Payment Request</label>
-                            <input type="text" class="form-control upi-input" id="customerUpiId" 
-                                   placeholder="yourname@upi">
-                            <div class="form-text">We'll send payment request to this UPI ID</div>
-                        </div>
-                        
-                        <button class="btn btn-primary btn-lg w-100" id="sendUpiRequestBtn">
-                            <i class="fas fa-paper-plane"></i> Send Payment Request
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Cash on Delivery Details (Hidden by default) -->
-                <div id="codDetails" class="mt-4 d-none">
-                    <div class="alert alert-info">
-                        <h5><i class="fas fa-info-circle"></i> Cash on Delivery</h5>
-                        <p>Pay with cash when your order is delivered. Our delivery executive will collect the payment.</p>
-                        <p class="mb-0"><strong>Note:</strong> ₹50 extra charge for COD orders.</p>
-                    </div>
-                </div>
-                
-                <!-- Payment Status -->
-                <div id="paymentStatus" class="mt-4 d-none">
-                    <div class="text-center">
-                        <div class="success-checkmark mb-3" id="paymentStatusIcon">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <h4 id="paymentStatusTitle">Payment Successful!</h4>
-                        <p id="paymentStatusMessage">Your payment has been processed successfully.</p>
-                        <div class="alert alert-success" id="txnDetails" style="display: none;">
-                            <strong>Transaction ID:</strong> <span id="txnIdDisplay"></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Place Order Button -->
-                <button class="btn-pay" id="placeOrderBtn" disabled>
-                    <i class="fas fa-shopping-bag"></i> Place Order
-                </button>
-                
-                <div class="alert alert-warning mt-3">
-                    <i class="fas fa-shield-alt"></i> <strong>Secure Payment:</strong> Your payment information is protected with 256-bit SSL encryption.
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+  <meta charset="UTF-8">
+  <title>Buy Now | RedStore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container text-center">
-        <p>&copy; 2023 RedStore. All rights reserved.</p>
-        <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> in India</p>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .product-img {
+      max-height: 300px;
+      object-fit: contain;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<nav class="navbar navbar-light bg-white shadow-sm mb-4">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">RedStore</a>
+  </div>
+</nav>
+
+<!-- ===== BUY NOW SECTION ===== -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <div class="product-card">
+
+        <div class="row g-4 align-items-center">
+
+          <!-- Product Image -->
+          <div class="col-md-5 text-center">
+            <img id="bnImg" class="img-fluid product-img" alt="Product Image">
+          </div>
+
+          <!-- Product Info -->
+          <div class="col-md-7">
+            <h3 id="bnTitle" class="fw-bold mb-2"></h3>
+            <h4 id="bnPrice" class="text-danger fw-bold mb-3"></h4>
+
+            <div class="mb-3">
+              <label class="fw-semibold">Quantity</label>
+              <input type="number" id="bnQty" class="form-control w-50" value="1" min="1">
+            </div>
+
+            <button class="btn btn-danger w-100 mb-2" onclick="placeOrder()">
+              Place Order
+            </button>
+
+            <a href="index.html" class="btn btn-outline-secondary w-100">
+              Continue Shopping
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="text-center mt-5 mb-3 text-muted">
+  © 2025 RedStore. All rights reserved.
 </footer>
 
-<!-- Firebase Scripts -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database-compat.js"></script>
-
+<!-- ===== SCRIPT ===== -->
 <script>
-/* ===================== BUY.HTML JS - Step by Step ===================== */
+/* ===============================
+   BUY NOW PAGE ENGINE
+   =============================== */
 
-/* ---------------- Step 1: Initialize Firebase ---------------- */
-const firebaseConfig = {
-    apiKey: "AIzaSyBe6T75YFS3MACQ1Drmrrj6xeRlMIwT7s4",
-    authDomain: "myshop-1dbc9.firebaseapp.com",
-    databaseURL: "https://myshop-1dbc9-default-rtdb.firebaseio.com",
-    projectId: "myshop-1dbc9",
-    storageBucket: "myshop-1dbc9.appspot.com",
-    messagingSenderId: "81466489688",
-    appId: "1:81466489688:web:e225da8670b2314dd1432d"
-};
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+const product = JSON.parse(localStorage.getItem("buyNowProduct"));
 
-/* ---------------- Step 2: DOM Elements ---------------- */
-const productImg = document.getElementById('productImg');
-const productTitle = document.getElementById('productTitle');
-const productPrice = document.getElementById('productPrice');
-const productDesc = document.getElementById('productDesc');
-const quantityInput = document.getElementById('quantityInput');
-const updateQuantityBtn = document.getElementById('updateQuantityBtn');
-const displayQuantity = document.getElementById('displayQuantity');
-const itemPrice = document.getElementById('itemPrice');
-const totalAmount = document.getElementById('totalAmount');
-const placeOrderBtn = document.getElementById('placeOrderBtn');
-const productAlert = document.getElementById('productAlert');
-const checkoutContent = document.getElementById('checkoutContent');
-const codOption = document.getElementById('codOption');
-const upiOption = document.getElementById('upiOption');
-const upiDetails = document.getElementById('upiDetails');
-const codDetails = document.getElementById('codDetails');
-const paymentStatus = document.getElementById('paymentStatus');
-const qrImage = document.getElementById('qrImage');
-const customerUpiId = document.getElementById('customerUpiId');
-const sendUpiRequestBtn = document.getElementById('sendUpiRequestBtn');
-const paymentStatusIcon = document.getElementById('paymentStatusIcon');
-const paymentStatusTitle = document.getElementById('paymentStatusTitle');
-const paymentStatusMessage = document.getElementById('paymentStatusMessage');
-const txnDetails = document.getElementById('txnDetails');
-const txnIdDisplay = document.getElementById('txnIdDisplay');
-
-/* ---------------- Step 3: Global Variables ---------------- */
-let selectedProduct = null;
-let currentPrice = 0;
-let quantity = 1;
-let total = 0;
-let paymentMethod = null;
-let adminUpiId = "aapka-upi@bank"; // Apna UPI ID
-let codCharge = 50; // Agar COD charge hai
-
-/* ---------------- Step 4: Load Product from URL ---------------- */
-function loadProduct() {
-    const params = new URLSearchParams(window.location.search);
-    const title = params.get('title');
-    const price = params.get('price');
-    const desc = params.get('desc');
-    const img = params.get('img');
-
-    if (!title || !price || !img) {
-        productAlert.classList.remove('d-none');
-        checkoutContent.classList.add('d-none');
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 2000);
-        return;
-    }
-
-    selectedProduct = { title, price, desc, img };
-    productImg.src = img;
-    productImg.alt = title;
-    productTitle.textContent = title;
-    productPrice.textContent = price;
-    productDesc.textContent = desc;
-
-    currentPrice = parseFloat(price.replace('₹','').replace(',','')) || 0;
-    itemPrice.textContent = price;
-    updateCalculations();
+if (!product) {
+  alert("No product selected");
+  window.location.href = "index.html";
 }
 
-/* ---------------- Step 5: Update Calculations ---------------- */
-function updateCalculations() {
-    quantity = parseInt(quantityInput.value) || 1;
-    displayQuantity.textContent = quantity;
+/* Load Product */
+document.getElementById("bnImg").src = product.img;
+document.getElementById("bnTitle").innerText = product.title;
+document.getElementById("bnPrice").innerText = product.price;
 
-    if(paymentMethod === 'cod') {
-        total = (currentPrice * quantity) + codCharge;
-        totalAmount.innerHTML = `₹${total.toFixed(2)} <span class="small text-muted">(includes ₹${codCharge} COD charge)</span>`;
-    } else {
-        total = currentPrice * quantity;
-        totalAmount.textContent = `₹${total.toFixed(2)}`;
-    }
+/* Place Order */
+function placeOrder() {
+  const qty = document.getElementById("bnQty").value;
 
-    if(paymentMethod === 'upi') updateQRCode();
+  const orderData = {
+    title: product.title,
+    price: product.price,
+    img: product.img,
+    qty: qty,
+    orderTime: new Date().toISOString()
+  };
+
+  // TEMP: Save for next step (checkout / COD / payment)
+  localStorage.setItem("finalOrder", JSON.stringify(orderData));
+
+  alert("Order ready for checkout");
+  // Next page (optional)
+  // window.location.href = "checkout.html";
 }
-
-/* ---------------- Step 6: Update UPI QR Code ---------------- */
-function updateQRCode() {
-    const upiLink = `upi://pay?pa=${adminUpiId}&pn=RedStore&am=${total.toFixed(2)}&cu=INR&tn=Payment for ${selectedProduct.title}`;
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
-    qrImage.src = qrUrl;
-}
-
-/* ---------------- Step 7: Generate Random Transaction ID ---------------- */
-function generateTxnId() {
-    const timestamp = Date.now();
-    const random = Math.floor(Math.random()*10000);
-    return `TXN${timestamp}${random}`;
-}
-
-/* ---------------- Step 8: Save Order to Firebase ---------------- */
-function saveOrder(txnId=null) {
-    const orderData = {
-        product: selectedProduct.title,
-        productImage: selectedProduct.img,
-        quantity: quantity,
-        itemPrice: currentPrice,
-        totalAmount: total,
-        paymentMethod: paymentMethod === 'cod' ? 'Cash on Delivery' : 'UPI',
-        orderTime: new Date().toISOString(),
-        status: 'pending'
-    };
-
-    if(txnId) {
-        orderData.txnId = txnId;
-        orderData.paymentStatus = 'completed';
-        orderData.status = 'confirmed';
-    } else if(paymentMethod === 'cod') {
-        orderData.paymentStatus = 'pending';
-    }
-
-    if(paymentMethod==='upi' && customerUpiId.value) {
-        orderData.customerUpiId = customerUpiId.value;
-    }
-
-    // Push to Firebase
-    const ordersRef = database.ref('orders');
-    ordersRef.push(orderData)
-        .then(() => {
-            localStorage.setItem('orderPlaced', 'true');
-            localStorage.removeItem('selectedProduct');
-
-            // Show Success
-            paymentStatus.classList.remove('d-none');
-            if(paymentMethod==='upi') {
-                paymentStatusTitle.textContent="Payment Successful!";
-                paymentStatusMessage.textContent="Your payment has been processed and order is confirmed.";
-                paymentStatusIcon.innerHTML='<i class="fas fa-check"></i>';
-                paymentStatusIcon.style.background="#28a745";
-                if(txnId) { txnIdDisplay.textContent=txnId; txnDetails.style.display='block'; }
-            } else {
-                paymentStatusTitle.textContent="Order Placed!";
-                paymentStatusMessage.textContent="Your order has been placed successfully. Pay on delivery.";
-                paymentStatusIcon.innerHTML='<i class="fas fa-check"></i>';
-                paymentStatusIcon.style.background="#28a745";
-            }
-
-            placeOrderBtn.disabled=true;
-            placeOrderBtn.innerHTML='<i class="fas fa-check"></i> Order Placed';
-
-            setTimeout(()=>{ window.location.href='cart.html'; }, 3000);
-        })
-        .catch(err=>{
-            console.error(err);
-            paymentStatus.classList.remove('d-none');
-            paymentStatusTitle.textContent="Error!";
-            paymentStatusMessage.textContent="Failed to place order.";
-            paymentStatusIcon.innerHTML='<i class="fas fa-times"></i>';
-            paymentStatusIcon.style.background="#dc3545";
-            placeOrderBtn.disabled=false;
-            placeOrderBtn.innerHTML='<i class="fas fa-shopping-bag"></i> Place Order';
-        });
-}
-
-/* ---------------- Step 9: Simulate UPI Payment Request ---------------- */
-function sendUpiPaymentRequest() {
-    const upiId = customerUpiId.value.trim();
-    if(!upiId){ alert("Enter your UPI ID"); return; }
-
-    sendUpiRequestBtn.disabled=true;
-    sendUpiRequestBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-    setTimeout(()=>{
-        const txnId=generateTxnId();
-        paymentStatusTitle.textContent="Payment Request Sent!";
-        paymentStatusMessage.textContent=`Payment request sent to ${upiId}. Complete in your UPI app.`;
-        paymentStatusIcon.innerHTML='<i class="fas fa-paper-plane"></i>';
-        paymentStatusIcon.style.background="#3498db";
-        paymentStatus.classList.remove('d-none');
-
-        placeOrderBtn.disabled=false;
-        placeOrderBtn.innerHTML='<i class="fas fa-check-circle"></i> Confirm Payment & Place Order';
-
-        sendUpiRequestBtn.disabled=false;
-        sendUpiRequestBtn.innerHTML='<i class="fas fa-paper-plane"></i> Send Payment Request';
-        sendUpiRequestBtn.dataset.txnId=txnId;
-    },2000);
-}
-
-/* ---------------- Step 10: Event Listeners ---------------- */
-document.addEventListener('DOMContentLoaded', loadProduct);
-updateQuantityBtn.addEventListener('click', updateCalculations);
-quantityInput.addEventListener('keypress', e=>{ if(e.key==='Enter') updateCalculations(); });
-
-codOption.addEventListener('click', ()=>{
-    document.getElementById('cod').checked=true;
-    paymentMethod='cod';
-    upiDetails.classList.add('d-none');
-    codDetails.classList.remove('d-none');
-    paymentStatus.classList.add('d-none');
-    placeOrderBtn.disabled=false;
-    placeOrderBtn.innerHTML='<i class="fas fa-shopping-bag"></i> Place Order (COD)';
-    updateCalculations();
-    codOption.classList.add('selected'); upiOption.classList.remove('selected');
-});
-
-upiOption.addEventListener('click', ()=>{
-    document.getElementById('upi').checked=true;
-    paymentMethod='upi';
-    upiDetails.classList.remove('d-none');
-    codDetails.classList.add('d-none');
-    paymentStatus.classList.add('d-none');
-    placeOrderBtn.disabled=true;
-    placeOrderBtn.innerHTML='<i class="fas fa-shopping-bag"></i> Complete Payment to Place Order';
-    updateCalculations();
-    updateQRCode();
-    upiOption.classList.add('selected'); codOption.classList.remove('selected');
-});
-
-sendUpiRequestBtn.addEventListener('click', sendUpiPaymentRequest);
-
-placeOrderBtn.addEventListener('click', ()=>{
-    if(paymentMethod==='upi'){
-        const txnId = sendUpiRequestBtn.dataset.txnId || generateTxnId();
-        saveOrder(txnId);
-    } else {
-        saveOrder();
-    }
-    placeOrderBtn.disabled=true;
-    placeOrderBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Processing...';
-});
 </script>
 
 </body>
