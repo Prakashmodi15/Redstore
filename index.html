@@ -483,25 +483,30 @@ db.ref('categories').on('value', snap => {
         document.getElementById("cat3").src = c.cat3 || "";
     }
 });
-    document.querySelectorAll(".buy-btn").forEach(btn => {
-    btn.addEventListener("click", function () {
+  document.querySelectorAll(".buy-btn").forEach(btn => {
+    btn.addEventListener("click", function (e) {
+        e.preventDefault(); // direct link रोको
 
         const type = this.dataset.type;
         const index = this.dataset.index;
-        let product = null;
+
+        let productId = "";
 
         if(type === "featured"){
-            product = window.featuredProducts[index];
+            productId = "featured_" + index;
+        }
+        else if(type === "latest"){
+            productId = "latest_" + index;
+        }
+        else if(type === "offer"){
+            productId = "offer_0";
         }
 
-        if(type === "latest"){
-            product = window.latestProducts[index];
-        }
-
-        localStorage.setItem("selectedProduct", JSON.stringify(product));
+        // 🔥 Redirect with ID
+        window.location.href = "buy-now.html?id=" + productId;
     });
 });
-
+        
 /* ===== Menu Toggle Function ===== */
 function menutoggle() {
     var MenuItems = document.getElementById("MenuItems");
