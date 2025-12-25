@@ -92,25 +92,45 @@
         <img id="fprodImg1" src="images/prod1.jpg" class="img-fluid" alt="Product 1">
         <h5 id="fprodTitle1">Product One</h5>
         <p id="fprodPrice1" class="fw-bold text-danger">₹999</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="featured"
+   data-index="0">
+   Buy Now
+</a>
     </div>
     <div class="col-6 col-md-3 text-center">
         <img id="fprodImg2" src="images/prod2.jpg" class="img-fluid" alt="Product 2">
         <h5 id="fprodTitle2">Product Two</h5>
         <p id="fprodPrice2" class="fw-bold text-danger">₹1099</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="featured"
+   data-index="1">
+   Buy Now
+</a>
     </div>
     <div class="col-6 col-md-3 text-center">
         <img id="fprodImg3" src="images/prod3.jpg" class="img-fluid" alt="Product 3">
         <h5 id="fprodTitle3">Product Three</h5>
         <p id="fprodPrice3" class="fw-bold text-danger">₹899</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="featured"
+   data-index="2">
+   Buy Now
+</a>
     </div>
     <div class="col-6 col-md-3 text-center">
         <img id="fprodImg4" src="images/prod4.jpg" class="img-fluid" alt="Product 4">
         <h5 id="fprodTitle4">Product Four</h5>
         <p id="fprodPrice4" class="fw-bold text-danger">₹1299</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="featured"
+   data-index="3">
+   Buy Now
+</a>
     </div>
 </div>
 </section>
@@ -127,25 +147,45 @@
         <img id="lprodImg1" src="images/latest1.jpg" class="img-fluid" alt="Latest Product 1">
         <h5 id="lprodTitle1">Latest One</h5>
         <p id="lprodPrice1" class="fw-bold text-danger">₹799</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="latest"
+   data-index="0">
+   Buy Now
+</a>
     </div>
     <div class="col-6 col-md-3 text-center">
         <img id="lprodImg2" src="images/latest2.jpg" class="img-fluid" alt="Latest Product 2">
         <h5 id="lprodTitle2">Latest Two</h5>
         <p id="lprodPrice2" class="fw-bold text-danger">₹899</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="latest"
+   data-index="1">
+   Buy Now
+</a>
     </div>
     <div class="col-6 col-md-3 text-center">
         <img id="lprodImg3" src="images/latest3.jpg" class="img-fluid" alt="Latest Product 3">
         <h5 id="lprodTitle3">Latest Three</h5>
         <p id="lprodPrice3" class="fw-bold text-danger">₹999</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="latest"
+   data-index="3">
+   Buy Now
+</a>
     </div>
     <div class="col-6 col-md-3 text-center">
         <img id="lprodImg4" src="images/latest4.jpg" class="img-fluid" alt="Latest Product 4">
         <h5 id="lprodTitle4">Latest Four</h5>
         <p id="lprodPrice4" class="fw-bold text-danger">₹1199</p>
-        <a href="#" class="btn btn-outline-danger btn-sm">Buy Now</a>
+        <a href="buy-now.html"
+   class="btn btn-outline-danger btn-sm buy-btn"
+   data-type="latest"
+   data-index="3">
+   Buy Now
+</a>
     </div>
 </div>
 </section>
@@ -166,9 +206,13 @@
                 <p id="offerDesc" class="text-muted mb-4">
                     Grab the best deals on premium products. Limited time offer!
                 </p>
-                <a id="offerBtnUrl" href="#" class="btn btn-danger px-4 py-2">
-                    <span id="offerBtnText">Shop Now</span>
-                </a>
+                <a href="buy-now.html"
+   id="offerBtnUrl"
+   class="btn btn-danger px-4 py-2 buy-btn"
+   data-type="offer"
+   data-index="0">
+    <span id="offerBtnText">Shop Now</span>
+</a>
             </div>
 
         </div>
@@ -336,37 +380,39 @@ db.ref('header').on('value', snap => {
 
 /* ===== Featured Products ===== */
 db.ref('featuredProducts').on('value', snap => {
-    const p = snap.val();
-    if(p){
-        for(let i=0;i<p.length;i++){
-            document.getElementById(`fprodImg${i+1}`).src = p[i].img || "";
-            document.getElementById(`fprodTitle${i+1}`).innerText = p[i].title || "";
-            document.getElementById(`fprodPrice${i+1}`).innerText = p[i].price || "";
-        }
+    window.featuredProducts = snap.val();
+
+    if(window.featuredProducts){
+        window.featuredProducts.forEach((p, i) => {
+            document.getElementById(`fprodImg${i+1}`).src = p.img;
+            document.getElementById(`fprodTitle${i+1}`).innerText = p.title;
+            document.getElementById(`fprodPrice${i+1}`).innerText = p.price;
+        });
     }
 });
 
 /* ===== Latest Products ===== */
 db.ref('latestProducts').on('value', snap => {
-    const p = snap.val();
-    if(p){
-        for(let i=0;i<p.length;i++){
-            document.getElementById(`lprodImg${i+1}`).src = p[i].img || "";
-            document.getElementById(`lprodTitle${i+1}`).innerText = p[i].title || "";
-            document.getElementById(`lprodPrice${i+1}`).innerText = p[i].price || "";
-        }
+    window.latestProducts = snap.val();
+
+    if(window.latestProducts){
+        window.latestProducts.forEach((p, i) => {
+            document.getElementById(`lprodImg${i+1}`).src = p.img;
+            document.getElementById(`lprodTitle${i+1}`).innerText = p.title;
+            document.getElementById(`lprodPrice${i+1}`).innerText = p.price;
+        });
     }
 });
 
 /* ===== Offer ===== */
 db.ref('offer').on('value', snap => {
-    const o = snap.val();
-    if(o){
-       document.getElementById("offerImg").src = o.img || "";
-       document.getElementById("offerTitle").innerText = o.title || "";
-       document.getElementById("offerDesc").innerText = o.desc || "";
-       document.getElementById("offerBtnText").innerText = o.btnText || "";
-       document.getElementById("offerBtnUrl").href = o.btnUrl || "#";
+    window.offerProduct = snap.val();
+
+    if(window.offerProduct){
+        document.getElementById("offerImg").src = window.offerProduct.img || "";
+        document.getElementById("offerTitle").innerText = window.offerProduct.title || "";
+        document.getElementById("offerDesc").innerText = window.offerProduct.desc || "";
+        document.getElementById("offerBtnText").innerText = window.offerProduct.btnText || "Buy Now";
     }
 });
 
@@ -436,6 +482,24 @@ db.ref('categories').on('value', snap => {
         document.getElementById("cat2").src = c.cat2 || "";
         document.getElementById("cat3").src = c.cat3 || "";
     }
+});
+    document.querySelectorAll(".buy-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        const type = this.dataset.type;
+        const index = this.dataset.index;
+        let product = null;
+
+        if(type === "featured"){
+            product = window.featuredProducts[index];
+        }
+
+        if(type === "latest"){
+            product = window.latestProducts[index];
+        }
+
+        localStorage.setItem("selectedProduct", JSON.stringify(product));
+    });
 });
 
 /* ===== Menu Toggle Function ===== */
